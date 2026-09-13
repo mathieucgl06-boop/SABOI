@@ -341,7 +341,7 @@ footer{border-top:1px solid var(--line);background:var(--bg);padding:35px 0;colo
       <details><summary>Qui peut saisir le SABI ?</summary><p>Citoyens, entreprises, institutions et services publics peuvent déposer une demande, selon les procédures en vigueur.</p></details>
       <details><summary>Le SABI accepte-t-il toutes les affaires ?</summary><p>Non. Chaque demande est évaluée selon les compétences du Bureau, les éléments fournis et les priorités d'enquête.</p></details>
       <details><summary>Comment fonctionne le numéro de dossier ?</summary><p>Chaque nouvelle demande reçoit automatiquement une référence unique au format SABI-AAAA-0000.</p></details>
-      <details><summary>Les données sont-elles partagées automatiquement ?</summary><p>Non dans cette version : les données sont conservées localement dans le navigateur. Une base de données peut être connectée pour permettre un accès multi-utilisateur.</p></details>
+      <details><summary>Les données sont-elles partagées automatiquement ?</summary><p>Les dossiers, rapports et notifications sont enregistrés dans la base de données SABI afin de permettre leur consultation depuis les appareils autorisés.</p></details>
       <details><summary>Comment modifier le statut d'un dossier ?</summary><p>Ouvre l'espace agents, puis utilise la gestion des dossiers pour sélectionner la nouvelle étape du traitement.</p></details>
     </div>
   </div>
@@ -364,7 +364,6 @@ footer{border-top:1px solid var(--line);background:var(--bg);padding:35px 0;colo
   </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 (() => {
   const SUPABASE_URL='https://kuajkkbbpeakdnzipihi.supabase.co';
@@ -380,6 +379,23 @@ footer{border-top:1px solid var(--line);background:var(--bg);padding:35px 0;colo
   const THEME_KEY='sabi_theme';
   // Code local initial. Il est modifiable dans le navigateur via les données locales.
   const DEFAULT_PIN='2468';
+
+  async function testSupabase(){
+    try{
+      const {error}=await supabaseClient
+        .from('dossiers')
+        .select('id')
+        .limit(1);
+
+      const state=document.createElement('div');
+      state.style.cssText='position:fixed;left:14px;bottom:14px;z-index:80;font-size:11px;padding:7px 10px;border:1px solid var(--line);background:var(--panel);color:var(--muted);border-radius:4px';
+      state.textContent=error ? 'Base SABI : autorisation à vérifier' : 'Base SABI : connectée';
+      document.body.appendChild(state);
+      setTimeout(()=>state.remove(),6000);
+    }catch(e){
+      console.error(e);
+    }
+  }
 
   const $=id=>document.getElementById(id);
   const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));
@@ -415,10 +431,27 @@ footer{border-top:1px solid var(--line);background:var(--bg);padding:35px 0;colo
     const y=new Date().getFullYear();let n=parseInt(localStorage.getItem(REPORT_COUNTER_KEY)||'0',10)+1;
     localStorage.setItem(REPORT_COUNTER_KEY,String(n));return `RPT-${y}-${String(n).padStart(4,'0')}`;
   }
-  function addNotification(title,text,type='info'){
-    let list=[];try{list=JSON.parse(localStorage.getItem(NOTIF_KEY)||'[]')}catch{}
-    list.unshift({id:crypto.randomUUID?.()||String(Date.now()),title,text,type,date:now(),read:false});
-    localStorage.setItem(NOTIF_KEY,JSON.stringify(list.slice(0,50)));renderNotifications();
+  async function addNotification(title,text,type='info'){
+    try{
+      await supabaseClient.from('notifications').insert({
+        dossier_id:null,
+        message:`${title} — ${text}`,
+        type,
+        lu:false
+      });
+    }catch(error){
+      console.error(error);
+    }
+
+    let list=[];
+    try{list=JSON.parse(localStorage.getItem(NOTIF_KEY)||'[]')}catch{}
+    list.unshift({
+      id:crypto.randomUUID?.()||String(Date.now()),
+      title,text,type,date:now(),read:false
+    });
+    localStorage.setItem(NOTIF_KEY,JSON.stringify(list.slice(0,50)));
+
+    await renderNotifications();
   }
   function getNotifications(){try{return JSON.parse(localStorage.getItem(NOTIF_KEY)||'[]')}catch{return[]}}
 
@@ -430,48 +463,146 @@ footer{border-top:1px solid var(--line);background:var(--bg);padding:35px 0;colo
     </div>`;
   }
 
-  window.viewCase=function(id){
-    const c=loadCases().find(x=>x.id===id);if(!c)return;
-    $('caseModalTitle').textContent=c.id;
-    $('caseModalBody').innerHTML=`
-      <div class="statusbar">${statusPill(c.status)}${statusPill(c.conf)}${statusPill(c.type)}</div>
-      <p><b>Demandeur :</b> ${esc(c.name)}<br><b>Contact :</b> ${esc(c.contact)}<br><b>Créé le :</b> ${esc(c.createdAt)}</p>
-      <div class="card" style="box-shadow:none;margin-top:14px"><b>Description</b><p>${esc(c.desc).replace(/\n/g,'<br>')}</p></div>
-      <div class="card" style="box-shadow:none;margin-top:12px"><b>Éléments disponibles</b><p>${esc(c.elem||'Aucun élément renseigné').replace(/\n/g,'<br>')}</p></div>
-      <div class="timeline" style="margin-top:24px">
-        <div class="event"><b>Demande enregistrée</b><p>${esc(c.createdAt)}</p></div>
-        <div class="event"><b>Dernière mise à jour</b><p>${esc(c.updatedAt||c.createdAt)}</p></div>
-      </div>`;
-    $('caseModal').classList.add('open');document.body.classList.add('no-scroll');
-  };
-  window.closeModal=function(){$('caseModal').classList.remove('open');document.body.classList.remove('no-scroll')};
-  $('caseModal').addEventListener('click',e=>{if(e.target===$('caseModal'))closeModal()});
+  window.viewCase=async function(id){
+    try{
+      const {data,error}=await supabaseClient
+        .from('dossiers')
+        .select('*')
+        .eq('reference',id)
+        .single();
 
-  window.editCase=function(id){
-    const c=loadCases().find(x=>x.id===id);if(!c)return;
-    $('caseModalTitle').textContent='Modifier '+c.id;
-    $('caseModalBody').innerHTML=`
-      <div class="form">
-        <div class="field"><label>Statut</label><select id="editStatus"><option ${c.status==='En cours d’évaluation'?'selected':''}>En cours d’évaluation</option><option ${c.status==='En enquête'?'selected':''}>En enquête</option><option ${c.status==='En attente'?'selected':''}>En attente</option><option ${c.status==='Clôturé'?'selected':''}>Clôturé</option></select></div>
-        <div class="field"><label>Confidentialité</label><select id="editConf"><option ${c.conf==='Standard'?'selected':''}>Standard</option><option ${c.conf==='Confidentiel'?'selected':''}>Confidentiel</option><option ${c.conf==='Très confidentiel'?'selected':''}>Très confidentiel</option></select></div>
-        <div class="field full"><label>Note interne</label><textarea id="editNote" placeholder="Ajoute une note de suivi...">${esc(c.note||'')}</textarea></div>
-        <div class="field full"><button class="btn primary" type="button" onclick="saveCaseEdit('${esc(c.id)}')">Enregistrer les modifications</button></div>
-      </div>`;
-    $('caseModal').classList.add('open');document.body.classList.add('no-scroll');
+      if(error) throw error;
+
+      const c={
+        id:data.reference,
+        name:data.nom||'',
+        contact:data.email||'',
+        type:data.objet||'',
+        conf:data.priorite||'Standard',
+        desc:data.description||'',
+        status:data.statut||'En cours d’évaluation',
+        createdAt:data.created_at?new Date(data.created_at).toLocaleString('fr-FR'):'',
+        updatedAt:data.created_at?new Date(data.created_at).toLocaleString('fr-FR'):''
+      };
+
+      $('caseModalTitle').textContent=c.id;
+      $('caseModalBody').innerHTML=`
+        <div class="statusbar">${statusPill(c.status)}${statusPill(c.conf)}${statusPill(c.type)}</div>
+        <p>
+          <b>Demandeur :</b> ${esc(c.name)}<br>
+          <b>Contact :</b> ${esc(c.contact)}<br>
+          <b>Créé le :</b> ${esc(c.createdAt)}
+        </p>
+        <div class="card" style="box-shadow:none;margin-top:14px">
+          <b>Description</b>
+          <p>${esc(c.desc).replace(/\n/g,'<br>')}</p>
+        </div>
+      `;
+
+      $('caseModal').classList.add('open');
+      document.body.classList.add('no-scroll');
+
+    }catch(error){
+      console.error(error);
+      toast('Dossier introuvable ou accès refusé.');
+    }
   };
+
+  window.closeModal=function(){
+    $('caseModal').classList.remove('open');
+    document.body.classList.remove('no-scroll');
+  };
+
+  $('caseModal').addEventListener('click',e=>{
+    if(e.target===$('caseModal'))closeModal();
+  });
+
+  window.editCase=async function(id){
+    try{
+      const {data,error}=await supabaseClient
+        .from('dossiers')
+        .select('*')
+        .eq('reference',id)
+        .single();
+
+      if(error) throw error;
+
+      const status=data.statut||'En cours d’évaluation';
+      const conf=data.priorite||'Standard';
+
+      $('caseModalTitle').textContent='Modifier '+id;
+      $('caseModalBody').innerHTML=`
+        <div class="form">
+          <div class="field">
+            <label>Statut</label>
+            <select id="editStatus">
+              <option ${status==='En cours d’évaluation'?'selected':''}>En cours d’évaluation</option>
+              <option ${status==='En enquête'?'selected':''}>En enquête</option>
+              <option ${status==='En attente'?'selected':''}>En attente</option>
+              <option ${status==='Clôturé'?'selected':''}>Clôturé</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label>Confidentialité</label>
+            <select id="editConf">
+              <option ${conf==='Standard'?'selected':''}>Standard</option>
+              <option ${conf==='Confidentiel'?'selected':''}>Confidentiel</option>
+              <option ${conf==='Très confidentiel'?'selected':''}>Très confidentiel</option>
+            </select>
+          </div>
+
+          <div class="field full">
+            <button class="btn primary" type="button" onclick="saveCaseEdit('${esc(id)}')">
+              Enregistrer les modifications
+            </button>
+          </div>
+        </div>
+      `;
+
+      $('caseModal').classList.add('open');
+      document.body.classList.add('no-scroll');
+
+    }catch(error){
+      console.error(error);
+      toast('Impossible d’ouvrir ce dossier.');
+    }
+  };
+
   window.saveCaseEdit=async function(id){
-    const c=loadCases().find(x=>x.id===id);if(!c)return;
-    const old=c.status;c.status=$('editStatus').value;c.conf=$('editConf').value;c.note=$('editNote').value;c.updatedAt=now();
-    const {error}=await supabaseClient.from('dossiers').update({statut:c.status,priorite:c.conf}).eq('reference',id);
-    if(error){console.error(error);toast('Mise à jour impossible dans la base');return;}
-    saveCase(c);closeModal();renderManagement();searchCases();updateDashboard();
-    if(old!==c.status)addNotification('Statut mis à jour',`${id} est maintenant « ${c.status} ».`,'status');
+    const newStatus=$('editStatus').value;
+    const newConf=$('editConf').value;
+
+    const {error}=await supabaseClient
+      .from('dossiers')
+      .update({
+        statut:newStatus,
+        priorite:newConf
+      })
+      .eq('reference',id);
+
+    if(error){
+      console.error(error);
+      toast('Mise à jour refusée par Supabase.');
+      return;
+    }
+
+    closeModal();
+    await renderManagement();
+    await searchCases();
+    await updateDashboard();
+    await addNotification(
+      'Statut mis à jour',
+      `${id} est maintenant « ${newStatus} ».`,
+      'status'
+    );
+
     toast('Dossier mis à jour');
   };
 
   $('requestForm').addEventListener('submit',async e=>{
     e.preventDefault();if(!e.currentTarget.reportValidity())return;
-    const id=nextCaseId();
+    const id=`SABI-${new Date().getFullYear()}-${String(Date.now()).slice(-6)}`;
     const c={id,name:$('rname').value.trim(),contact:$('rcontact').value.trim(),type:$('rtype').value,conf:$('rconf').value,desc:$('rdesc').value.trim(),elem:$('relem').value.trim(),status:'En cours d’évaluation',createdAt:now(),updatedAt:now()};
     const description=[c.desc,c.elem?`Éléments disponibles : ${c.elem}`:'',`Confidentialité : ${c.conf}`].filter(Boolean).join('\n\n');
     const {error}=await supabaseClient.from('dossiers').insert({
@@ -486,66 +617,277 @@ footer{border-top:1px solid var(--line);background:var(--bg);padding:35px 0;colo
   });
 
   window.searchCases=async function(){
-    const q=($('trackId').value||'').trim(),s=$('trackStatus').value,t=$('trackType').value;
-    if(q){
-      const {data,error}=await supabaseClient.rpc('rechercher_dossier',{p_reference:q});
-      if(!error && data?.length){
-        const d=data[0];
-        const c={id:d.reference,name:'',contact:'',type:d.unite||d.objet||'',conf:d.priorite||'Standard',desc:d.objet||'',elem:'',status:d.statut||'En cours d’évaluation',createdAt:d.created_at?new Date(d.created_at).toLocaleString('fr-FR'):now(),updatedAt:d.created_at?new Date(d.created_at).toLocaleString('fr-FR'):now()};
-        if((!s||c.status===s)&&(!t||c.type===t)){
-          $('caseList').innerHTML=caseSummary(c);
-          $('trackResult').innerHTML='';
-          return;
-        }
+    const q=($('trackId').value||'').trim().toUpperCase();
+    const s=$('trackStatus').value;
+    const t=$('trackType').value;
+
+    try{
+      let query=supabaseClient
+        .from('dossiers')
+        .select('*')
+        .order('created_at',{ascending:false})
+        .limit(50);
+
+      if(q) query=query.eq('reference',q);
+      if(s) query=query.eq('statut',s);
+      if(t) query=query.eq('objet',t);
+
+      const {data,error}=await query;
+      if(error) throw error;
+
+      const list=(data||[]).map(d=>({
+        dbId:d.id,
+        id:d.reference,
+        name:d.nom||'',
+        contact:d.email||'',
+        type:d.objet||'',
+        conf:d.priorite||'Standard',
+        desc:d.description||'',
+        elem:'',
+        status:d.statut||'En cours d’évaluation',
+        unite:d.unite||'',
+        createdAt:d.created_at?new Date(d.created_at).toLocaleString('fr-FR'):'',
+        updatedAt:d.created_at?new Date(d.created_at).toLocaleString('fr-FR'):''
+      }));
+
+      $('caseList').innerHTML=list.length
+        ? list.map(caseSummary).join('')
+        : '<div class="empty">Aucun dossier ne correspond à cette recherche.</div>';
+
+    }catch(error){
+      console.error(error);
+      $('caseList').innerHTML=
+        '<div class="empty">Impossible de consulter la base. Vérifie les autorisations de la table dossiers dans Supabase.</div>';
+    }
+  };
+
+  window.renderManagement=async function(){
+    const q=($('manageSearch').value||'').trim().toLowerCase();
+    const s=$('manageStatus').value;
+    const c=$('manageConf').value;
+
+    try{
+      let query=supabaseClient
+        .from('dossiers')
+        .select('*')
+        .order('created_at',{ascending:false})
+        .limit(200);
+
+      if(s) query=query.eq('statut',s);
+      if(c) query=query.eq('priorite',c);
+
+      const {data,error}=await query;
+      if(error) throw error;
+
+      let list=(data||[]).map(d=>({
+        dbId:d.id,
+        id:d.reference,
+        name:d.nom||'',
+        contact:d.email||'',
+        type:d.objet||'',
+        conf:d.priorite||'Standard',
+        desc:d.description||'',
+        elem:'',
+        status:d.statut||'En cours d’évaluation',
+        unite:d.unite||'',
+        createdAt:d.created_at?new Date(d.created_at).toLocaleString('fr-FR'):'',
+        updatedAt:d.created_at?new Date(d.created_at).toLocaleString('fr-FR'):''
+      }));
+
+      if(q){
+        list=list.filter(x=>JSON.stringify(x).toLowerCase().includes(q));
       }
-      const local=loadCases().filter(c=>(!q||c.id.toLowerCase()===q.toLowerCase())&&(!s||c.status===s)&&(!t||c.type===t));
-      $('caseList').innerHTML=local.length?local.map(caseSummary).join(''):'<div class="empty">Aucun dossier ne correspond à cette recherche.</div>';
+
+      $('managementList').innerHTML=list.length
+        ? list.map(caseSummary).join('')
+        : '<div class="empty">Aucun dossier enregistré.</div>';
+
+    }catch(error){
+      console.error(error);
+      $('managementList').innerHTML=
+        '<div class="empty">Impossible de charger la gestion des dossiers. Vérifie la connexion et les règles d’accès Supabase.</div>';
+    }
+  };
+
+  async function renderReports(){
+    try{
+      const {data,error}=await supabaseClient
+        .from('rapport')
+        .select('*')
+        .order('created_at',{ascending:false})
+        .limit(100);
+
+      if(error) throw error;
+
+      const list=data||[];
+
+      $('reportList').innerHTML=list.length
+        ? list.map(r=>`
+          <div class="report-card">
+            <div class="report-head">
+              <div>
+                <strong>Rapport #${esc(r.id)}</strong>
+                <div class="case-meta">
+                  Dossier ${esc(r.dossier_id??'non associé')} · ${esc(r.auteur||'')} · ${r.created_at?esc(new Date(r.created_at).toLocaleString('fr-FR')):''}
+                </div>
+              </div>
+            </div>
+            <h3>${esc(r.titre||'Sans titre')}</h3>
+            <p>${esc(r.contenu||'').slice(0,500)}${(r.contenu||'').length>500?'…':''}</p>
+          </div>
+        `).join('')
+        : '<div class="empty">Aucun rapport enregistré.</div>';
+
+    }catch(error){
+      console.error(error);
+      $('reportList').innerHTML=
+        '<div class="empty">Aucun rapport disponible ou accès refusé.</div>';
+    }
+  }
+
+  window.viewReport=async function(id){
+    try{
+      const {data,error}=await supabaseClient
+        .from('rapport')
+        .select('*')
+        .eq('id',id)
+        .single();
+
+      if(error) throw error;
+      const r=data;
+
+      $('caseModalTitle').textContent='Rapport #'+r.id;
+      $('caseModalBody').innerHTML=`
+        <div class="statusbar">
+          ${statusPill('RAPPORT')}
+          ${r.dossier_id?statusPill('DOSSIER '+r.dossier_id):''}
+        </div>
+        <p>
+          <b>Rédacteur :</b> ${esc(r.auteur||'Non renseigné')}<br>
+          <b>Date :</b> ${r.created_at?esc(new Date(r.created_at).toLocaleString('fr-FR')):''}<br>
+          <b>Objet :</b> ${esc(r.titre||'Sans titre')}
+        </p>
+        <div class="card" style="box-shadow:none;margin-top:14px">
+          <p>${esc(r.contenu||'').replace(/\n/g,'<br>')}</p>
+        </div>
+      `;
+
+      $('caseModal').classList.add('open');
+      document.body.classList.add('no-scroll');
+
+    }catch(error){
+      console.error(error);
+      toast('Impossible d’ouvrir le rapport.');
+    }
+  };
+
+  $('reportDate').value=isoDate();
+
+  $('reportForm').addEventListener('submit',async e=>{
+    e.preventDefault();
+    if(!e.currentTarget.reportValidity())return;
+
+    const reference=$('reportCase').value.trim().toUpperCase();
+    let dossierId=null;
+
+    if(reference){
+      const {data,error}=await supabaseClient
+        .from('dossiers')
+        .select('id')
+        .eq('reference',reference)
+        .maybeSingle();
+
+      if(error){
+        console.error(error);
+      }else if(data){
+        dossierId=data.id;
+      }
+    }
+
+    const payload={
+      dossier_id:dossierId,
+      titre:$('reportTitle').value.trim(),
+      contenu:`Type : ${$('reportType').value}
+Référence : ${reference||'Non associée'}
+Date : ${$('reportDate').value||isoDate()}
+
+${$('reportBody').value.trim()}`,
+      auteur:$('reportAuthor').value.trim()
+    };
+
+    const {error}=await supabaseClient
+      .from('rapport')
+      .insert(payload);
+
+    if(error){
+      console.error(error);
+      toast('Impossible d’enregistrer le rapport dans Supabase.');
       return;
     }
-    const local=loadCases().filter(c=>(!s||c.status===s)&&(!t||c.type===t));
-    $('caseList').innerHTML=local.length?local.map(caseSummary).join(''):'<div class="empty">Saisis une référence pour rechercher un dossier.</div>';
-  };
 
-  window.renderManagement=function(){
-    const q=($('manageSearch').value||'').trim().toLowerCase(),s=$('manageStatus').value,c= $('manageConf').value;
-    const list=loadCases().filter(x=>(!q||JSON.stringify(x).toLowerCase().includes(q))&&(!s||x.status===s)&&(!c||x.conf===c));
-    $('managementList').innerHTML=list.length?list.map(caseSummary).join(''):'<div class="empty">Aucun dossier enregistré.</div>';
-  };
+    e.currentTarget.reset();
+    $('reportDate').value=isoDate();
 
-  function loadReports(){
-    const a=[];
-    for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(!k?.startsWith(REPORT_PREFIX))continue;try{const d=JSON.parse(localStorage.getItem(k));if(d?.id)a.push(d)}catch{}}
-    return a.sort((a,b)=>String(b.date).localeCompare(String(a.date)));
-  }
-  function renderReports(){
-    const a=loadReports();
-    $('reportList').innerHTML=a.length?a.map(r=>`<div class="report-card"><div class="report-head"><div><strong>${esc(r.id)}</strong><div class="case-meta">${esc(r.type)} · ${esc(r.date)} · Dossier ${esc(r.caseId||'non associé')}</div></div><button class="btn small" onclick="viewReport('${esc(r.id)}')">Consulter</button></div><h3>${esc(r.title)}</h3><p>${esc(r.body).slice(0,500)}${r.body.length>500?'…':''}</p></div>`).join(''):'<div class="empty">Aucun rapport enregistré.</div>';
-  }
-  window.viewReport=function(id){
-    const r=loadReports().find(x=>x.id===id);if(!r)return;
-    $('caseModalTitle').textContent=r.id;
-    $('caseModalBody').innerHTML=`<div class="statusbar">${statusPill(r.type)}${r.caseId?statusPill(r.caseId):''}</div><p><b>Rédacteur :</b> ${esc(r.author)}<br><b>Date :</b> ${esc(r.date)}<br><b>Objet :</b> ${esc(r.title)}</p><div class="card" style="box-shadow:none;margin-top:14px"><p>${esc(r.body).replace(/\n/g,'<br>')}</p></div>`;
-    $('caseModal').classList.add('open');document.body.classList.add('no-scroll');
-  };
-  $('reportDate').value=isoDate();
-  $('reportForm').addEventListener('submit',async e=>{
-    e.preventDefault();if(!e.currentTarget.reportValidity())return;
-    const id=nextReportId();
-    const r={id,caseId:$('reportCase').value.trim().toUpperCase(),author:$('reportAuthor').value.trim(),type:$('reportType').value,date:$('reportDate').value||isoDate(),title:$('reportTitle').value.trim(),body:$('reportBody').value.trim()};
-    const {error}=await supabaseClient.from('rapport').insert({dossier_id:null,titre:r.title,contenu:`Type : ${r.type}\nRéférence : ${r.caseId||'Non associée'}\nDate : ${r.date}\n\n${r.body}`,auteur:r.author});
-    if(error){console.error(error);toast('Impossible d’enregistrer le rapport dans la base');return;}
-    localStorage.setItem(REPORT_PREFIX+id,JSON.stringify(r));e.currentTarget.reset();$('reportDate').value=isoDate();renderReports();
-    addNotification('Nouveau rapport',`Le rapport ${id} a été enregistré.`,'report');toast(`Rapport ${id} enregistré`);
+    await renderReports();
+    await renderNotifications();
+
+    toast('Rapport enregistré dans Supabase');
   });
 
-  function updateDashboard(){
-    const a=loadCases();
-    $('dashTotal').textContent=a.length;$('dashReview').textContent=a.filter(x=>x.status==='En cours d’évaluation').length;
-    $('dashInvest').textContent=a.filter(x=>x.status==='En enquête').length;$('dashClosed').textContent=a.filter(x=>x.status==='Clôturé').length;
+  async function updateDashboard(){
+    try{
+      const {data,error}=await supabaseClient
+        .from('dossiers')
+        .select('statut');
+
+      if(error) throw error;
+
+      const a=data||[];
+
+      $('dashTotal').textContent=a.length;
+      $('dashReview').textContent=a.filter(x=>x.statut==='En cours d’évaluation').length;
+      $('dashInvest').textContent=a.filter(x=>x.statut==='En enquête').length;
+      $('dashClosed').textContent=a.filter(x=>x.statut==='Clôturé').length;
+
+    }catch(error){
+      console.error(error);
+      $('dashTotal').textContent='—';
+      $('dashReview').textContent='—';
+      $('dashInvest').textContent='—';
+      $('dashClosed').textContent='—';
+    }
   }
-  function renderNotifications(){
-    const a=getNotifications();
-    $('notificationList').innerHTML=a.length?a.map(n=>`<div class="notification ${n.read?'':'unread'}"><span class="badge"></span><div><strong>${esc(n.title)}</strong><div class="case-meta">${esc(n.date)}</div><p style="margin:5px 0;color:var(--muted);font-size:13px">${esc(n.text)}</p></div></div>`).join(''):'<div class="empty">Aucune notification.</div>';
+
+  async function renderNotifications(){
+    try{
+      const {data,error}=await supabaseClient
+        .from('notifications')
+        .select('*')
+        .order('created_at',{ascending:false})
+        .limit(50);
+
+      if(error) throw error;
+
+      const a=data||[];
+
+      $('notificationList').innerHTML=a.length
+        ? a.map(n=>`
+          <div class="notification ${n.lu?'':'unread'}">
+            <span class="badge"></span>
+            <div>
+              <strong>${esc(n.type||'Notification')}</strong>
+              <div class="case-meta">${n.created_at?esc(new Date(n.created_at).toLocaleString('fr-FR')):''}</div>
+              <p style="margin:5px 0;color:var(--muted);font-size:13px">${esc(n.message||'')}</p>
+            </div>
+          </div>
+        `).join('')
+        : '<div class="empty">Aucune notification.</div>';
+
+    }catch(error){
+      console.error(error);
+      $('notificationList').innerHTML=
+        '<div class="empty">Aucune notification disponible ou accès refusé.</div>';
+    }
   }
 
   window.loginAgent=function(){
@@ -601,7 +943,13 @@ footer{border-top:1px solid var(--line);background:var(--bg);padding:35px 0;colo
   if(localStorage.getItem(THEME_KEY)==='light'){document.documentElement.classList.add('light');$('themeBtn').textContent='☀'}
   ['manageSearch','manageStatus','manageConf'].forEach(id=>$(id).addEventListener('input',renderManagement));
   $('trackId').addEventListener('keydown',e=>{if(e.key==='Enter')searchCases()});
-  restoreSession();renderManagement();renderReports();renderNotifications();updateDashboard();searchCases();
+  restoreSession();
+  testSupabase();
+  renderManagement();
+  renderReports();
+  renderNotifications();
+  updateDashboard();
+  searchCases();
 })();
 
 </script>
