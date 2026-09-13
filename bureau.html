@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#070b10">
+<meta name="description" content="Présentation, rôle et fonctionnement du Bureau.">
+<title>SABI | Le Bureau</title>
+<link rel="stylesheet" href="css/sabi.css">
+</head>
+<body>
+<a class="skip" href="#main">Aller au contenu</a>
+<header>
+  <div class="container nav" id="nav">
+    <a class="brand" href="index.html" aria-label="Accueil SABI">
+      <div class="seal">SABI</div>
+      <div>SAN ANDREAS<small>BUREAU OF INVESTIGATION</small></div>
+    </a>
+    <div class="nav-actions">
+      <button class="icon-btn" id="modeBtn" type="button" aria-label="Passer en mode agent">MODE AGENT</button>
+      <button class="icon-btn" id="themeBtn" type="button" aria-label="Passer en mode clair" title="Passer en mode clair">☀ MODE CLAIR</button>
+      <button class="menu" type="button" onclick="toggleMenu()">MENU</button>
+    </div>
+    <nav>
+      <a href="bureau.html">Le Bureau</a>
+      <a href="services.html">Services</a>
+      <a href="dossier.html">Dossier</a>
+      <a href="suivi.html">Suivi</a>
+      <a href="agents.html">Agents</a>
+      <a href="rapports.html">Rapports</a>
+      <a href="contact.html">Contact</a>
+      <a href="faq.html">FAQ</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+  <div class="container page-intro">
+    <span class="eyebrow">SABI · LE BUREAU</span>
+    <h1>Le Bureau</h1>
+    <p>Présentation, rôle et fonctionnement du Bureau.</p>
+  </div>
+  <section id="bureau">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">PRÉSENTATION</span>
+      <h2>Une institution tournée vers les affaires sensibles</h2>
+      <p>Le SABI peut être saisi par un citoyen, une entreprise, une administration ou un service de sécurité lorsqu'une affaire justifie une investigation spécialisée.</p>
+    </div>
+    <div class="stats">
+      <div class="stat"><b>24/7</b><span>Disponibilité du Bureau</span></div>
+      <div class="stat"><b>06</b><span>Domaines d'intervention</span></div>
+      <div class="stat"><b>01</b><span>Référence unique par dossier</span></div>
+      <div class="stat"><b>SEC</b><span>Traitement confidentiel</span></div>
+    </div>
+    <div class="grid2" style="margin-top:18px">
+      <div class="card"><div class="number">01 · MISSION</div><h3>Analyser avant d'agir</h3><p>Le Bureau centralise les informations, recoupe les éléments disponibles et structure les enquêtes complexes afin d'apporter une réponse claire et documentée.</p></div>
+      <div class="card"><div class="number">02 · COORDINATION</div><h3>Travailler avec les institutions</h3><p>Les dossiers peuvent nécessiter la coopération de plusieurs services. Le SABI facilite la transmission, l'analyse et le suivi des informations utiles.</p></div>
+    </div>
+  </div>
+</section>
+</main>
+<footer>
+  <div class="container footer-grid">
+    <div><b>SAN ANDREAS BUREAU OF INVESTIGATION</b><br>Portail institutionnel · SABI</div>
+    <div>© 2026 SABI · Univers fictif · Non affilié à une institution réelle</div>
+  </div>
+</footer>
+<div class="modal" id="caseModal" role="dialog" aria-modal="true" aria-labelledby="caseModalTitle">
+  <div class="modal-box">
+    <div class="modal-head"><h3 id="caseModalTitle">Dossier</h3><button class="icon-btn" type="button" onclick="closeModal()">Fermer</button></div>
+    <div id="caseModalBody"></div>
+  </div>
+<div id="toast" class="toast"></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/sabi.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded',()=>{
+  const file=location.pathname.split('/').pop()||'index.html';
+  const map={'index.html':'index.html','bureau.html':'bureau.html','services.html':'services.html','dossier.html':'dossier.html','suivi.html':'suivi.html','agents.html':'agents.html','rapports.html':'rapports.html','contact.html':'contact.html','faq.html':'faq.html'};
+  document.querySelectorAll('nav a').forEach(a=>{if(a.getAttribute('href')===map[file])a.classList.add('active')});
+});
+</script>
+</body>
+</html>
