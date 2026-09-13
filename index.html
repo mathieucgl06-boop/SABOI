@@ -13,9 +13,10 @@
   --warning:#c7a65a;--danger:#bd5b5b;--shadow:0 18px 60px rgba(0,0,0,.28);
   --max:1220px
 }
-:root.light{
-  --bg:#f4f6f8;--panel:#fff;--panel2:#edf1f4;--line:#d4dce4;
-  --text:#17212b;--muted:#61707e;--accent:#17212b;--shadow:0 18px 50px rgba(30,50,70,.12)
+:root[data-theme="light"]{
+  --bg:#f4f6f8;--panel:#ffffff;--panel2:#edf1f4;--line:#d4dce4;
+  --text:#17212b;--muted:#61707e;--accent:#17212b;--ok:#3f8b61;
+  --warning:#9a7928;--danger:#a94c4c;--shadow:0 18px 50px rgba(30,50,70,.12)
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -121,7 +122,7 @@ footer{border-top:1px solid var(--line);background:var(--bg);padding:35px 0;colo
 @media(max-width:720px){
  .stats,.grid2,.form{grid-template-columns:1fr}.field.full{grid-column:auto}.searchbar{grid-template-columns:1fr}.case-row{grid-template-columns:1fr}.hero{min-height:620px}
 }
-@media(max-width:480px){.dashboard{grid-template-columns:1fr}.footer-grid{flex-direction:column}.nav-actions .icon-btn{display:none}h1{letter-spacing:-2px}}
+@media(max-width:480px){.dashboard{grid-template-columns:1fr}.footer-grid{flex-direction:column}.nav-actions{gap:5px}.nav-actions .icon-btn{display:block;padding:8px 9px;font-size:10px}.nav-actions #modeBtn{display:none}h1{letter-spacing:-2px}}
 
 </style>
 </head>
@@ -136,7 +137,7 @@ footer{border-top:1px solid var(--line);background:var(--bg);padding:35px 0;colo
     </a>
     <div class="nav-actions">
       <button class="icon-btn" id="modeBtn" type="button" aria-label="Passer en mode agent">MODE AGENT</button>
-      <button class="icon-btn" id="themeBtn" type="button" aria-label="Changer le thème">☾</button>
+      <button class="icon-btn" id="themeBtn" type="button" aria-label="Passer en mode clair" title="Passer en mode clair">☀ MODE CLAIR</button>
       <button class="menu" type="button" onclick="toggleMenu()">MENU</button>
     </div>
     <nav>
@@ -247,6 +248,7 @@ footer{border-top:1px solid var(--line);background:var(--bg);padding:35px 0;colo
   <div class="container">
     <div class="section-head"><span class="eyebrow">ESPACE AGENTS</span><h2>Tableau de bord du Bureau</h2><p>Accès aux outils de gestion, aux dossiers, aux rapports et aux notifications.</p></div>
     <div id="agentLogin" class="card">
+      <div id="agentLoginStatus" class="notice" style="display:none;margin-bottom:18px"></div>
       <div class="grid2">
         <div>
           <div class="number">ACCÈS SÉCURISÉ</div>
@@ -375,6 +377,7 @@ footer{border-top:1px solid var(--line);background:var(--bg);padding:35px 0;colo
   </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 (() => {
   const SUPABASE_URL='https://kuajkkbbpeakdnzipihi.supabase.co';
@@ -917,9 +920,23 @@ ${$('reportBody').value.trim()}`,
   window.loginAgent=async function(){
     const email=$('agentEmail').value.trim();
     const password=$('agentPassword').value;
-    if(!email||!password){toast('Renseigne ton e-mail et ton mot de passe');return}
+    const status=$('agentLoginStatus');
+    if(status){status.style.display='none';status.textContent='';}
+    if(!email||!password){
+      if(status){status.style.display='block';status.textContent='Renseigne ton e-mail et ton mot de passe.';}
+      return;
+    }
     const {data,error}=await supabaseClient.auth.signInWithPassword({email,password});
-    if(error){console.error(error);toast('Connexion refusée : vérifie tes identifiants');return}
+    if(error){
+      console.error('SABI Auth:',error);
+      let message='Connexion refusée.';
+      if(/invalid login credentials/i.test(error.message||'')) message='E-mail ou mot de passe incorrect.';
+      else if(/email not confirmed/i.test(error.message||'')) message='Ton adresse e-mail doit être confirmée dans Supabase.';
+      else if(/network|fetch/i.test(error.message||'')) message='Connexion à Supabase impossible. Vérifie Internet et réessaie.';
+      else message='Erreur Supabase : '+(error.message||'connexion impossible');
+      if(status){status.style.display='block';status.textContent=message;}
+      return;
+    }
     sessionStorage.setItem(AGENT_KEY,'1');
     setAgentMode(true,data.user?.email||email);
     $('agentPassword').value='';
@@ -1006,11 +1023,27 @@ ${$('reportBody').value.trim()}`,
     else { $('agents').scrollIntoView({behavior:'smooth'}); $('agentEmail').focus(); toast('Connecte-toi pour ouvrir le mode agent'); }
   });
 
+  function applyTheme(theme){
+    const isLight=theme==='light';
+    document.documentElement.setAttribute('data-theme',isLight?'light':'dark');
+    localStorage.setItem(THEME_KEY,isLight?'light':'dark');
+    const btn=$('themeBtn');
+    if(btn){
+      btn.textContent=isLight?'☾ MODE SOMBRE':'☀ MODE CLAIR';
+      btn.setAttribute('aria-label',isLight?'Passer en mode sombre':'Passer en mode clair');
+      btn.title=isLight?'Passer en mode sombre':'Passer en mode clair';
+    }
+    const meta=document.querySelector('meta[name="theme-color"]');
+    if(meta)meta.setAttribute('content',isLight?'#f4f6f8':'#070b10');
+  }
+
   $('themeBtn').addEventListener('click',()=>{
-    const light=document.documentElement.classList.toggle('light');
-    localStorage.setItem(THEME_KEY,light?'light':'dark');$('themeBtn').textContent=light?'☀':'☾';
+    const current=document.documentElement.getAttribute('data-theme')||'dark';
+    applyTheme(current==='light'?'dark':'light');
+    toast(current==='light'?'Mode sombre activé':'Mode clair activé');
   });
-  if(localStorage.getItem(THEME_KEY)==='light'){document.documentElement.classList.add('light');$('themeBtn').textContent='☀'}
+
+  applyTheme(localStorage.getItem(THEME_KEY)==='light'?'light':'dark');
   ['manageSearch','manageStatus','manageConf'].forEach(id=>$(id).addEventListener('input',renderManagement));
   $('trackId').addEventListener('keydown',e=>{if(e.key==='Enter')searchCases()});
   restoreSession();
