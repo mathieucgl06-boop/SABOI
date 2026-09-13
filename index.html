@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+!DOCTYPE html>
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
@@ -113,7 +113,7 @@ footer{border-top:1px solid var(--line);background:var(--bg);padding:35px 0;colo
 .modal{position:fixed;inset:0;background:rgba(0,0,0,.72);display:none;place-items:center;padding:18px;z-index:90}
 .modal.open{display:grid}
 .modal-box{width:min(720px,100%);max-height:90vh;overflow:auto;background:var(--panel);border:1px solid var(--line);padding:24px;border-radius:6px}
-.modal-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:20px}
+.modal-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:20px}.mode-agent-on{border-color:#5fa47b!important;box-shadow:0 0 0 2px rgba(95,164,123,.12)}.agent-only{scroll-margin-top:90px}.session-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--ok);margin-right:6px}
 @media(max-width:980px){
  nav{display:none}.menu{display:block}.nav.open nav{display:flex;position:absolute;top:74px;left:0;right:0;background:var(--bg);padding:18px;flex-direction:column;align-items:stretch;border-bottom:1px solid var(--line)}
  .hero-grid,.grid3{grid-template-columns:1fr}.dashboard{grid-template-columns:repeat(2,1fr)}
@@ -135,6 +135,7 @@ footer{border-top:1px solid var(--line);background:var(--bg);padding:35px 0;colo
       <div>SAN ANDREAS<small>BUREAU OF INVESTIGATION</small></div>
     </a>
     <div class="nav-actions">
+      <button class="icon-btn" id="modeBtn" type="button" aria-label="Passer en mode agent">MODE AGENT</button>
       <button class="icon-btn" id="themeBtn" type="button" aria-label="Changer le thème">☾</button>
       <button class="menu" type="button" onclick="toggleMenu()">MENU</button>
     </div>
@@ -247,11 +248,21 @@ footer{border-top:1px solid var(--line);background:var(--bg);padding:35px 0;colo
     <div class="section-head"><span class="eyebrow">ESPACE AGENTS</span><h2>Tableau de bord du Bureau</h2><p>Accès aux outils de gestion, aux dossiers, aux rapports et aux notifications.</p></div>
     <div id="agentLogin" class="card">
       <div class="grid2">
-        <div><h3>Connexion</h3><p>Accède à l'interface de gestion de cet appareil avec le code local configuré.</p></div>
-        <div class="field"><label for="agentPin">Code d'accès local</label><input id="agentPin" type="password" inputmode="numeric" maxlength="12" placeholder="Code d'accès"><button class="btn primary" type="button" onclick="loginAgent()">Ouvrir l'espace agents</button></div>
+        <div>
+          <div class="number">ACCÈS SÉCURISÉ</div>
+          <h3>Connexion agent</h3>
+          <p>Utilise ton compte professionnel SABI. Une fois connecté, le mode agent donne accès aux outils de gestion, aux rapports et aux notifications.</p>
+        </div>
+        <div class="form">
+          <div class="field full"><label for="agentEmail">Adresse e-mail</label><input id="agentEmail" type="email" autocomplete="username" placeholder="agent@sabi.example"></div>
+          <div class="field full"><label for="agentPassword">Mot de passe</label><input id="agentPassword" type="password" autocomplete="current-password" placeholder="••••••••"></div>
+          <div class="field full"><button class="btn primary" type="button" onclick="loginAgent()">Ouvrir le mode agent</button></div>
+          <div class="field full"><button class="btn small" type="button" onclick="resetAgentPassword()">Mot de passe oublié</button></div>
+        </div>
       </div>
     </div>
     <div id="agentPanel" style="display:none">
+      <div class="notice" id="agentSessionInfo"><b>MODE AGENT</b> · Session sécurisée</div>
       <div class="dashboard">
         <div class="dashboard-card"><span>Dossiers totaux</span><strong id="dashTotal">0</strong></div>
         <div class="dashboard-card"><span>En évaluation</span><strong id="dashReview">0</strong></div>
@@ -268,7 +279,7 @@ footer{border-top:1px solid var(--line);background:var(--bg);padding:35px 0;colo
   </div>
 </section>
 
-<section class="alt" id="gestion">
+<section class="alt agent-only" id="gestion" style="display:none">
   <div class="container">
     <div class="section-head"><span class="eyebrow">GESTION</span><h2>Gestion des dossiers</h2><p>Recherche, filtre et mets à jour les dossiers enregistrés dans la base SABI.</p></div>
     <div class="searchbar">
@@ -287,7 +298,7 @@ footer{border-top:1px solid var(--line);background:var(--bg);padding:35px 0;colo
   </div>
 </section>
 
-<section id="rapports">
+<section class="agent-only" id="rapports" style="display:none">
   <div class="container">
     <div class="section-head"><span class="eyebrow">DOCUMENTATION</span><h2>Création de rapports</h2><p>Rédige un rapport d'enquête et conserve-le dans la base SABI avec une référence exploitable.</p></div>
     <form class="form" id="reportForm">
@@ -303,7 +314,7 @@ footer{border-top:1px solid var(--line);background:var(--bg);padding:35px 0;colo
   </div>
 </section>
 
-<section class="alt" id="notifications">
+<section class="alt agent-only" id="notifications" style="display:none">
   <div class="container">
     <div class="section-head"><span class="eyebrow">CENTRE DE NOTIFICATIONS</span><h2>Notifications et statuts</h2><p>Retrouve les dernières actions enregistrées sur les dossiers et les rapports.</p></div>
     <div class="notifications" id="notificationList"></div>
@@ -890,14 +901,67 @@ ${$('reportBody').value.trim()}`,
     }
   }
 
-  window.loginAgent=function(){
-    const pin=$('agentPin').value.trim();
-    const stored=localStorage.getItem('sabi_agent_pin')||DEFAULT_PIN;
-    if(pin!==stored){toast('Code d’accès incorrect');return}
-    sessionStorage.setItem(AGENT_KEY,'1');$('agentLogin').style.display='none';$('agentPanel').style.display='block';updateDashboard();toast('Espace agents ouvert');
+  function setAgentMode(on, email=''){
+    document.querySelectorAll('.agent-only').forEach(el=>el.style.display=on?'block':'none');
+    $('agentLogin').style.display=on?'none':'block';
+    $('agentPanel').style.display=on?'block':'none';
+    $('modeBtn').textContent=on?'MODE CLASSIQUE':'MODE AGENT';
+    $('modeBtn').setAttribute('aria-label',on?'Revenir au mode classique':'Passer en mode agent');
+    $('modeBtn').classList.toggle('mode-agent-on',on);
+    if(on){
+      $('agentSessionInfo').innerHTML='<span class="session-dot"></span><b>MODE AGENT</b> · Session sécurisée · '+esc(email||'Agent authentifié');
+      updateDashboard(); renderManagement(); renderReports(); renderNotifications();
+    }
+  }
+
+  window.loginAgent=async function(){
+    const email=$('agentEmail').value.trim();
+    const password=$('agentPassword').value;
+    if(!email||!password){toast('Renseigne ton e-mail et ton mot de passe');return}
+    const {data,error}=await supabaseClient.auth.signInWithPassword({email,password});
+    if(error){console.error(error);toast('Connexion refusée : vérifie tes identifiants');return}
+    sessionStorage.setItem(AGENT_KEY,'1');
+    setAgentMode(true,data.user?.email||email);
+    $('agentPassword').value='';
+    toast('Connexion agent réussie');
   };
-  window.logoutAgent=function(){sessionStorage.removeItem(AGENT_KEY);$('agentLogin').style.display='block';$('agentPanel').style.display='none';$('agentPin').value='';toast('Session fermée')};
-  function restoreSession(){if(sessionStorage.getItem(AGENT_KEY)==='1'){ $('agentLogin').style.display='none';$('agentPanel').style.display='block';}}
+
+  window.resetAgentPassword=async function(){
+    const email=$('agentEmail').value.trim();
+    if(!email){toast('Indique d’abord ton adresse e-mail');return}
+    const {error}=await supabaseClient.auth.resetPasswordForEmail(email,{redirectTo:window.location.origin+window.location.pathname});
+    if(error){console.error(error);toast('Impossible d’envoyer le lien de récupération');return}
+    toast('Lien de récupération envoyé');
+  };
+
+  window.logoutAgent=async function(){
+    await supabaseClient.auth.signOut();
+    sessionStorage.removeItem(AGENT_KEY);
+    setAgentMode(false);
+    $('agentEmail').value=''; $('agentPassword').value='';
+    toast('Session fermée');
+  };
+
+  async function restoreSession(){
+    const {data}=await supabaseClient.auth.getSession();
+    if(data.session?.user){
+      sessionStorage.setItem(AGENT_KEY,'1');
+      setAgentMode(true,data.session.user.email||'');
+    }else{
+      sessionStorage.removeItem(AGENT_KEY);
+      setAgentMode(false);
+    }
+  }
+
+  supabaseClient.auth.onAuthStateChange((event,session)=>{
+    if(session?.user){
+      sessionStorage.setItem(AGENT_KEY,'1');
+      setAgentMode(true,session.user.email||'');
+    }else if(event==='SIGNED_OUT'){
+      sessionStorage.removeItem(AGENT_KEY);
+      setAgentMode(false);
+    }
+  });
   window.scrollToId=id=>document.getElementById(id)?.scrollIntoView({behavior:'smooth'});
 
   window.exportData=function(){
@@ -936,6 +1000,12 @@ ${$('reportBody').value.trim()}`,
     e.currentTarget.reset();toast('Message enregistré');
   });
 
+  $('modeBtn').addEventListener('click',async()=>{
+    const {data}=await supabaseClient.auth.getSession();
+    if(data.session?.user){ setAgentMode(false); toast('Mode classique activé'); }
+    else { $('agents').scrollIntoView({behavior:'smooth'}); $('agentEmail').focus(); toast('Connecte-toi pour ouvrir le mode agent'); }
+  });
+
   $('themeBtn').addEventListener('click',()=>{
     const light=document.documentElement.classList.toggle('light');
     localStorage.setItem(THEME_KEY,light?'light':'dark');$('themeBtn').textContent=light?'☀':'☾';
@@ -945,10 +1015,6 @@ ${$('reportBody').value.trim()}`,
   $('trackId').addEventListener('keydown',e=>{if(e.key==='Enter')searchCases()});
   restoreSession();
   testSupabase();
-  renderManagement();
-  renderReports();
-  renderNotifications();
-  updateDashboard();
   searchCases();
 })();
 
