@@ -2256,5 +2256,304 @@ footer{
       exportedAt:
         new Date().toISOString(),
 
- 
-…
+      cases,
+      reports,
+      notifications,
+      messages
+
+    };
+
+    const blob=new Blob(
+      [
+        JSON.stringify(
+          payload,
+          null,
+          2
+        )
+      ],
+      {
+        type:'application/json'
+      }
+    );
+
+    const a=document.createElement('a');
+
+    a.href=
+      URL.createObjectURL(blob);
+
+    a.download=
+      `sabi-sauvegarde-${isoDate()}.json`;
+
+    a.click();
+
+    setTimeout(
+      ()=>URL.revokeObjectURL(a.href),
+      1000
+    );
+
+    toast('Sauvegarde exportée');
+
+  };
+
+  window.importData=function(ev){
+
+    const f=ev.target.files?.[0];
+
+    if(!f)return;
+
+    const reader=new FileReader();
+
+    reader.onload=()=>{
+
+      try{
+
+        const p=JSON.parse(
+          reader.result
+        );
+
+        if(
+          p.format!=='SABI-LOCAL-1'
+        ){
+
+          throw new Error('format');
+
+        }
+
+        (p.cases||[]).forEach(
+          c=>{
+            if(c?.id){
+
+              localStorage.setItem(
+                CASE_PREFIX+c.id,
+                JSON.stringify(c)
+              );
+
+            }
+          }
+        );
+
+        (p.reports||[]).forEach(
+          r=>{
+            if(r?.id){
+
+              localStorage.setItem(
+                REPORT_PREFIX+r.id,
+                JSON.stringify(r)
+              );
+
+            }
+          }
+        );
+
+        if(
+          Array.isArray(
+            p.notifications
+          )
+        ){
+
+          localStorage.setItem(
+            NOTIF_KEY,
+            JSON.stringify(
+              p.notifications
+            )
+          );
+
+        }
+
+        (p.messages||[]).forEach(
+          m=>{
+            if(m?.id){
+
+              localStorage.setItem(
+                MSG_PREFIX+m.id,
+                JSON.stringify(m)
+              );
+
+            }
+          }
+        );
+
+        renderManagement();
+        renderReports();
+        renderNotifications();
+        updateDashboard();
+        searchCases();
+
+        toast('Sauvegarde importée');
+
+      }catch{
+
+        toast(
+          'Fichier de sauvegarde invalide'
+        );
+
+      }
+
+      ev.target.value='';
+
+    };
+
+    reader.readAsText(f);
+
+  };
+
+  window.clearAllData=function(){
+
+    if(
+      !confirm(
+        'Effacer tous les dossiers, rapports et messages enregistrés sur cet appareil ?'
+      )
+    )return;
+
+    Object.keys(localStorage)
+      .filter(
+        k=>k.startsWith('sabi_')
+      )
+      .forEach(
+        k=>localStorage.removeItem(k)
+      );
+
+    renderManagement();
+    renderReports();
+    renderNotifications();
+    updateDashboard();
+    searchCases();
+
+    toast(
+      'Données locales effacées'
+    );
+
+  };
+
+  $('contactForm').addEventListener(
+    'submit',
+    e=>{
+
+      e.preventDefault();
+
+      if(!e.currentTarget.reportValidity())return;
+
+      const id=
+        'MSG-'+Date.now();
+
+      localStorage.setItem(
+        MSG_PREFIX+id,
+        JSON.stringify({
+
+          id,
+
+          name:
+            $('cname')
+            .value
+            .trim(),
+
+          subject:
+            $('csubject')
+            .value
+            .trim(),
+
+          email:
+            $('cemail')
+            .value
+            .trim(),
+
+          message:
+            $('cmessage')
+            .value
+            .trim(),
+
+          date:now()
+
+        })
+      );
+
+      addNotification(
+        'Nouveau message',
+        `Message reçu : ${
+          $('csubject')
+          .value
+          .trim()
+        }.`,
+        'message'
+      );
+
+      e.currentTarget.reset();
+
+      toast(
+        'Message enregistré'
+      );
+
+    }
+  );
+
+  $('themeBtn').addEventListener(
+    'click',
+    ()=>{
+
+      const light=
+        document.documentElement
+        .classList
+        .toggle('light');
+
+      localStorage.setItem(
+        THEME_KEY,
+        light?'light':'dark'
+      );
+
+      $('themeBtn').textContent=
+        light?'☀':'☾';
+
+    }
+  );
+
+  if(
+    localStorage.getItem(
+      THEME_KEY
+    )==='light'
+  ){
+
+    document.documentElement
+      .classList
+      .add('light');
+
+    $('themeBtn')
+      .textContent='☀';
+
+  }
+
+  [
+    'manageSearch',
+    'manageStatus',
+    'manageConf'
+  ].forEach(
+    id=>
+      $(id)
+      .addEventListener(
+        'input',
+        renderManagement
+      )
+  );
+
+  $('trackId')
+    .addEventListener(
+      'keydown',
+      e=>{
+        if(e.key==='Enter'){
+          searchCases();
+        }
+      }
+    );
+
+  restoreSession();
+  renderManagement();
+  renderReports();
+  renderNotifications();
+  updateDashboard();
+  searchCases();
+
+})();
+
+</script>
+
+</body>
+</html>
