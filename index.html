@@ -6,7 +6,6 @@
 <meta name="theme-color" content="#070b10">
 <meta name="description" content="Portail institutionnel du San Andreas Bureau of Investigation.">
 <title>SABI | San Andreas Bureau of Investigation</title>
-
 <style>
 :root{
   --bg:#070b10;--panel:#0d141d;--panel2:#111b26;--line:#263544;
@@ -16,275 +15,129 @@
 }
 :root.light{
   --bg:#f4f6f8;--panel:#fff;--panel2:#edf1f4;--line:#d4dce4;
-  --text:#17212b;--muted:#61707e;--accent:#17212b;
-  --shadow:0 18px 50px rgba(30,50,70,.12)
+  --text:#17212b;--muted:#61707e;--accent:#17212b;--shadow:0 18px 50px rgba(30,50,70,.12)
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{
-  margin:0;background:var(--bg);color:var(--text);
-  font-family:Inter,ui-sans-serif,system-ui,-apple-system,
-  BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
-  line-height:1.55
-}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;line-height:1.55}
 body.no-scroll{overflow:hidden}
 a{color:inherit;text-decoration:none}
 button,input,select,textarea{font:inherit}
 button{cursor:pointer}
 .container{width:min(var(--max),92%);margin:auto}
-.skip{
-  position:absolute;left:-9999px;top:8px;background:var(--accent);
-  color:var(--bg);padding:10px 14px;z-index:100
-}
+.skip{position:absolute;left:-9999px;top:8px;background:var(--accent);color:var(--bg);padding:10px 14px;z-index:100}
 .skip:focus{left:12px}
-header{
-  position:sticky;top:0;z-index:50;
-  background:color-mix(in srgb,var(--bg) 92%,transparent);
-  backdrop-filter:blur(16px);border-bottom:1px solid var(--line)
-}
-.nav{
-  min-height:74px;display:flex;align-items:center;
-  justify-content:space-between;gap:20px
-}
+header{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
+.nav{min-height:74px;display:flex;align-items:center;justify-content:space-between;gap:20px}
 .brand{display:flex;align-items:center;gap:12px;font-weight:850;letter-spacing:1px}
-.seal{
-  width:44px;height:44px;border:1px solid #8393a3;border-radius:50%;
-  display:grid;place-items:center;font-size:10px;letter-spacing:.8px;
-  box-shadow:inset 0 0 0 4px color-mix(in srgb,var(--line) 55%,transparent)
-}
-.brand small{
-  display:block;color:var(--muted);font-size:8px;
-  letter-spacing:1.7px;margin-top:2px
-}
+.seal{width:44px;height:44px;border:1px solid #8393a3;border-radius:50%;display:grid;place-items:center;font-size:10px;letter-spacing:.8px;box-shadow:inset 0 0 0 4px color-mix(in srgb,var(--line) 55%,transparent)}
+.brand small{display:block;color:var(--muted);font-size:8px;letter-spacing:1.7px;margin-top:2px}
 nav{display:flex;gap:18px;align-items:center}
 nav a{font-size:12px;color:var(--muted)}
 nav a:hover{color:var(--text)}
 .nav-actions{display:flex;align-items:center;gap:8px}
-.icon-btn,.menu{
-  background:transparent;color:var(--text);
-  border:1px solid var(--line);padding:9px 11px;border-radius:5px
-}
+.icon-btn,.menu{background:transparent;color:var(--text);border:1px solid var(--line);padding:9px 11px;border-radius:5px}
 .menu{display:none}
-.hero{
-  min-height:690px;display:grid;align-items:center;
-  background:
-  radial-gradient(circle at 78% 30%,rgba(130,150,175,.14),transparent 28%),
-  linear-gradient(180deg,color-mix(in srgb,var(--bg) 94%,#1b2733),var(--bg))
-}
-.hero-grid{
-  display:grid;grid-template-columns:1.35fr .75fr;
-  gap:64px;align-items:center
-}
-.kicker,.eyebrow{
-  display:inline-block;color:var(--muted);
-  font-size:10px;letter-spacing:2px
-}
+.hero{min-height:690px;display:grid;align-items:center;background:
+radial-gradient(circle at 78% 30%,rgba(130,150,175,.14),transparent 28%),
+linear-gradient(180deg,color-mix(in srgb,var(--bg) 94%,#1b2733),var(--bg))}
+.hero-grid{display:grid;grid-template-columns:1.35fr .75fr;gap:64px;align-items:center}
+.kicker,.eyebrow{display:inline-block;color:var(--muted);font-size:10px;letter-spacing:2px}
 .kicker{border:1px solid var(--line);padding:7px 12px}
-h1{
-  font-size:clamp(44px,6vw,82px);line-height:.99;
-  margin:22px 0 18px;letter-spacing:-3px
-}
-h2{
-  font-size:clamp(28px,4vw,42px);
-  line-height:1.1;margin:8px 0 12px;letter-spacing:-1px
-}
+h1{font-size:clamp(44px,6vw,82px);line-height:.99;margin:22px 0 18px;letter-spacing:-3px}
+h2{font-size:clamp(28px,4vw,42px);line-height:1.1;margin:8px 0 12px;letter-spacing:-1px}
 h3{line-height:1.2}
 .hero p{max-width:750px;color:var(--muted);font-size:18px}
 .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:30px}
-.btn{
-  border:1px solid #4a5968;background:transparent;color:var(--text);
-  padding:12px 17px;border-radius:4px;font-weight:750;transition:.2s
-}
+.btn{border:1px solid #4a5968;background:transparent;color:var(--text);padding:12px 17px;border-radius:4px;font-weight:750;transition:.2s}
 .btn:hover{background:var(--panel2);transform:translateY(-1px)}
 .btn.primary{background:var(--accent);color:var(--bg);border-color:var(--accent)}
 .btn.danger{border-color:#704040;color:#e6aaaa}
 .btn.small{padding:8px 11px;font-size:12px}
 .btn:disabled{opacity:.45;cursor:not-allowed;transform:none}
-.hero-card,.card,.dashboard-card,.report-card{
-  border:1px solid var(--line);background:var(--panel);box-shadow:var(--shadow)
-}
+.hero-card,.card,.dashboard-card,.report-card{border:1px solid var(--line);background:var(--panel);box-shadow:var(--shadow)}
 .hero-card{padding:27px}
-.status{
-  display:flex;justify-content:space-between;gap:15px;
-  border-bottom:1px solid var(--line);padding:12px 0;font-size:12px
-}
+.status{display:flex;justify-content:space-between;gap:15px;border-bottom:1px solid var(--line);padding:12px 0;font-size:12px}
 .status:last-of-type{border-bottom:0}
-.dot{
-  display:inline-block;width:8px;height:8px;border-radius:50%;
-  background:var(--ok);margin-right:7px
-}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--ok);margin-right:7px}
 section{padding:88px 0}
-.alt{
-  background:color-mix(in srgb,var(--panel) 50%,var(--bg));
-  border-top:1px solid var(--line);border-bottom:1px solid var(--line)
-}
+.alt{background:color-mix(in srgb,var(--panel) 50%,var(--bg));border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
 .section-head{margin-bottom:34px}
 .section-head p,.lead{color:var(--muted);max-width:820px}
-.stats{
-  display:grid;grid-template-columns:repeat(4,1fr);
-  gap:1px;border:1px solid var(--line);background:var(--line)
-}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;border:1px solid var(--line);background:var(--line)}
 .stat{background:var(--panel);padding:23px}
 .stat b{display:block;font-size:28px}
 .stat span{font-size:11px;color:var(--muted)}
 .grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
 .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
 .card{padding:25px}
-.card .number{
-  font-size:10px;color:#718090;letter-spacing:1.2px;margin-bottom:18px
-}
+.card .number{font-size:10px;color:#718090;letter-spacing:1.2px;margin-bottom:18px}
 .card p{color:var(--muted);font-size:14px}
 .card ul{color:var(--muted);padding-left:18px}
 .form{display:grid;grid-template-columns:1fr 1fr;gap:15px}
 .field{display:flex;flex-direction:column;gap:7px}
 .field.full{grid-column:1/-1}
 label{font-size:12px;color:var(--muted)}
-input,select,textarea{
-  width:100%;background:var(--panel);color:var(--text);
-  border:1px solid #344352;padding:12px;border-radius:4px;outline:none
-}
-input:focus,select:focus,textarea:focus{
-  border-color:#8da0b1;box-shadow:0 0 0 2px rgba(141,160,177,.1)
-}
+input,select,textarea{width:100%;background:var(--panel);color:var(--text);border:1px solid #344352;padding:12px;border-radius:4px;outline:none}
+input:focus,select:focus,textarea:focus{border-color:#8da0b1;box-shadow:0 0 0 2px rgba(141,160,177,.1)}
 textarea{min-height:135px;resize:vertical}
-.notice{
-  padding:14px 16px;border:1px solid var(--line);
-  background:var(--panel2);color:var(--muted);
-  font-size:13px;margin-bottom:18px;border-radius:5px
-}
-.result{
-  display:none;margin-top:18px;border:1px solid var(--line);
-  background:var(--panel2);padding:20px;border-radius:5px
-}
+.notice{padding:14px 16px;border:1px solid var(--line);background:var(--panel2);color:var(--muted);font-size:13px;margin-bottom:18px;border-radius:5px}
+.result{display:none;margin-top:18px;border:1px solid var(--line);background:var(--panel2);padding:20px;border-radius:5px}
 .statusbar{display:flex;gap:8px;flex-wrap:wrap;margin-top:15px}
-.pill{
-  border:1px solid #3b4a58;padding:5px 9px;font-size:10px;
-  color:var(--muted);border-radius:99px
-}
-.timeline{
-  border-left:1px solid #445361;margin-left:8px;padding-left:28px
-}
-.event{position:relative;margin-bottom:25px}
-.event:before{
-  content:"";position:absolute;left:-34px;top:7px;width:9px;height:9px;
-  border:1px solid #9ba8b5;border-radius:50%;background:var(--bg)
-}
+.pill{border:1px solid #3b4a58;padding:5px 9px;font-size:10px;color:var(--muted);border-radius:99px}
+.timeline{border-left:1px solid #445361;margin-left:8px;padding-left:28px}
+.event{position:relative;margin-bottom:25px}.event:before{content:"";position:absolute;left:-34px;top:7px;width:9px;height:9px;border:1px solid #9ba8b5;border-radius:50%;background:var(--bg)}
 .event p{color:var(--muted);font-size:13px;margin:4px 0}
-.searchbar{
-  display:grid;grid-template-columns:1.4fr .8fr .8fr auto;
-  gap:10px;margin-bottom:16px
-}
+.searchbar{display:grid;grid-template-columns:1.4fr .8fr .8fr auto;gap:10px;margin-bottom:16px}
 .case-list{display:grid;gap:10px}
-.case-row{
-  display:grid;grid-template-columns:1fr auto;gap:18px;
-  align-items:center;padding:15px;border:1px solid var(--line);
-  background:var(--panel);border-radius:5px
-}
+.case-row{display:grid;grid-template-columns:1fr auto;gap:18px;align-items:center;padding:15px;border:1px solid var(--line);background:var(--panel);border-radius:5px}
 .case-meta{color:var(--muted);font-size:12px}
-.empty{
-  padding:24px;border:1px dashed var(--line);
-  color:var(--muted);text-align:center
-}
+.empty{padding:24px;border:1px dashed var(--line);color:var(--muted);text-align:center}
 .dashboard{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
 .dashboard-card{padding:20px}
 .dashboard-card span{font-size:11px;color:var(--muted)}
 .dashboard-card strong{display:block;font-size:30px;margin-top:3px}
 .report-card{padding:20px}
 .report-card p{color:var(--muted);font-size:13px}
-.report-head{
-  display:flex;justify-content:space-between;
-  gap:12px;align-items:flex-start
-}
+.report-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}
 .notifications{display:grid;gap:10px}
-.notification{
-  display:flex;gap:12px;align-items:flex-start;
-  padding:14px;border:1px solid var(--line);background:var(--panel)
-}
-.notification .badge{
-  width:9px;height:9px;border-radius:50%;background:var(--ok);
-  margin-top:7px;flex:none
-}
+.notification{display:flex;gap:12px;align-items:flex-start;padding:14px;border:1px solid var(--line);background:var(--panel)}
+.notification .badge{width:9px;height:9px;border-radius:50%;background:var(--ok);margin-top:7px;flex:none}
 .notification.unread{border-left:3px solid var(--ok)}
 .faq details{border-bottom:1px solid var(--line);padding:17px 0}
 .faq summary{cursor:pointer;font-weight:750}
 .faq p{color:var(--muted);max-width:900px}
-footer{
-  border-top:1px solid var(--line);background:var(--bg);
-  padding:35px 0;color:var(--muted);font-size:11px
-}
-.footer-grid{
-  display:flex;justify-content:space-between;gap:30px
-}
-.toast{
-  position:fixed;right:18px;bottom:18px;background:var(--accent);
-  color:var(--bg);padding:13px 16px;border-radius:5px;
-  font-size:13px;font-weight:750;display:none;z-index:100
-}
-.modal{
-  position:fixed;inset:0;background:rgba(0,0,0,.72);
-  display:none;place-items:center;padding:18px;z-index:90
-}
+footer{border-top:1px solid var(--line);background:var(--bg);padding:35px 0;color:var(--muted);font-size:11px}
+.footer-grid{display:flex;justify-content:space-between;gap:30px}
+.toast{position:fixed;right:18px;bottom:18px;background:var(--accent);color:var(--bg);padding:13px 16px;border-radius:5px;font-size:13px;font-weight:750;display:none;z-index:100}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.72);display:none;place-items:center;padding:18px;z-index:90}
 .modal.open{display:grid}
-.modal-box{
-  width:min(720px,100%);max-height:90vh;overflow:auto;
-  background:var(--panel);border:1px solid var(--line);
-  padding:24px;border-radius:6px
-}
-.modal-head{
-  display:flex;justify-content:space-between;
-  align-items:center;gap:12px;margin-bottom:20px
-}
+.modal-box{width:min(720px,100%);max-height:90vh;overflow:auto;background:var(--panel);border:1px solid var(--line);padding:24px;border-radius:6px}
+.modal-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:20px}
 @media(max-width:980px){
-  nav{display:none}
-  .menu{display:block}
-  .nav.open nav{
-    display:flex;position:absolute;top:74px;left:0;right:0;
-    background:var(--bg);padding:18px;flex-direction:column;
-    align-items:stretch;border-bottom:1px solid var(--line)
-  }
-  .hero-grid,.grid3{grid-template-columns:1fr}
-  .dashboard{grid-template-columns:repeat(2,1fr)}
+ nav{display:none}.menu{display:block}.nav.open nav{display:flex;position:absolute;top:74px;left:0;right:0;background:var(--bg);padding:18px;flex-direction:column;align-items:stretch;border-bottom:1px solid var(--line)}
+ .hero-grid,.grid3{grid-template-columns:1fr}.dashboard{grid-template-columns:repeat(2,1fr)}
 }
 @media(max-width:720px){
-  .stats,.grid2,.form{grid-template-columns:1fr}
-  .field.full{grid-column:auto}
-  .searchbar{grid-template-columns:1fr}
-  .case-row{grid-template-columns:1fr}
-  .hero{min-height:620px}
+ .stats,.grid2,.form{grid-template-columns:1fr}.field.full{grid-column:auto}.searchbar{grid-template-columns:1fr}.case-row{grid-template-columns:1fr}.hero{min-height:620px}
 }
-@media(max-width:480px){
-  .dashboard{grid-template-columns:1fr}
-  .footer-grid{flex-direction:column}
-  .nav-actions .icon-btn{display:none}
-  h1{letter-spacing:-2px}
-}
+@media(max-width:480px){.dashboard{grid-template-columns:1fr}.footer-grid{flex-direction:column}.nav-actions .icon-btn{display:none}h1{letter-spacing:-2px}}
+
 </style>
 </head>
-
 <body>
-
 <a class="skip" href="#main">Aller au contenu</a>
 
 <header>
   <div class="container nav" id="nav">
-
     <a class="brand" href="#accueil" aria-label="Accueil SABI">
       <div class="seal">SABI</div>
-      <div>
-        SAN ANDREAS
-        <small>BUREAU OF INVESTIGATION</small>
-      </div>
+      <div>SAN ANDREAS<small>BUREAU OF INVESTIGATION</small></div>
     </a>
-
     <div class="nav-actions">
-      <button class="icon-btn" id="themeBtn" type="button">
-        ☾
-      </button>
-      <button class="menu" type="button" onclick="toggleMenu()">
-        MENU
-      </button>
+      <button class="icon-btn" id="themeBtn" type="button" aria-label="Changer le thème">☾</button>
+      <button class="menu" type="button" onclick="toggleMenu()">MENU</button>
     </div>
-
     <nav>
       <a href="#bureau">Le Bureau</a>
       <a href="#missions">Services</a>
@@ -295,926 +148,228 @@ footer{
       <a href="#contact">Contact</a>
       <a href="#faq">FAQ</a>
     </nav>
-
   </div>
 </header>
 
 <main id="main">
-
 <section class="hero" id="accueil">
   <div class="container hero-grid">
-
     <div>
-      <span class="kicker">
-        PORTAIL INSTITUTIONNEL · SAN ANDREAS
-      </span>
-
-      <h1>
-        La vérité.<br>
-        Les faits.<br>
-        L'enquête.
-      </h1>
-
-      <p>
-        Le San Andreas Bureau of Investigation intervient sur les
-        affaires complexes, sensibles et interservices nécessitant
-        une expertise d'investigation spécialisée.
-      </p>
-
+      <span class="kicker">PORTAIL INSTITUTIONNEL · SAN ANDREAS</span>
+      <h1>La vérité.<br>Les faits.<br>L'enquête.</h1>
+      <p>Le San Andreas Bureau of Investigation intervient sur les affaires complexes, sensibles et interservices nécessitant une expertise d'investigation spécialisée.</p>
       <div class="actions">
-        <a class="btn primary" href="#demande">
-          Déposer une demande
-        </a>
-
-        <a class="btn" href="#missions">
-          Découvrir les services
-        </a>
+        <a class="btn primary" href="#demande">Déposer une demande</a>
+        <a class="btn" href="#missions">Découvrir les services</a>
       </div>
     </div>
-
     <div class="hero-card">
-
-      <div class="status">
-        <span>STATUT DU BUREAU</span>
-        <b>
-          <span class="dot"></span>
-          OPÉRATIONNEL
-        </b>
-      </div>
-
-      <div class="status">
-        <span>DISPONIBILITÉ</span>
-        <b>24/7</b>
-      </div>
-
-      <div class="status">
-        <span>CONFIDENTIALITÉ</span>
-        <b>RENFORCÉE</b>
-      </div>
-
-      <div class="status">
-        <span>RÉFÉRENCE</span>
-        <b>SABI-GOV</b>
-      </div>
-
-      <p style="color:var(--muted);font-size:12px;margin-top:22px">
-        Portail public du San Andreas Bureau of Investigation.
-      </p>
-
+      <div class="status"><span>STATUT DU BUREAU</span><b><span class="dot"></span>OPÉRATIONNEL</b></div>
+      <div class="status"><span>DISPONIBILITÉ</span><b>24/7</b></div>
+      <div class="status"><span>CONFIDENTIALITÉ</span><b>RENFORCÉE</b></div>
+      <div class="status"><span>RÉFÉRENCE</span><b>SABI-GOV</b></div>
+      <p style="color:var(--muted);font-size:12px;margin-top:22px">Portail public du San Andreas Bureau of Investigation.</p>
     </div>
-
   </div>
 </section>
 
 <section id="bureau">
   <div class="container">
-
     <div class="section-head">
       <span class="eyebrow">PRÉSENTATION</span>
-
-      <h2>
-        Une institution tournée vers les affaires sensibles
-      </h2>
-
-      <p>
-        Le SABI peut être saisi par un citoyen, une entreprise,
-        une administration ou un service de sécurité lorsqu'une
-        affaire justifie une investigation spécialisée.
-      </p>
+      <h2>Une institution tournée vers les affaires sensibles</h2>
+      <p>Le SABI peut être saisi par un citoyen, une entreprise, une administration ou un service de sécurité lorsqu'une affaire justifie une investigation spécialisée.</p>
     </div>
-
     <div class="stats">
-
-      <div class="stat">
-        <b>24/7</b>
-        <span>Disponibilité du Bureau</span>
-      </div>
-
-      <div class="stat">
-        <b>06</b>
-        <span>Domaines d'intervention</span>
-      </div>
-
-      <div class="stat">
-        <b>01</b>
-        <span>Référence unique par dossier</span>
-      </div>
-
-      <div class="stat">
-        <b>SEC</b>
-        <span>Traitement confidentiel</span>
-      </div>
-
+      <div class="stat"><b>24/7</b><span>Disponibilité du Bureau</span></div>
+      <div class="stat"><b>06</b><span>Domaines d'intervention</span></div>
+      <div class="stat"><b>01</b><span>Référence unique par dossier</span></div>
+      <div class="stat"><b>SEC</b><span>Traitement confidentiel</span></div>
     </div>
-
     <div class="grid2" style="margin-top:18px">
-
-      <div class="card">
-        <div class="number">01 · MISSION</div>
-
-        <h3>Analyser avant d'agir</h3>
-
-        <p>
-          Le Bureau centralise les informations, recoupe les éléments
-          disponibles et structure les enquêtes complexes afin
-          d'apporter une réponse claire et documentée.
-        </p>
-      </div>
-
-      <div class="card">
-        <div class="number">02 · COORDINATION</div>
-
-        <h3>Travailler avec les institutions</h3>
-
-        <p>
-          Les dossiers peuvent nécessiter la coopération de plusieurs
-          services. Le SABI facilite la transmission, l'analyse et
-          le suivi des informations utiles.
-        </p>
-      </div>
-
+      <div class="card"><div class="number">01 · MISSION</div><h3>Analyser avant d'agir</h3><p>Le Bureau centralise les informations, recoupe les éléments disponibles et structure les enquêtes complexes afin d'apporter une réponse claire et documentée.</p></div>
+      <div class="card"><div class="number">02 · COORDINATION</div><h3>Travailler avec les institutions</h3><p>Les dossiers peuvent nécessiter la coopération de plusieurs services. Le SABI facilite la transmission, l'analyse et le suivi des informations utiles.</p></div>
     </div>
-
   </div>
 </section>
 
 <section class="alt" id="missions">
   <div class="container">
-
     <div class="section-head">
       <span class="eyebrow">SERVICES & UNITÉS</span>
-
       <h2>Des unités spécialisées</h2>
-
-      <p>
-        Une organisation conçue pour traiter les affaires criminelles,
-        financières, numériques et les opérations sensibles.
-      </p>
+      <p>Une organisation conçue pour traiter les affaires criminelles, financières, numériques et les opérations sensibles.</p>
     </div>
-
     <div class="grid3">
-
-      <div class="card">
-        <div class="number">01 · CRIMINAL INVESTIGATIONS</div>
-        <h3>Criminal Investigations</h3>
-
-        <p>
-          Homicides, disparitions, enlèvements et dossiers criminels complexes.
-        </p>
-
-        <ul>
-          <li>Analyse des faits</li>
-          <li>Recoupement des témoignages</li>
-          <li>Coordination des investigations</li>
-        </ul>
-      </div>
-
-      <div class="card">
-        <div class="number">02 · ORGANIZED CRIME</div>
-        <h3>Organized Crime</h3>
-
-        <p>
-          Réseaux criminels, trafics et organisations structurées.
-        </p>
-
-        <ul>
-          <li>Cartographie des réseaux</li>
-          <li>Analyse des liens</li>
-          <li>Surveillance spécialisée</li>
-        </ul>
-      </div>
-
-      <div class="card">
-        <div class="number">03 · FINANCIAL CRIMES</div>
-        <h3>Financial Crimes</h3>
-
-        <p>
-          Fraudes, blanchiment, détournements et affaires liées aux entreprises.
-        </p>
-
-        <ul>
-          <li>Analyse financière</li>
-          <li>Traçage des flux</li>
-          <li>Rapports de synthèse</li>
-        </ul>
-      </div>
-
-      <div class="card">
-        <div class="number">04 · CYBER & INTELLIGENCE</div>
-        <h3>Cyber & Intelligence</h3>
-
-        <p>
-          Renseignement, analyse des informations et exploitation
-          des traces numériques.
-        </p>
-
-        <ul>
-          <li>Veille informationnelle</li>
-          <li>Analyse de données</li>
-          <li>Renseignement opérationnel</li>
-        </ul>
-      </div>
-
-      <div class="card">
-        <div class="number">05 · SPECIAL OPERATIONS</div>
-        <h3>Special Operations</h3>
-
-        <p>
-          Surveillance, protection, appui opérationnel et gestion
-          des opérations sensibles.
-        </p>
-
-        <ul>
-          <li>Appui aux unités</li>
-          <li>Planification</li>
-          <li>Coordination terrain</li>
-        </ul>
-      </div>
-
-      <div class="card">
-        <div class="number">06 · INTERNAL AFFAIRS</div>
-        <h3>Internal Affairs</h3>
-
-        <p>
-          Traitement des signalements internes, contrôles et enquêtes
-          administratives sensibles.
-        </p>
-
-        <ul>
-          <li>Signalements</li>
-          <li>Audits internes</li>
-          <li>Suivi des procédures</li>
-        </ul>
-      </div>
-
+      <div class="card"><div class="number">01 · CRIMINAL INVESTIGATIONS</div><h3>Criminal Investigations</h3><p>Homicides, disparitions, enlèvements et dossiers criminels complexes.</p><ul><li>Analyse des faits</li><li>Recoupement des témoignages</li><li>Coordination des investigations</li></ul></div>
+      <div class="card"><div class="number">02 · ORGANIZED CRIME</div><h3>Organized Crime</h3><p>Réseaux criminels, trafics et organisations structurées.</p><ul><li>Cartographie des réseaux</li><li>Analyse des liens</li><li>Surveillance spécialisée</li></ul></div>
+      <div class="card"><div class="number">03 · FINANCIAL CRIMES</div><h3>Financial Crimes</h3><p>Fraudes, blanchiment, détournements et affaires liées aux entreprises.</p><ul><li>Analyse financière</li><li>Traçage des flux</li><li>Rapports de synthèse</li></ul></div>
+      <div class="card"><div class="number">04 · CYBER & INTELLIGENCE</div><h3>Cyber & Intelligence</h3><p>Renseignement, analyse des informations et exploitation des traces numériques.</p><ul><li>Veille informationnelle</li><li>Analyse de données</li><li>Renseignement opérationnel</li></ul></div>
+      <div class="card"><div class="number">05 · SPECIAL OPERATIONS</div><h3>Special Operations</h3><p>Surveillance, protection, appui opérationnel et gestion des opérations sensibles.</p><ul><li>Appui aux unités</li><li>Planification</li><li>Coordination terrain</li></ul></div>
+      <div class="card"><div class="number">06 · INTERNAL AFFAIRS</div><h3>Internal Affairs</h3><p>Traitement des signalements internes, contrôles et enquêtes administratives sensibles.</p><ul><li>Signalements</li><li>Audits internes</li><li>Suivi des procédures</li></ul></div>
     </div>
   </div>
 </section>
 
 <section id="demande">
   <div class="container">
-
-    <div class="section-head">
-      <span class="eyebrow">SAISIR LE SABI</span>
-
-      <h2>Déposer une demande de dossier</h2>
-
-      <p>
-        Le formulaire crée immédiatement une référence unique et
-        enregistre les informations dans le navigateur.
-      </p>
-    </div>
-
-    <div class="notice">
-      <b>Fonctionnement :</b>
-      les données sont sauvegardées localement sur cet appareil.
-      Une connexion à une base de données peut être ajoutée pour
-      un fonctionnement partagé entre plusieurs utilisateurs.
-    </div>
-
+    <div class="section-head"><span class="eyebrow">SAISIR LE SABI</span><h2>Déposer une demande de dossier</h2><p>Le formulaire crée immédiatement une référence unique et enregistre les informations dans la base SABI.</p></div>
+    <div class="notice"><b>Fonctionnement :</b> les demandes sont enregistrées dans la base SABI afin de permettre leur suivi et leur gestion depuis les différents appareils autorisés.</div>
     <form class="form" id="requestForm">
-
-      <div class="field">
-        <label for="rname">Nom / organisation *</label>
-        <input id="rname" required maxlength="120"
-               placeholder="Ex. John Doe / LSPD">
-      </div>
-
-      <div class="field">
-        <label for="rcontact">Moyen de contact *</label>
-        <input id="rcontact" required maxlength="160"
-               placeholder="Téléphone, email, radio...">
-      </div>
-
-      <div class="field">
-        <label for="rtype">Type de demande</label>
-
-        <select id="rtype">
-          <option>Signalement</option>
-          <option>Demande d'enquête</option>
-          <option>Affaire sensible</option>
-          <option>Soupçon de corruption</option>
-          <option>Contre-enquête</option>
-          <option>Demande institutionnelle</option>
-        </select>
-      </div>
-
-      <div class="field">
-        <label for="rconf">Niveau de confidentialité</label>
-
-        <select id="rconf">
-          <option>Standard</option>
-          <option>Confidentiel</option>
-          <option>Très confidentiel</option>
-        </select>
-      </div>
-
-      <div class="field full">
-        <label for="rdesc">Description des faits *</label>
-
-        <textarea id="rdesc" required maxlength="6000"
-          placeholder="Décris les faits, dates, lieux et éléments disponibles..."></textarea>
-      </div>
-
-      <div class="field full">
-        <label for="relem">Éléments disponibles</label>
-
-        <textarea id="relem" maxlength="4000"
-          placeholder="Photos, témoignages, rapports, immatriculations, références de dossiers..."></textarea>
-      </div>
-
-      <div class="field full">
-        <button class="btn primary" type="submit">
-          Créer le dossier
-        </button>
-      </div>
-
+      <div class="field"><label for="rname">Nom / organisation *</label><input id="rname" required maxlength="120" placeholder="Ex. John Doe / LSPD"></div>
+      <div class="field"><label for="rcontact">Moyen de contact *</label><input id="rcontact" required maxlength="160" placeholder="Téléphone, email, radio..."></div>
+      <div class="field"><label for="rtype">Type de demande</label><select id="rtype"><option>Signalement</option><option>Demande d'enquête</option><option>Affaire sensible</option><option>Soupçon de corruption</option><option>Contre-enquête</option><option>Demande institutionnelle</option></select></div>
+      <div class="field"><label for="rconf">Niveau de confidentialité</label><select id="rconf"><option>Standard</option><option>Confidentiel</option><option>Très confidentiel</option></select></div>
+      <div class="field full"><label for="rdesc">Description des faits *</label><textarea id="rdesc" required maxlength="6000" placeholder="Décris les faits, dates, lieux et éléments disponibles..."></textarea></div>
+      <div class="field full"><label for="relem">Éléments disponibles</label><textarea id="relem" maxlength="4000" placeholder="Photos, témoignages, rapports, immatriculations, références de dossiers..."></textarea></div>
+      <div class="field full"><button class="btn primary" type="submit">Créer le dossier</button></div>
     </form>
-
     <div class="result" id="requestResult" aria-live="polite"></div>
-
   </div>
 </section>
 
 <section class="alt" id="suivi">
   <div class="container">
-
-    <div class="section-head">
-      <span class="eyebrow">SUIVI DES DOSSIERS</span>
-
-      <h2>Suivre un dossier</h2>
-
-      <p>
-        Recherche une référence enregistrée sur cet appareil et
-        consulte son état d'avancement.
-      </p>
-    </div>
-
+    <div class="section-head"><span class="eyebrow">SUIVI DES DOSSIERS</span><h2>Suivre un dossier</h2><p>Recherche une référence enregistrée dans la base SABI et consulte son état d'avancement.</p></div>
     <div class="searchbar">
-
-      <input id="trackId"
-             placeholder="SABI-2026-0001"
-             aria-label="Numéro de dossier">
-
-      <select id="trackStatus">
-        <option value="">Tous les statuts</option>
-        <option>En cours d’évaluation</option>
-        <option>En enquête</option>
-        <option>En attente</option>
-        <option>Clôturé</option>
-      </select>
-
-      <select id="trackType">
-        <option value="">Tous les types</option>
-        <option>Signalement</option>
-        <option>Demande d'enquête</option>
-        <option>Affaire sensible</option>
-        <option>Soupçon de corruption</option>
-        <option>Contre-enquête</option>
-        <option>Demande institutionnelle</option>
-      </select>
-
-      <button class="btn primary"
-              type="button"
-              onclick="searchCases()">
-        Rechercher
-      </button>
-
+      <input id="trackId" placeholder="SABI-2026-0001" aria-label="Numéro de dossier">
+      <select id="trackStatus"><option value="">Tous les statuts</option><option>En cours d’évaluation</option><option>En enquête</option><option>En attente</option><option>Clôturé</option></select>
+      <select id="trackType"><option value="">Tous les types</option><option>Signalement</option><option>Demande d'enquête</option><option>Affaire sensible</option><option>Soupçon de corruption</option><option>Contre-enquête</option><option>Demande institutionnelle</option></select>
+      <button class="btn primary" type="button" onclick="searchCases()">Rechercher</button>
     </div>
-
     <div id="caseList" class="case-list"></div>
-
-    <div class="result"
-         id="trackResult"
-         aria-live="polite"></div>
-
+    <div class="result" id="trackResult" aria-live="polite"></div>
   </div>
 </section>
 
 <section id="agents">
   <div class="container">
-
-    <div class="section-head">
-      <span class="eyebrow">ESPACE AGENTS</span>
-
-      <h2>Tableau de bord du Bureau</h2>
-
-      <p>
-        Accès local aux outils de gestion, aux dossiers, aux rapports
-        et aux notifications.
-      </p>
-    </div>
-
+    <div class="section-head"><span class="eyebrow">ESPACE AGENTS</span><h2>Tableau de bord du Bureau</h2><p>Accès aux outils de gestion, aux dossiers, aux rapports et aux notifications.</p></div>
     <div id="agentLogin" class="card">
-
       <div class="grid2">
-
-        <div>
-          <h3>Connexion</h3>
-
-          <p>
-            Accède à l'interface de gestion de cet appareil avec
-            le code local configuré.
-          </p>
-        </div>
-
-        <div class="field">
-
-          <label for="agentPin">
-            Code d'accès local
-          </label>
-
-          <input id="agentPin"
-                 type="password"
-                 inputmode="numeric"
-                 maxlength="12"
-                 placeholder="Code d'accès">
-
-          <button class="btn primary"
-                  type="button"
-                  onclick="loginAgent()">
-            Ouvrir l'espace agents
-          </button>
-
-        </div>
-
+        <div><h3>Connexion</h3><p>Accède à l'interface de gestion de cet appareil avec le code local configuré.</p></div>
+        <div class="field"><label for="agentPin">Code d'accès local</label><input id="agentPin" type="password" inputmode="numeric" maxlength="12" placeholder="Code d'accès"><button class="btn primary" type="button" onclick="loginAgent()">Ouvrir l'espace agents</button></div>
       </div>
-
     </div>
-
     <div id="agentPanel" style="display:none">
-
       <div class="dashboard">
-
-        <div class="dashboard-card">
-          <span>Dossiers totaux</span>
-          <strong id="dashTotal">0</strong>
-        </div>
-
-        <div class="dashboard-card">
-          <span>En évaluation</span>
-          <strong id="dashReview">0</strong>
-        </div>
-
-        <div class="dashboard-card">
-          <span>En enquête</span>
-          <strong id="dashInvest">0</strong>
-        </div>
-
-        <div class="dashboard-card">
-          <span>Clôturés</span>
-          <strong id="dashClosed">0</strong>
-        </div>
-
+        <div class="dashboard-card"><span>Dossiers totaux</span><strong id="dashTotal">0</strong></div>
+        <div class="dashboard-card"><span>En évaluation</span><strong id="dashReview">0</strong></div>
+        <div class="dashboard-card"><span>En enquête</span><strong id="dashInvest">0</strong></div>
+        <div class="dashboard-card"><span>Clôturés</span><strong id="dashClosed">0</strong></div>
       </div>
-
       <div class="actions">
-
-        <button class="btn"
-                type="button"
-                onclick="scrollToId('gestion')">
-          Gestion des dossiers
-        </button>
-
-        <button class="btn"
-                type="button"
-                onclick="scrollToId('rapports')">
-          Créer un rapport
-        </button>
-
-        <button class="btn"
-                type="button"
-                onclick="scrollToId('notifications')">
-          Notifications
-        </button>
-
-        <button class="btn danger"
-                type="button"
-                onclick="logoutAgent()">
-          Fermer la session
-        </button>
-
+        <button class="btn" type="button" onclick="scrollToId('gestion')">Gestion des dossiers</button>
+        <button class="btn" type="button" onclick="scrollToId('rapports')">Créer un rapport</button>
+        <button class="btn" type="button" onclick="scrollToId('notifications')">Notifications</button>
+        <button class="btn danger" type="button" onclick="logoutAgent()">Fermer la session</button>
       </div>
-
     </div>
-
   </div>
 </section>
 
 <section class="alt" id="gestion">
   <div class="container">
-
-    <div class="section-head">
-      <span class="eyebrow">GESTION</span>
-
-      <h2>Gestion des dossiers</h2>
-
-      <p>
-        Recherche, filtre et mets à jour les dossiers enregistrés localement.
-      </p>
-    </div>
-
+    <div class="section-head"><span class="eyebrow">GESTION</span><h2>Gestion des dossiers</h2><p>Recherche, filtre et mets à jour les dossiers enregistrés dans la base SABI.</p></div>
     <div class="searchbar">
-
-      <input id="manageSearch"
-             placeholder="Rechercher par référence, nom ou contenu..."
-             aria-label="Recherche des dossiers">
-
-      <select id="manageStatus">
-        <option value="">Tous les statuts</option>
-        <option>En cours d’évaluation</option>
-        <option>En enquête</option>
-        <option>En attente</option>
-        <option>Clôturé</option>
-      </select>
-
-      <select id="manageConf">
-        <option value="">Toutes les confidentialités</option>
-        <option>Standard</option>
-        <option>Confidentiel</option>
-        <option>Très confidentiel</option>
-      </select>
-
-      <button class="btn primary"
-              type="button"
-              onclick="renderManagement()">
-        Filtrer
-      </button>
-
+      <input id="manageSearch" placeholder="Rechercher par référence, nom ou contenu..." aria-label="Recherche des dossiers">
+      <select id="manageStatus"><option value="">Tous les statuts</option><option>En cours d’évaluation</option><option>En enquête</option><option>En attente</option><option>Clôturé</option></select>
+      <select id="manageConf"><option value="">Toutes les confidentialités</option><option>Standard</option><option>Confidentiel</option><option>Très confidentiel</option></select>
+      <button class="btn primary" type="button" onclick="renderManagement()">Filtrer</button>
     </div>
-
     <div id="managementList" class="case-list"></div>
-
-    <div class="toolbar"
-         style="display:flex;gap:10px;flex-wrap:wrap;margin-top:16px">
-
-      <button class="btn"
-              type="button"
-              onclick="exportData()">
-        Exporter une sauvegarde
-      </button>
-
-      <button class="btn"
-              type="button"
-              onclick="document.getElementById('importFile').click()">
-        Importer une sauvegarde
-      </button>
-
-      <button class="btn danger"
-              type="button"
-              onclick="clearAllData()">
-        Effacer les données locales
-      </button>
-
-      <input id="importFile"
-             type="file"
-             accept="application/json"
-             hidden
-             onchange="importData(event)">
-
+    <div class="toolbar" style="display:flex;gap:10px;flex-wrap:wrap;margin-top:16px">
+      <button class="btn" type="button" onclick="exportData()">Exporter une sauvegarde</button>
+      <button class="btn" type="button" onclick="document.getElementById('importFile').click()">Importer une sauvegarde</button>
+      <button class="btn danger" type="button" onclick="clearAllData()">Effacer les données locales</button>
+      <input id="importFile" type="file" accept="application/json" hidden onchange="importData(event)">
     </div>
-
   </div>
 </section>
 
 <section id="rapports">
   <div class="container">
-
-    <div class="section-head">
-      <span class="eyebrow">DOCUMENTATION</span>
-
-      <h2>Création de rapports</h2>
-
-      <p>
-        Rédige un rapport d'enquête et conserve-le localement
-        avec une référence exploitable.
-      </p>
-    </div>
-
+    <div class="section-head"><span class="eyebrow">DOCUMENTATION</span><h2>Création de rapports</h2><p>Rédige un rapport d'enquête et conserve-le dans la base SABI avec une référence exploitable.</p></div>
     <form class="form" id="reportForm">
-
-      <div class="field">
-        <label for="reportCase">
-          Référence du dossier
-        </label>
-
-        <input id="reportCase"
-               placeholder="SABI-2026-0001">
-      </div>
-
-      <div class="field">
-        <label for="reportAuthor">
-          Agent rédacteur *
-        </label>
-
-        <input id="reportAuthor"
-               required
-               placeholder="Nom de l'agent">
-      </div>
-
-      <div class="field">
-        <label for="reportType">
-          Type de rapport
-        </label>
-
-        <select id="reportType">
-          <option>Rapport d'enquête</option>
-          <option>Note de synthèse</option>
-          <option>Rapport d'audition</option>
-          <option>Compte rendu opérationnel</option>
-          <option>Rapport administratif</option>
-        </select>
-      </div>
-
-      <div class="field">
-        <label for="reportDate">Date</label>
-
-        <input id="reportDate" type="date">
-      </div>
-
-      <div class="field full">
-        <label for="reportTitle">
-          Objet *
-        </label>
-
-        <input id="reportTitle"
-               required
-               maxlength="180"
-               placeholder="Objet du rapport">
-      </div>
-
-      <div class="field full">
-        <label for="reportBody">
-          Contenu *
-        </label>
-
-        <textarea id="reportBody"
-                  required
-                  maxlength="12000"
-                  placeholder="Rédige le rapport, les constatations, les éléments recueillis et les conclusions..."></textarea>
-      </div>
-
-      <div class="field full">
-        <button class="btn primary"
-                type="submit">
-          Enregistrer le rapport
-        </button>
-      </div>
-
+      <div class="field"><label for="reportCase">Référence du dossier</label><input id="reportCase" placeholder="SABI-2026-0001"></div>
+      <div class="field"><label for="reportAuthor">Agent rédacteur *</label><input id="reportAuthor" required placeholder="Nom de l'agent"></div>
+      <div class="field"><label for="reportType">Type de rapport</label><select id="reportType"><option>Rapport d'enquête</option><option>Note de synthèse</option><option>Rapport d'audition</option><option>Compte rendu opérationnel</option><option>Rapport administratif</option></select></div>
+      <div class="field"><label for="reportDate">Date</label><input id="reportDate" type="date"></div>
+      <div class="field full"><label for="reportTitle">Objet *</label><input id="reportTitle" required maxlength="180" placeholder="Objet du rapport"></div>
+      <div class="field full"><label for="reportBody">Contenu *</label><textarea id="reportBody" required maxlength="12000" placeholder="Rédige le rapport, les constatations, les éléments recueillis et les conclusions..."></textarea></div>
+      <div class="field full"><button class="btn primary" type="submit">Enregistrer le rapport</button></div>
     </form>
-
-    <div id="reportList"
-         class="case-list"
-         style="margin-top:18px"></div>
-
+    <div id="reportList" class="case-list" style="margin-top:18px"></div>
   </div>
 </section>
 
 <section class="alt" id="notifications">
   <div class="container">
-
-    <div class="section-head">
-      <span class="eyebrow">CENTRE DE NOTIFICATIONS</span>
-
-      <h2>Notifications et statuts</h2>
-
-      <p>
-        Retrouve les dernières actions enregistrées sur les dossiers
-        et les rapports.
-      </p>
-    </div>
-
-    <div class="notifications"
-         id="notificationList"></div>
-
+    <div class="section-head"><span class="eyebrow">CENTRE DE NOTIFICATIONS</span><h2>Notifications et statuts</h2><p>Retrouve les dernières actions enregistrées sur les dossiers et les rapports.</p></div>
+    <div class="notifications" id="notificationList"></div>
   </div>
 </section>
 
 <section id="contact">
   <div class="container">
-
-    <div class="section-head">
-      <span class="eyebrow">CONTACT</span>
-
-      <h2>Contacter le Bureau</h2>
-
-      <p>
-        Une demande générale peut être transmise depuis ce formulaire.
-        Les informations restent locales sur cet appareil.
-      </p>
-    </div>
-
+    <div class="section-head"><span class="eyebrow">CONTACT</span><h2>Contacter le Bureau</h2><p>Une demande générale peut être transmise depuis ce formulaire.</p></div>
     <div class="grid2">
-
       <form class="card" id="contactForm">
-
         <div class="form">
-
-          <div class="field">
-            <label for="cname">Nom *</label>
-            <input id="cname"
-                   required
-                   maxlength="120">
-          </div>
-
-          <div class="field">
-            <label for="csubject">Objet *</label>
-            <input id="csubject"
-                   required
-                   maxlength="160">
-          </div>
-
-          <div class="field full">
-            <label for="cemail">
-              Adresse de contact *
-            </label>
-
-            <input id="cemail"
-                   type="email"
-                   required
-                   maxlength="160">
-          </div>
-
-          <div class="field full">
-            <label for="cmessage">
-              Message *
-            </label>
-
-            <textarea id="cmessage"
-                      required
-                      maxlength="5000"></textarea>
-          </div>
-
-          <div class="field full">
-            <button class="btn primary"
-                    type="submit">
-              Envoyer le message
-            </button>
-          </div>
-
+          <div class="field"><label for="cname">Nom *</label><input id="cname" required maxlength="120"></div>
+          <div class="field"><label for="csubject">Objet *</label><input id="csubject" required maxlength="160"></div>
+          <div class="field full"><label for="cemail">Adresse de contact *</label><input id="cemail" type="email" required maxlength="160"></div>
+          <div class="field full"><label for="cmessage">Message *</label><textarea id="cmessage" required maxlength="5000"></textarea></div>
+          <div class="field full"><button class="btn primary" type="submit">Envoyer le message</button></div>
         </div>
-
       </form>
-
       <div class="card">
-
         <div class="number">COORDONNÉES</div>
-
-        <h3>
-          San Andreas Bureau of Investigation
-        </h3>
-
-        <p>
-          Service central d'investigation et de coordination.
-        </p>
-
-        <p>
-          <b>Standard :</b> 555-SABI<br>
-          <b>Courriel :</b> contact@sabi.example<br>
-          <b>Disponibilité :</b> 24 heures sur 24
-        </p>
-
-        <div class="notice"
-             style="margin-top:20px">
-          Pour une situation urgente, utilise les services
-          d'urgence compétents.
-        </div>
-
+        <h3>San Andreas Bureau of Investigation</h3>
+        <p>Service central d'investigation et de coordination.</p>
+        <p><b>Standard :</b> 555-SABI<br><b>Courriel :</b> contact@sabi.example<br><b>Disponibilité :</b> 24 heures sur 24</p>
+        <div class="notice" style="margin-top:20px">Pour une situation urgente, utilise les services d'urgence compétents.</div>
       </div>
-
     </div>
-
   </div>
 </section>
 
 <section class="alt" id="faq">
   <div class="container">
-
-    <div class="section-head">
-      <span class="eyebrow">FAQ</span>
-      <h2>Questions fréquentes</h2>
-    </div>
-
+    <div class="section-head"><span class="eyebrow">FAQ</span><h2>Questions fréquentes</h2></div>
     <div class="faq">
-
-      <details>
-        <summary>
-          Qui peut saisir le SABI ?
-        </summary>
-
-        <p>
-          Citoyens, entreprises, institutions et services publics
-          peuvent déposer une demande, selon les procédures en vigueur.
-        </p>
-      </details>
-
-      <details>
-        <summary>
-          Le SABI accepte-t-il toutes les affaires ?
-        </summary>
-
-        <p>
-          Non. Chaque demande est évaluée selon les compétences du
-          Bureau, les éléments fournis et les priorités d'enquête.
-        </p>
-      </details>
-
-      <details>
-        <summary>
-          Comment fonctionne le numéro de dossier ?
-        </summary>
-
-        <p>
-          Chaque nouvelle demande reçoit automatiquement une référence
-          unique au format SABI-AAAA-0000.
-        </p>
-      </details>
-
-      <details>
-        <summary>
-          Les données sont-elles partagées automatiquement ?
-        </summary>
-
-        <p>
-          Non dans cette version : les données sont conservées
-          localement dans le navigateur. Une base de données peut
-          être connectée pour permettre un accès multi-utilisateur.
-        </p>
-      </details>
-
-      <details>
-        <summary>
-          Comment modifier le statut d'un dossier ?
-        </summary>
-
-        <p>
-          Ouvre l'espace agents, puis utilise la gestion des dossiers
-          pour sélectionner la nouvelle étape du traitement.
-        </p>
-      </details>
-
+      <details><summary>Qui peut saisir le SABI ?</summary><p>Citoyens, entreprises, institutions et services publics peuvent déposer une demande, selon les procédures en vigueur.</p></details>
+      <details><summary>Le SABI accepte-t-il toutes les affaires ?</summary><p>Non. Chaque demande est évaluée selon les compétences du Bureau, les éléments fournis et les priorités d'enquête.</p></details>
+      <details><summary>Comment fonctionne le numéro de dossier ?</summary><p>Chaque nouvelle demande reçoit automatiquement une référence unique au format SABI-AAAA-0000.</p></details>
+      <details><summary>Les données sont-elles partagées automatiquement ?</summary><p>Non dans cette version : les données sont conservées localement dans le navigateur. Une base de données peut être connectée pour permettre un accès multi-utilisateur.</p></details>
+      <details><summary>Comment modifier le statut d'un dossier ?</summary><p>Ouvre l'espace agents, puis utilise la gestion des dossiers pour sélectionner la nouvelle étape du traitement.</p></details>
     </div>
-
   </div>
 </section>
-
 </main>
 
 <footer>
   <div class="container footer-grid">
-
-    <div>
-      <b>
-        SAN ANDREAS BUREAU OF INVESTIGATION
-      </b>
-      <br>
-      Portail institutionnel · SABI
-    </div>
-
-    <div>
-      © 2026 SABI · Univers fictif · Non affilié à une institution réelle
-    </div>
-
+    <div><b>SAN ANDREAS BUREAU OF INVESTIGATION</b><br>Portail institutionnel · SABI</div>
+    <div>© 2026 SABI · Univers fictif · Non affilié à une institution réelle</div>
   </div>
 </footer>
 
-<div class="toast"
-     id="toast"
-     role="status"
-     aria-live="polite"></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-<div class="modal"
-     id="caseModal"
-     role="dialog"
-     aria-modal="true"
-     aria-labelledby="caseModalTitle">
-
+<div class="modal" id="caseModal" role="dialog" aria-modal="true" aria-labelledby="caseModalTitle">
   <div class="modal-box">
-
-    <div class="modal-head">
-
-      <h3 id="caseModalTitle">
-        Dossier
-      </h3>
-
-      <button class="icon-btn"
-              type="button"
-              onclick="closeModal()">
-        Fermer
-      </button>
-
-    </div>
-
+    <div class="modal-head"><h3 id="caseModalTitle">Dossier</h3><button class="icon-btn" type="button" onclick="closeModal()">Fermer</button></div>
     <div id="caseModalBody"></div>
-
   </div>
-
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-
 (() => {
-
+  const SUPABASE_URL='https://kuajkkbbpeakdnzipihi.supabase.co';
+  const SUPABASE_PUBLISHABLE_KEY='sb_publishable_e1J0vhQM3uSoxPM6V2t5Hg_evdN4FfK';
+  const supabaseClient=window.supabase.createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY);
   const CASE_PREFIX='sabi_case_';
   const REPORT_PREFIX='sabi_report_';
   const MSG_PREFIX='sabi_msg_';
@@ -1223,1334 +378,230 @@ footer{
   const REPORT_COUNTER_KEY='sabi_report_counter';
   const AGENT_KEY='sabi_agent_session';
   const THEME_KEY='sabi_theme';
-
+  // Code local initial. Il est modifiable dans le navigateur via les données locales.
   const DEFAULT_PIN='2468';
 
   const $=id=>document.getElementById(id);
-
-  const esc=s=>String(s??'').replace(
-    /[&<>"']/g,
-    m=>({
-      '&':'&amp;',
-      '<':'&lt;',
-      '>':'&gt;',
-      '"':'&quot;',
-      "'":'&#039;'
-    }[m])
-  );
-
+  const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));
   const now=()=>new Date().toLocaleString('fr-FR');
-
   const isoDate=()=>new Date().toISOString().slice(0,10);
 
   function toast(msg){
-
-    const t=$('toast');
-
-    if(!t)return;
-
-    t.textContent=msg;
-    t.style.display='block';
-
-    clearTimeout(window.__toast);
-
-    window.__toast=setTimeout(
-      ()=>t.style.display='none',
-      3200
-    );
-
+    const t=$('toast'); if(!t)return;
+    t.textContent=msg;t.style.display='block';
+    clearTimeout(window.__toast);window.__toast=setTimeout(()=>t.style.display='none',3200);
   }
-
-  function toggleMenu(){
-    $('nav').classList.toggle('open');
-  }
-
+  function toggleMenu(){$('nav').classList.toggle('open')}
   window.toggleMenu=toggleMenu;
 
   function loadCases(){
-
     const a=[];
-
     for(let i=0;i<localStorage.length;i++){
-
       const k=localStorage.key(i);
-
       if(!k?.startsWith(CASE_PREFIX))continue;
-
-      try{
-
-        const d=JSON.parse(localStorage.getItem(k));
-
-        if(d?.id)a.push(d);
-
-      }catch{}
-
+      try{const d=JSON.parse(localStorage.getItem(k));if(d?.id)a.push(d)}catch{}
     }
-
-    return a.sort(
-      (a,b)=>String(b.createdAt).localeCompare(String(a.createdAt))
-    );
-
+    return a.sort((a,b)=>String(b.createdAt).localeCompare(String(a.createdAt)));
   }
-
-  function saveCase(d){
-
-    localStorage.setItem(
-      CASE_PREFIX+d.id,
-      JSON.stringify(d)
-    );
-
-  }
-
+  function saveCase(d){localStorage.setItem(CASE_PREFIX+d.id,JSON.stringify(d))}
   function nextCaseId(){
-
-    const y=new Date().getFullYear();
-
-    let n=parseInt(
-      localStorage.getItem(COUNTER_KEY)||'0',
-      10
-    );
-
+    const y=new Date().getFullYear();let n=parseInt(localStorage.getItem(COUNTER_KEY)||'0',10);
     if(!Number.isFinite(n))n=0;
-
     let id;
-
-    do{
-
-      n++;
-
-      id=`SABI-${y}-${String(n).padStart(4,'0')}`;
-
-    }while(
-      localStorage.getItem(CASE_PREFIX+id)
-    );
-
-    localStorage.setItem(
-      COUNTER_KEY,
-      String(n)
-    );
-
-    return id;
-
+    do{n++;id=`SABI-${y}-${String(n).padStart(4,'0')}`}while(localStorage.getItem(CASE_PREFIX+id));
+    localStorage.setItem(COUNTER_KEY,String(n));return id;
   }
-
   function nextReportId(){
-
-    const y=new Date().getFullYear();
-
-    let n=parseInt(
-      localStorage.getItem(REPORT_COUNTER_KEY)||'0',
-      10
-    )+1;
-
-    localStorage.setItem(
-      REPORT_COUNTER_KEY,
-      String(n)
-    );
-
-    return `RPT-${y}-${String(n).padStart(4,'0')}`;
-
+    const y=new Date().getFullYear();let n=parseInt(localStorage.getItem(REPORT_COUNTER_KEY)||'0',10)+1;
+    localStorage.setItem(REPORT_COUNTER_KEY,String(n));return `RPT-${y}-${String(n).padStart(4,'0')}`;
   }
-
-  function addNotification(
-    title,
-    text,
-    type='info'
-  ){
-
-    let list=[];
-
-    try{
-
-      list=JSON.parse(
-        localStorage.getItem(NOTIF_KEY)||'[]'
-      );
-
-    }catch{}
-
-    list.unshift({
-
-      id:
-        crypto.randomUUID?.()||
-        String(Date.now()),
-
-      title,
-      text,
-      type,
-      date:now(),
-      read:false
-
-    });
-
-    localStorage.setItem(
-      NOTIF_KEY,
-      JSON.stringify(list.slice(0,50))
-    );
-
-    renderNotifications();
-
+  function addNotification(title,text,type='info'){
+    let list=[];try{list=JSON.parse(localStorage.getItem(NOTIF_KEY)||'[]')}catch{}
+    list.unshift({id:crypto.randomUUID?.()||String(Date.now()),title,text,type,date:now(),read:false});
+    localStorage.setItem(NOTIF_KEY,JSON.stringify(list.slice(0,50)));renderNotifications();
   }
+  function getNotifications(){try{return JSON.parse(localStorage.getItem(NOTIF_KEY)||'[]')}catch{return[]}}
 
-  function getNotifications(){
-
-    try{
-
-      return JSON.parse(
-        localStorage.getItem(NOTIF_KEY)||'[]'
-      );
-
-    }catch{
-
-      return[];
-
-    }
-
-  }
-
-  function statusPill(status){
-
-    return `<span class="pill">
-      ${esc(String(status).toUpperCase())}
-    </span>`;
-
-  }
-
+  function statusPill(status){return `<span class="pill">${esc(String(status).toUpperCase())}</span>`}
   function caseSummary(c){
-
     return `<div class="case-row">
-
-      <div>
-        <strong>${esc(c.id)}</strong>
-
-        <div class="case-meta">
-          ${esc(c.type)} ·
-          ${esc(c.conf)} ·
-          ${esc(c.status)} ·
-          ${esc(c.createdAt)}
-        </div>
-      </div>
-
-      <div style="display:flex;gap:8px;flex-wrap:wrap">
-
-        <button
-          class="btn small"
-          type="button"
-          onclick="viewCase('${esc(c.id)}')">
-          Consulter
-        </button>
-
-        <button
-          class="btn small"
-          type="button"
-          onclick="editCase('${esc(c.id)}')">
-          Modifier
-        </button>
-
-      </div>
-
+      <div><strong>${esc(c.id)}</strong><div class="case-meta">${esc(c.type)} · ${esc(c.conf)} · ${esc(c.status)} · ${esc(c.createdAt)}</div></div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn small" type="button" onclick="viewCase('${esc(c.id)}')">Consulter</button><button class="btn small" type="button" onclick="editCase('${esc(c.id)}')">Modifier</button></div>
     </div>`;
-
   }
 
   window.viewCase=function(id){
-
-    const c=loadCases().find(
-      x=>x.id===id
-    );
-
-    if(!c)return;
-
+    const c=loadCases().find(x=>x.id===id);if(!c)return;
     $('caseModalTitle').textContent=c.id;
-
     $('caseModalBody').innerHTML=`
-
-      <div class="statusbar">
-        ${statusPill(c.status)}
-        ${statusPill(c.conf)}
-        ${statusPill(c.type)}
-      </div>
-
-      <p>
-        <b>Demandeur :</b> ${esc(c.name)}<br>
-        <b>Contact :</b> ${esc(c.contact)}<br>
-        <b>Créé le :</b> ${esc(c.createdAt)}
-      </p>
-
-      <div class="card"
-           style="box-shadow:none;margin-top:14px">
-
-        <b>Description</b>
-
-        <p>
-          ${esc(c.desc).replace(/\n/g,'<br>')}
-        </p>
-
-      </div>
-
-      <div class="card"
-           style="box-shadow:none;margin-top:12px">
-
-        <b>Éléments disponibles</b>
-
-        <p>
-          ${esc(
-            c.elem||'Aucun élément renseigné'
-          ).replace(/\n/g,'<br>')}
-        </p>
-
-      </div>
-
-      <div class="timeline"
-           style="margin-top:24px">
-
-        <div class="event">
-          <b>Demande enregistrée</b>
-          <p>${esc(c.createdAt)}</p>
-        </div>
-
-        <div class="event">
-          <b>Dernière mise à jour</b>
-          <p>${esc(c.updatedAt||c.createdAt)}</p>
-        </div>
-
-      </div>
-    `;
-
-    $('caseModal').classList.add('open');
-
-    document.body.classList.add('no-scroll');
-
+      <div class="statusbar">${statusPill(c.status)}${statusPill(c.conf)}${statusPill(c.type)}</div>
+      <p><b>Demandeur :</b> ${esc(c.name)}<br><b>Contact :</b> ${esc(c.contact)}<br><b>Créé le :</b> ${esc(c.createdAt)}</p>
+      <div class="card" style="box-shadow:none;margin-top:14px"><b>Description</b><p>${esc(c.desc).replace(/\n/g,'<br>')}</p></div>
+      <div class="card" style="box-shadow:none;margin-top:12px"><b>Éléments disponibles</b><p>${esc(c.elem||'Aucun élément renseigné').replace(/\n/g,'<br>')}</p></div>
+      <div class="timeline" style="margin-top:24px">
+        <div class="event"><b>Demande enregistrée</b><p>${esc(c.createdAt)}</p></div>
+        <div class="event"><b>Dernière mise à jour</b><p>${esc(c.updatedAt||c.createdAt)}</p></div>
+      </div>`;
+    $('caseModal').classList.add('open');document.body.classList.add('no-scroll');
   };
-
-  window.closeModal=function(){
-
-    $('caseModal').classList.remove('open');
-
-    document.body.classList.remove('no-scroll');
-
-  };
-
-  $('caseModal').addEventListener(
-    'click',
-    e=>{
-      if(e.target===$('caseModal')){
-        closeModal();
-      }
-    }
-  );
+  window.closeModal=function(){$('caseModal').classList.remove('open');document.body.classList.remove('no-scroll')};
+  $('caseModal').addEventListener('click',e=>{if(e.target===$('caseModal'))closeModal()});
 
   window.editCase=function(id){
-
-    const c=loadCases().find(
-      x=>x.id===id
-    );
-
-    if(!c)return;
-
-    $('caseModalTitle').textContent=
-      'Modifier '+c.id;
-
+    const c=loadCases().find(x=>x.id===id);if(!c)return;
+    $('caseModalTitle').textContent='Modifier '+c.id;
     $('caseModalBody').innerHTML=`
-
       <div class="form">
-
-        <div class="field">
-
-          <label>Statut</label>
-
-          <select id="editStatus">
-
-            <option ${
-              c.status==='En cours d’évaluation'
-              ?'selected':''
-            }>
-              En cours d’évaluation
-            </option>
-
-            <option ${
-              c.status==='En enquête'
-              ?'selected':''
-            }>
-              En enquête
-            </option>
-
-            <option ${
-              c.status==='En attente'
-              ?'selected':''
-            }>
-              En attente
-            </option>
-
-            <option ${
-              c.status==='Clôturé'
-              ?'selected':''
-            }>
-              Clôturé
-            </option>
-
-          </select>
-
-        </div>
-
-        <div class="field">
-
-          <label>Confidentialité</label>
-
-          <select id="editConf">
-
-            <option ${
-              c.conf==='Standard'
-              ?'selected':''
-            }>
-              Standard
-            </option>
-
-            <option ${
-              c.conf==='Confidentiel'
-              ?'selected':''
-            }>
-              Confidentiel
-            </option>
-
-            <option ${
-              c.conf==='Très confidentiel'
-              ?'selected':''
-            }>
-              Très confidentiel
-            </option>
-
-          </select>
-
-        </div>
-
-        <div class="field full">
-
-          <label>Note interne</label>
-
-          <textarea
-            id="editNote"
-            placeholder="Ajoute une note de suivi..."
-          >${esc(c.note||'')}</textarea>
-
-        </div>
-
-        <div class="field full">
-
-          <button
-            class="btn primary"
-            type="button"
-            onclick="saveCaseEdit('${esc(c.id)}')">
-            Enregistrer les modifications
-          </button>
-
-        </div>
-
-      </div>
-    `;
-
-    $('caseModal').classList.add('open');
-
-    document.body.classList.add('no-scroll');
-
+        <div class="field"><label>Statut</label><select id="editStatus"><option ${c.status==='En cours d’évaluation'?'selected':''}>En cours d’évaluation</option><option ${c.status==='En enquête'?'selected':''}>En enquête</option><option ${c.status==='En attente'?'selected':''}>En attente</option><option ${c.status==='Clôturé'?'selected':''}>Clôturé</option></select></div>
+        <div class="field"><label>Confidentialité</label><select id="editConf"><option ${c.conf==='Standard'?'selected':''}>Standard</option><option ${c.conf==='Confidentiel'?'selected':''}>Confidentiel</option><option ${c.conf==='Très confidentiel'?'selected':''}>Très confidentiel</option></select></div>
+        <div class="field full"><label>Note interne</label><textarea id="editNote" placeholder="Ajoute une note de suivi...">${esc(c.note||'')}</textarea></div>
+        <div class="field full"><button class="btn primary" type="button" onclick="saveCaseEdit('${esc(c.id)}')">Enregistrer les modifications</button></div>
+      </div>`;
+    $('caseModal').classList.add('open');document.body.classList.add('no-scroll');
   };
-
-  window.saveCaseEdit=function(id){
-
-    const c=loadCases().find(
-      x=>x.id===id
-    );
-
-    if(!c)return;
-
-    const old=c.status;
-
-    c.status=$('editStatus').value;
-    c.conf=$('editConf').value;
-    c.note=$('editNote').value;
-    c.updatedAt=now();
-
-    saveCase(c);
-
-    closeModal();
-
-    renderManagement();
-    searchCases();
-    updateDashboard();
-
-    if(old!==c.status){
-
-      addNotification(
-        'Statut mis à jour',
-        `${id} est maintenant « ${c.status} ».`,
-        'status'
-      );
-
-    }
-
+  window.saveCaseEdit=async function(id){
+    const c=loadCases().find(x=>x.id===id);if(!c)return;
+    const old=c.status;c.status=$('editStatus').value;c.conf=$('editConf').value;c.note=$('editNote').value;c.updatedAt=now();
+    const {error}=await supabaseClient.from('dossiers').update({statut:c.status,priorite:c.conf}).eq('reference',id);
+    if(error){console.error(error);toast('Mise à jour impossible dans la base');return;}
+    saveCase(c);closeModal();renderManagement();searchCases();updateDashboard();
+    if(old!==c.status)addNotification('Statut mis à jour',`${id} est maintenant « ${c.status} ».`,'status');
     toast('Dossier mis à jour');
-
   };
 
-  $('requestForm').addEventListener(
-    'submit',
-    e=>{
+  $('requestForm').addEventListener('submit',async e=>{
+    e.preventDefault();if(!e.currentTarget.reportValidity())return;
+    const id=nextCaseId();
+    const c={id,name:$('rname').value.trim(),contact:$('rcontact').value.trim(),type:$('rtype').value,conf:$('rconf').value,desc:$('rdesc').value.trim(),elem:$('relem').value.trim(),status:'En cours d’évaluation',createdAt:now(),updatedAt:now()};
+    const description=[c.desc,c.elem?`Éléments disponibles : ${c.elem}`:'',`Confidentialité : ${c.conf}`].filter(Boolean).join('\n\n');
+    const {error}=await supabaseClient.from('dossiers').insert({
+      reference:id,nom:c.name,email:c.contact,objet:c.type,description,statut:c.status,priorite:c.conf,unite:c.type
+    });
+    if(error){console.error(error);toast('Impossible d’enregistrer le dossier dans la base');return;}
+    saveCase(c);
+    $('requestResult').style.display='block';
+    $('requestResult').innerHTML=`<div class="eyebrow">DOSSIER CRÉÉ</div><h3>${esc(id)}</h3><p style="color:var(--muted)">Conserve cette référence pour consulter le dossier.</p><div class="statusbar">${statusPill(c.status)}${statusPill(c.type)}${statusPill(c.conf)}</div><div class="actions"><button class="btn small" type="button" onclick="viewCase('${esc(id)}')">Ouvrir le dossier</button></div>`;
+    e.currentTarget.reset();$('trackId').value=id;renderManagement();searchCases();updateDashboard();
+    addNotification('Nouveau dossier',`Le dossier ${id} a été créé.`,'new');toast(`Dossier ${id} créé`);
+  });
 
-      e.preventDefault();
-
-      if(!e.currentTarget.reportValidity())return;
-
-      const id=nextCaseId();
-
-      const c={
-
-        id,
-
-        name:$('rname').value.trim(),
-
-        contact:$('rcontact').value.trim(),
-
-        type:$('rtype').value,
-
-        conf:$('rconf').value,
-
-        desc:$('rdesc').value.trim(),
-
-        elem:$('relem').value.trim(),
-
-        status:'En cours d’évaluation',
-
-        createdAt:now(),
-
-        updatedAt:now()
-
-      };
-
-      saveCase(c);
-
-      $('requestResult').style.display='block';
-
-      $('requestResult').innerHTML=`
-
-        <div class="eyebrow">
-          DOSSIER CRÉÉ
-        </div>
-
-        <h3>${esc(id)}</h3>
-
-        <p style="color:var(--muted)">
-          Conserve cette référence pour consulter
-          le dossier sur cet appareil.
-        </p>
-
-        <div class="statusbar">
-
-          ${statusPill(c.status)}
-          ${statusPill(c.type)}
-          ${statusPill(c.conf)}
-
-        </div>
-
-        <div class="actions">
-
-          <button
-            class="btn small"
-            type="button"
-            onclick="viewCase('${esc(id)}')">
-            Ouvrir le dossier
-          </button>
-
-        </div>
-      `;
-
-      e.currentTarget.reset();
-
-      $('trackId').value=id;
-
-      renderManagement();
-      searchCases();
-      updateDashboard();
-
-      addNotification(
-        'Nouveau dossier',
-        `Le dossier ${id} a été créé.`,
-        'new'
-      );
-
-      toast(`Dossier ${id} créé`);
-
+  window.searchCases=async function(){
+    const q=($('trackId').value||'').trim(),s=$('trackStatus').value,t=$('trackType').value;
+    if(q){
+      const {data,error}=await supabaseClient.rpc('rechercher_dossier',{p_reference:q});
+      if(!error && data?.length){
+        const d=data[0];
+        const c={id:d.reference,name:'',contact:'',type:d.unite||d.objet||'',conf:d.priorite||'Standard',desc:d.objet||'',elem:'',status:d.statut||'En cours d’évaluation',createdAt:d.created_at?new Date(d.created_at).toLocaleString('fr-FR'):now(),updatedAt:d.created_at?new Date(d.created_at).toLocaleString('fr-FR'):now()};
+        if((!s||c.status===s)&&(!t||c.type===t)){
+          $('caseList').innerHTML=caseSummary(c);
+          $('trackResult').innerHTML='';
+          return;
+        }
+      }
+      const local=loadCases().filter(c=>(!q||c.id.toLowerCase()===q.toLowerCase())&&(!s||c.status===s)&&(!t||c.type===t));
+      $('caseList').innerHTML=local.length?local.map(caseSummary).join(''):'<div class="empty">Aucun dossier ne correspond à cette recherche.</div>';
+      return;
     }
-  );
-
-  window.searchCases=function(){
-
-    const q=(
-      $('trackId').value||''
-    ).trim().toLowerCase();
-
-    const s=$('trackStatus').value;
-
-    const t=$('trackType').value;
-
-    const list=loadCases().filter(
-
-      c=>
-        (!q||
-          JSON.stringify(c)
-          .toLowerCase()
-          .includes(q)
-        )
-        &&
-        (!s||c.status===s)
-        &&
-        (!t||c.type===t)
-
-    );
-
-    $('caseList').innerHTML=
-
-      list.length
-      ?list.map(caseSummary).join('')
-      :'<div class="empty">Aucun dossier ne correspond à cette recherche.</div>';
-
-    if(
-      q &&
-      /^SABI-\d{4}-\d{4}$/.test(
-        q.toUpperCase()
-      ) &&
-      list[0] &&
-      list[0].id===q.toUpperCase()
-    ){
-
-      viewCase(list[0].id);
-
-    }
-
+    const local=loadCases().filter(c=>(!s||c.status===s)&&(!t||c.type===t));
+    $('caseList').innerHTML=local.length?local.map(caseSummary).join(''):'<div class="empty">Saisis une référence pour rechercher un dossier.</div>';
   };
 
   window.renderManagement=function(){
-
-    const q=(
-      $('manageSearch').value||''
-    ).trim().toLowerCase();
-
-    const s=$('manageStatus').value;
-
-    const c=$('manageConf').value;
-
-    const list=loadCases().filter(
-
-      x=>
-        (!q||
-          JSON.stringify(x)
-          .toLowerCase()
-          .includes(q)
-        )
-        &&
-        (!s||x.status===s)
-        &&
-        (!c||x.conf===c)
-
-    );
-
-    $('managementList').innerHTML=
-
-      list.length
-      ?list.map(caseSummary).join('')
-      :'<div class="empty">Aucun dossier enregistré.</div>';
-
+    const q=($('manageSearch').value||'').trim().toLowerCase(),s=$('manageStatus').value,c= $('manageConf').value;
+    const list=loadCases().filter(x=>(!q||JSON.stringify(x).toLowerCase().includes(q))&&(!s||x.status===s)&&(!c||x.conf===c));
+    $('managementList').innerHTML=list.length?list.map(caseSummary).join(''):'<div class="empty">Aucun dossier enregistré.</div>';
   };
 
   function loadReports(){
-
     const a=[];
-
-    for(
-      let i=0;
-      i<localStorage.length;
-      i++
-    ){
-
-      const k=localStorage.key(i);
-
-      if(!k?.startsWith(REPORT_PREFIX))continue;
-
-      try{
-
-        const d=JSON.parse(
-          localStorage.getItem(k)
-        );
-
-        if(d?.id)a.push(d);
-
-      }catch{}
-
-    }
-
-    return a.sort(
-      (a,b)=>String(b.date)
-      .localeCompare(String(a.date))
-    );
-
+    for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(!k?.startsWith(REPORT_PREFIX))continue;try{const d=JSON.parse(localStorage.getItem(k));if(d?.id)a.push(d)}catch{}}
+    return a.sort((a,b)=>String(b.date).localeCompare(String(a.date)));
   }
-
   function renderReports(){
-
     const a=loadReports();
-
-    $('reportList').innerHTML=
-
-      a.length
-
-      ?a.map(
-
-        r=>`
-
-          <div class="report-card">
-
-            <div class="report-head">
-
-              <div>
-
-                <strong>
-                  ${esc(r.id)}
-                </strong>
-
-                <div class="case-meta">
-                  ${esc(r.type)}
-                  · ${esc(r.date)}
-                  · Dossier
-                  ${esc(r.caseId||'non associé')}
-                </div>
-
-              </div>
-
-              <button
-                class="btn small"
-                onclick="viewReport('${esc(r.id)}')">
-                Consulter
-              </button>
-
-            </div>
-
-            <h3>
-              ${esc(r.title)}
-            </h3>
-
-            <p>
-              ${esc(r.body).slice(0,500)}
-              ${r.body.length>500?'…':''}
-            </p>
-
-          </div>
-        `
-
-      ).join('')
-
-      :'<div class="empty">Aucun rapport enregistré.</div>';
-
+    $('reportList').innerHTML=a.length?a.map(r=>`<div class="report-card"><div class="report-head"><div><strong>${esc(r.id)}</strong><div class="case-meta">${esc(r.type)} · ${esc(r.date)} · Dossier ${esc(r.caseId||'non associé')}</div></div><button class="btn small" onclick="viewReport('${esc(r.id)}')">Consulter</button></div><h3>${esc(r.title)}</h3><p>${esc(r.body).slice(0,500)}${r.body.length>500?'…':''}</p></div>`).join(''):'<div class="empty">Aucun rapport enregistré.</div>';
   }
-
   window.viewReport=function(id){
-
-    const r=loadReports().find(
-      x=>x.id===id
-    );
-
-    if(!r)return;
-
+    const r=loadReports().find(x=>x.id===id);if(!r)return;
     $('caseModalTitle').textContent=r.id;
-
-    $('caseModalBody').innerHTML=`
-
-      <div class="statusbar">
-
-        ${statusPill(r.type)}
-
-        ${
-          r.caseId
-          ?statusPill(r.caseId)
-          :''
-        }
-
-      </div>
-
-      <p>
-
-        <b>Rédacteur :</b>
-        ${esc(r.author)}
-        <br>
-
-        <b>Date :</b>
-        ${esc(r.date)}
-        <br>
-
-        <b>Objet :</b>
-        ${esc(r.title)}
-
-      </p>
-
-      <div class="card"
-           style="box-shadow:none;margin-top:14px">
-
-        <p>
-          ${esc(r.body).replace(/\n/g,'<br>')}
-        </p>
-
-      </div>
-    `;
-
-    $('caseModal').classList.add('open');
-
-    document.body.classList.add('no-scroll');
-
+    $('caseModalBody').innerHTML=`<div class="statusbar">${statusPill(r.type)}${r.caseId?statusPill(r.caseId):''}</div><p><b>Rédacteur :</b> ${esc(r.author)}<br><b>Date :</b> ${esc(r.date)}<br><b>Objet :</b> ${esc(r.title)}</p><div class="card" style="box-shadow:none;margin-top:14px"><p>${esc(r.body).replace(/\n/g,'<br>')}</p></div>`;
+    $('caseModal').classList.add('open');document.body.classList.add('no-scroll');
   };
-
   $('reportDate').value=isoDate();
-
-  $('reportForm').addEventListener(
-    'submit',
-    e=>{
-
-      e.preventDefault();
-
-      if(!e.currentTarget.reportValidity())return;
-
-      const id=nextReportId();
-
-      const r={
-
-        id,
-
-        caseId:
-          $('reportCase')
-          .value
-          .trim()
-          .toUpperCase(),
-
-        author:
-          $('reportAuthor')
-          .value
-          .trim(),
-
-        type:$('reportType').value,
-
-        date:
-          $('reportDate').value||
-          isoDate(),
-
-        title:
-          $('reportTitle')
-          .value
-          .trim(),
-
-        body:
-          $('reportBody')
-          .value
-          .trim()
-
-      };
-
-      localStorage.setItem(
-        REPORT_PREFIX+id,
-        JSON.stringify(r)
-      );
-
-      e.currentTarget.reset();
-
-      $('reportDate').value=isoDate();
-
-      renderReports();
-
-      addNotification(
-        'Nouveau rapport',
-        `Le rapport ${id} a été enregistré.`,
-        'report'
-      );
-
-      toast(`Rapport ${id} enregistré`);
-
-    }
-  );
+  $('reportForm').addEventListener('submit',async e=>{
+    e.preventDefault();if(!e.currentTarget.reportValidity())return;
+    const id=nextReportId();
+    const r={id,caseId:$('reportCase').value.trim().toUpperCase(),author:$('reportAuthor').value.trim(),type:$('reportType').value,date:$('reportDate').value||isoDate(),title:$('reportTitle').value.trim(),body:$('reportBody').value.trim()};
+    const {error}=await supabaseClient.from('rapport').insert({dossier_id:null,titre:r.title,contenu:`Type : ${r.type}\nRéférence : ${r.caseId||'Non associée'}\nDate : ${r.date}\n\n${r.body}`,auteur:r.author});
+    if(error){console.error(error);toast('Impossible d’enregistrer le rapport dans la base');return;}
+    localStorage.setItem(REPORT_PREFIX+id,JSON.stringify(r));e.currentTarget.reset();$('reportDate').value=isoDate();renderReports();
+    addNotification('Nouveau rapport',`Le rapport ${id} a été enregistré.`,'report');toast(`Rapport ${id} enregistré`);
+  });
 
   function updateDashboard(){
-
     const a=loadCases();
-
-    $('dashTotal').textContent=a.length;
-
-    $('dashReview').textContent=
-      a.filter(
-        x=>x.status==='En cours d’évaluation'
-      ).length;
-
-    $('dashInvest').textContent=
-      a.filter(
-        x=>x.status==='En enquête'
-      ).length;
-
-    $('dashClosed').textContent=
-      a.filter(
-        x=>x.status==='Clôturé'
-      ).length;
-
+    $('dashTotal').textContent=a.length;$('dashReview').textContent=a.filter(x=>x.status==='En cours d’évaluation').length;
+    $('dashInvest').textContent=a.filter(x=>x.status==='En enquête').length;$('dashClosed').textContent=a.filter(x=>x.status==='Clôturé').length;
   }
-
   function renderNotifications(){
-
     const a=getNotifications();
-
-    $('notificationList').innerHTML=
-
-      a.length
-
-      ?a.map(
-
-        n=>`
-
-          <div class="notification ${
-            n.read?'':'unread'
-          }">
-
-            <span class="badge"></span>
-
-            <div>
-
-              <strong>
-                ${esc(n.title)}
-              </strong>
-
-              <div class="case-meta">
-                ${esc(n.date)}
-              </div>
-
-              <p
-                style="margin:5px 0;color:var(--muted);font-size:13px">
-                ${esc(n.text)}
-              </p>
-
-            </div>
-
-          </div>
-        `
-
-      ).join('')
-
-      :'<div class="empty">Aucune notification.</div>';
-
+    $('notificationList').innerHTML=a.length?a.map(n=>`<div class="notification ${n.read?'':'unread'}"><span class="badge"></span><div><strong>${esc(n.title)}</strong><div class="case-meta">${esc(n.date)}</div><p style="margin:5px 0;color:var(--muted);font-size:13px">${esc(n.text)}</p></div></div>`).join(''):'<div class="empty">Aucune notification.</div>';
   }
 
   window.loginAgent=function(){
-
-    const pin=
-      $('agentPin')
-      .value
-      .trim();
-
-    const stored=
-      localStorage.getItem(
-        'sabi_agent_pin'
-      )||DEFAULT_PIN;
-
-    if(pin!==stored){
-
-      toast('Code d’accès incorrect');
-
-      return;
-
-    }
-
-    sessionStorage.setItem(
-      AGENT_KEY,
-      '1'
-    );
-
-    $('agentLogin').style.display='none';
-
-    $('agentPanel').style.display='block';
-
-    updateDashboard();
-
-    toast('Espace agents ouvert');
-
+    const pin=$('agentPin').value.trim();
+    const stored=localStorage.getItem('sabi_agent_pin')||DEFAULT_PIN;
+    if(pin!==stored){toast('Code d’accès incorrect');return}
+    sessionStorage.setItem(AGENT_KEY,'1');$('agentLogin').style.display='none';$('agentPanel').style.display='block';updateDashboard();toast('Espace agents ouvert');
   };
-
-  window.logoutAgent=function(){
-
-    sessionStorage.removeItem(
-      AGENT_KEY
-    );
-
-    $('agentLogin').style.display='block';
-
-    $('agentPanel').style.display='none';
-
-    $('agentPin').value='';
-
-    toast('Session fermée');
-
-  };
-
-  function restoreSession(){
-
-    if(
-      sessionStorage.getItem(
-        AGENT_KEY
-      )==='1'
-    ){
-
-      $('agentLogin').style.display='none';
-
-      $('agentPanel').style.display='block';
-
-    }
-
-  }
-
-  window.scrollToId=id=>
-    document
-      .getElementById(id)
-      ?.scrollIntoView({
-        behavior:'smooth'
-      });
+  window.logoutAgent=function(){sessionStorage.removeItem(AGENT_KEY);$('agentLogin').style.display='block';$('agentPanel').style.display='none';$('agentPin').value='';toast('Session fermée')};
+  function restoreSession(){if(sessionStorage.getItem(AGENT_KEY)==='1'){ $('agentLogin').style.display='none';$('agentPanel').style.display='block';}}
+  window.scrollToId=id=>document.getElementById(id)?.scrollIntoView({behavior:'smooth'});
 
   window.exportData=function(){
-
-    const cases=loadCases();
-
-    const reports=loadReports();
-
-    const notifications=getNotifications();
-
-    const messages=[];
-
-    for(
-      let i=0;
-      i<localStorage.length;
-      i++
-    ){
-
-      const k=localStorage.key(i);
-
-      if(
-        k?.startsWith(MSG_PREFIX)
-      ){
-
-        try{
-
-          messages.push(
-            JSON.parse(
-              localStorage.getItem(k)
-            )
-          );
-
-        }catch{}
-
-      }
-
-    }
-
-    const payload={
-
-      format:'SABI-LOCAL-1',
-
-      exportedAt:
-        new Date().toISOString(),
-
-      cases,
-      reports,
-      notifications,
-      messages
-
-    };
-
-    const blob=new Blob(
-      [
-        JSON.stringify(
-          payload,
-          null,
-          2
-        )
-      ],
-      {
-        type:'application/json'
-      }
-    );
-
-    const a=document.createElement('a');
-
-    a.href=
-      URL.createObjectURL(blob);
-
-    a.download=
-      `sabi-sauvegarde-${isoDate()}.json`;
-
-    a.click();
-
-    setTimeout(
-      ()=>URL.revokeObjectURL(a.href),
-      1000
-    );
-
-    toast('Sauvegarde exportée');
-
+    const cases=loadCases(),reports=loadReports(),notifications=getNotifications(),messages=[];
+    for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(k?.startsWith(MSG_PREFIX)){try{messages.push(JSON.parse(localStorage.getItem(k)))}catch{}}}
+    const payload={format:'SABI-LOCAL-1',exportedAt:new Date().toISOString(),cases,reports,notifications,messages};
+    const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});
+    const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`sabi-sauvegarde-${isoDate()}.json`;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);toast('Sauvegarde exportée');
   };
-
   window.importData=function(ev){
-
-    const f=ev.target.files?.[0];
-
-    if(!f)return;
-
+    const f=ev.target.files?.[0];if(!f)return;
     const reader=new FileReader();
-
     reader.onload=()=>{
-
       try{
-
-        const p=JSON.parse(
-          reader.result
-        );
-
-        if(
-          p.format!=='SABI-LOCAL-1'
-        ){
-
-          throw new Error('format');
-
-        }
-
-        (p.cases||[]).forEach(
-          c=>{
-            if(c?.id){
-
-              localStorage.setItem(
-                CASE_PREFIX+c.id,
-                JSON.stringify(c)
-              );
-
-            }
-          }
-        );
-
-        (p.reports||[]).forEach(
-          r=>{
-            if(r?.id){
-
-              localStorage.setItem(
-                REPORT_PREFIX+r.id,
-                JSON.stringify(r)
-              );
-
-            }
-          }
-        );
-
-        if(
-          Array.isArray(
-            p.notifications
-          )
-        ){
-
-          localStorage.setItem(
-            NOTIF_KEY,
-            JSON.stringify(
-              p.notifications
-            )
-          );
-
-        }
-
-        (p.messages||[]).forEach(
-          m=>{
-            if(m?.id){
-
-              localStorage.setItem(
-                MSG_PREFIX+m.id,
-                JSON.stringify(m)
-              );
-
-            }
-          }
-        );
-
-        renderManagement();
-        renderReports();
-        renderNotifications();
-        updateDashboard();
-        searchCases();
-
-        toast('Sauvegarde importée');
-
-      }catch{
-
-        toast(
-          'Fichier de sauvegarde invalide'
-        );
-
-      }
-
+        const p=JSON.parse(reader.result);if(p.format!=='SABI-LOCAL-1')throw new Error('format');
+        (p.cases||[]).forEach(c=>{if(c?.id)localStorage.setItem(CASE_PREFIX+c.id,JSON.stringify(c))});
+        (p.reports||[]).forEach(r=>{if(r?.id)localStorage.setItem(REPORT_PREFIX+r.id,JSON.stringify(r))});
+        if(Array.isArray(p.notifications))localStorage.setItem(NOTIF_KEY,JSON.stringify(p.notifications));
+        (p.messages||[]).forEach(m=>{if(m?.id)localStorage.setItem(MSG_PREFIX+m.id,JSON.stringify(m))});
+        renderManagement();renderReports();renderNotifications();updateDashboard();searchCases();toast('Sauvegarde importée');
+      }catch{toast('Fichier de sauvegarde invalide')}
       ev.target.value='';
-
-    };
-
-    reader.readAsText(f);
-
+    };reader.readAsText(f);
   };
-
   window.clearAllData=function(){
-
-    if(
-      !confirm(
-        'Effacer tous les dossiers, rapports et messages enregistrés sur cet appareil ?'
-      )
-    )return;
-
-    Object.keys(localStorage)
-      .filter(
-        k=>k.startsWith('sabi_')
-      )
-      .forEach(
-        k=>localStorage.removeItem(k)
-      );
-
-    renderManagement();
-    renderReports();
-    renderNotifications();
-    updateDashboard();
-    searchCases();
-
-    toast(
-      'Données locales effacées'
-    );
-
+    if(!confirm('Effacer tous les dossiers, rapports et messages enregistrés sur cet appareil ?'))return;
+    Object.keys(localStorage).filter(k=>k.startsWith('sabi_')).forEach(k=>localStorage.removeItem(k));
+    renderManagement();renderReports();renderNotifications();updateDashboard();searchCases();toast('Données locales effacées');
   };
 
-  $('contactForm').addEventListener(
-    'submit',
-    e=>{
+  $('contactForm').addEventListener('submit',e=>{
+    e.preventDefault();if(!e.currentTarget.reportValidity())return;
+    const id='MSG-'+Date.now();
+    localStorage.setItem(MSG_PREFIX+id,JSON.stringify({id,name:$('cname').value.trim(),subject:$('csubject').value.trim(),email:$('cemail').value.trim(),message:$('cmessage').value.trim(),date:now()}));
+    addNotification('Nouveau message',`Message reçu : ${$('csubject').value.trim()}.`,'message');
+    e.currentTarget.reset();toast('Message enregistré');
+  });
 
-      e.preventDefault();
-
-      if(!e.currentTarget.reportValidity())return;
-
-      const id=
-        'MSG-'+Date.now();
-
-      localStorage.setItem(
-        MSG_PREFIX+id,
-        JSON.stringify({
-
-          id,
-
-          name:
-            $('cname')
-            .value
-            .trim(),
-
-          subject:
-            $('csubject')
-            .value
-            .trim(),
-
-          email:
-            $('cemail')
-            .value
-            .trim(),
-
-          message:
-            $('cmessage')
-            .value
-            .trim(),
-
-          date:now()
-
-        })
-      );
-
-      addNotification(
-        'Nouveau message',
-        `Message reçu : ${
-          $('csubject')
-          .value
-          .trim()
-        }.`,
-        'message'
-      );
-
-      e.currentTarget.reset();
-
-      toast(
-        'Message enregistré'
-      );
-
-    }
-  );
-
-  $('themeBtn').addEventListener(
-    'click',
-    ()=>{
-
-      const light=
-        document.documentElement
-        .classList
-        .toggle('light');
-
-      localStorage.setItem(
-        THEME_KEY,
-        light?'light':'dark'
-      );
-
-      $('themeBtn').textContent=
-        light?'☀':'☾';
-
-    }
-  );
-
-  if(
-    localStorage.getItem(
-      THEME_KEY
-    )==='light'
-  ){
-
-    document.documentElement
-      .classList
-      .add('light');
-
-    $('themeBtn')
-      .textContent='☀';
-
-  }
-
-  [
-    'manageSearch',
-    'manageStatus',
-    'manageConf'
-  ].forEach(
-    id=>
-      $(id)
-      .addEventListener(
-        'input',
-        renderManagement
-      )
-  );
-
-  $('trackId')
-    .addEventListener(
-      'keydown',
-      e=>{
-        if(e.key==='Enter'){
-          searchCases();
-        }
-      }
-    );
-
-  restoreSession();
-  renderManagement();
-  renderReports();
-  renderNotifications();
-  updateDashboard();
-  searchCases();
-
+  $('themeBtn').addEventListener('click',()=>{
+    const light=document.documentElement.classList.toggle('light');
+    localStorage.setItem(THEME_KEY,light?'light':'dark');$('themeBtn').textContent=light?'☀':'☾';
+  });
+  if(localStorage.getItem(THEME_KEY)==='light'){document.documentElement.classList.add('light');$('themeBtn').textContent='☀'}
+  ['manageSearch','manageStatus','manageConf'].forEach(id=>$(id).addEventListener('input',renderManagement));
+  $('trackId').addEventListener('keydown',e=>{if(e.key==='Enter')searchCases()});
+  restoreSession();renderManagement();renderReports();renderNotifications();updateDashboard();searchCases();
 })();
 
 </script>
