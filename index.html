@@ -6,124 +6,66 @@
 <meta name="theme-color" content="#070b10">
 <meta name="description" content="Portail institutionnel du San Andreas Bureau of Investigation.">
 <title>SABI | San Andreas Bureau of Investigation</title>
+<script>try{document.documentElement.setAttribute("data-theme",localStorage.getItem("sabi_theme")||"dark")}catch(e){}</script>
 <style>
 :root{
-  --bg:#070b10;--panel:#0d141d;--panel2:#111b26;--line:#263544;
-  --text:#edf2f7;--muted:#91a0af;--accent:#dfe7ef;--ok:#5fa47b;
-  --warning:#c7a65a;--danger:#bd5b5b;--shadow:0 18px 60px rgba(0,0,0,.28);
-  --max:1220px
+  --bg:#05080d;--bg-soft:#0a1018;--panel:#0d1520;--panel-2:#111c29;--line:#243242;
+  --text:#f4f7fa;--muted:#9aa8b6;--gold:#d7a943;--gold-2:#f0c86a;--gold-soft:rgba(215,169,67,.12);
+  --ok:#55b47d;--danger:#d56b6b;--shadow:0 24px 70px rgba(0,0,0,.34);--max:1280px
 }
-:root.light{
-  --bg:#f4f6f8;--panel:#fff;--panel2:#edf1f4;--line:#d4dce4;
-  --text:#17212b;--muted:#61707e;--accent:#17212b;--shadow:0 18px 50px rgba(30,50,70,.12)
+:root[data-theme="light"]{
+  --bg:#f4f6f8;--bg-soft:#e9edf1;--panel:#fff;--panel-2:#eef2f5;--line:#d4dce4;
+  --text:#18232d;--muted:#667482;--gold:#9b7420;--gold-2:#b68a28;--gold-soft:rgba(155,116,32,.10);
+  --ok:#3c8c61;--danger:#b45151;--shadow:0 20px 55px rgba(31,48,64,.12)
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;line-height:1.55}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;line-height:1.55;overflow-x:hidden}
 body.no-scroll{overflow:hidden}
 a{color:inherit;text-decoration:none}
-button,input,select,textarea{font:inherit}
-button{cursor:pointer}
+button,input,select,textarea{font:inherit}button{cursor:pointer}
 .container{width:min(var(--max),92%);margin:auto}
-.skip{position:absolute;left:-9999px;top:8px;background:var(--accent);color:var(--bg);padding:10px 14px;z-index:100}
-.skip:focus{left:12px}
-header{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
-.nav{min-height:74px;display:flex;align-items:center;justify-content:space-between;gap:20px}
-.brand{display:flex;align-items:center;gap:12px;font-weight:850;letter-spacing:1px}
-.seal{width:44px;height:44px;border:1px solid #8393a3;border-radius:50%;display:grid;place-items:center;font-size:10px;letter-spacing:.8px;box-shadow:inset 0 0 0 4px color-mix(in srgb,var(--line) 55%,transparent)}
-.brand small{display:block;color:var(--muted);font-size:8px;letter-spacing:1.7px;margin-top:2px}
-nav{display:flex;gap:18px;align-items:center}
-nav a{font-size:12px;color:var(--muted)}
-nav a:hover{color:var(--text)}
-.nav-actions{display:flex;align-items:center;gap:8px}
-.icon-btn,.menu{background:transparent;color:var(--text);border:1px solid var(--line);padding:9px 11px;border-radius:5px}
+.skip{position:absolute;left:-9999px;top:8px;background:var(--gold);color:#080b10;padding:10px 14px;z-index:100}.skip:focus{left:12px}
+header{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--bg) 78%,transparent);backdrop-filter:blur(20px) saturate(130%);border-bottom:1px solid color-mix(in srgb,var(--line) 72%,transparent)}
+.nav{min-height:82px;display:flex;align-items:center;justify-content:space-between;gap:24px;position:relative}
+.brand{display:flex;align-items:center;gap:13px;font-weight:900;letter-spacing:1.2px;min-width:max-content}
+.logo{width:54px;height:54px;display:block;filter:drop-shadow(0 8px 16px rgba(0,0,0,.25))}.logo svg{width:100%;height:100%;display:block}
+.brand-title{font-size:15px;line-height:1.05}.brand small{display:block;color:var(--muted);font-size:8px;letter-spacing:2px;margin-top:5px;font-weight:700}
+nav{display:flex;gap:22px;align-items:center;margin-left:auto}nav a{font-size:11px;color:var(--muted);font-weight:800;letter-spacing:.45px;position:relative;padding:30px 0}nav a:hover,nav a.active{color:var(--text)}nav a.active:after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--gold)}
+.nav-actions{display:flex;align-items:center;gap:8px}.icon-btn,.menu{background:transparent;color:var(--text);border:1px solid var(--line);padding:10px 12px;border-radius:8px;font-weight:800;font-size:11px}.icon-btn:hover,.menu:hover{border-color:var(--gold);background:var(--gold-soft)}
+#modeBtn{background:linear-gradient(135deg,var(--gold-2),var(--gold));color:#0b0e12;border-color:var(--gold);padding:11px 16px;box-shadow:0 8px 25px rgba(215,169,67,.18)}
 .menu{display:none}
-.hero{min-height:690px;display:grid;align-items:center;background:
-radial-gradient(circle at 78% 30%,rgba(130,150,175,.14),transparent 28%),
-linear-gradient(180deg,color-mix(in srgb,var(--bg) 94%,#1b2733),var(--bg))}
-.hero-grid{display:grid;grid-template-columns:1.35fr .75fr;gap:64px;align-items:center}
-.kicker,.eyebrow{display:inline-block;color:var(--muted);font-size:10px;letter-spacing:2px}
-.kicker{border:1px solid var(--line);padding:7px 12px}
-h1{font-size:clamp(44px,6vw,82px);line-height:.99;margin:22px 0 18px;letter-spacing:-3px}
-h2{font-size:clamp(28px,4vw,42px);line-height:1.1;margin:8px 0 12px;letter-spacing:-1px}
-h3{line-height:1.2}
-.hero p{max-width:750px;color:var(--muted);font-size:18px}
-.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:30px}
-.btn{border:1px solid #4a5968;background:transparent;color:var(--text);padding:12px 17px;border-radius:4px;font-weight:750;transition:.2s}
-.btn:hover{background:var(--panel2);transform:translateY(-1px)}
-.btn.primary{background:var(--accent);color:var(--bg);border-color:var(--accent)}
-.btn.danger{border-color:#704040;color:#e6aaaa}
-.btn.small{padding:8px 11px;font-size:12px}
-.btn:disabled{opacity:.45;cursor:not-allowed;transform:none}
-.hero-card,.card,.dashboard-card,.report-card{border:1px solid var(--line);background:var(--panel);box-shadow:var(--shadow)}
-.hero-card{padding:27px}
-.status{display:flex;justify-content:space-between;gap:15px;border-bottom:1px solid var(--line);padding:12px 0;font-size:12px}
-.status:last-of-type{border-bottom:0}
-.dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--ok);margin-right:7px}
-section{padding:88px 0}
-.alt{background:color-mix(in srgb,var(--panel) 50%,var(--bg));border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
-.section-head{margin-bottom:34px}
-.section-head p,.lead{color:var(--muted);max-width:820px}
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;border:1px solid var(--line);background:var(--line)}
-.stat{background:var(--panel);padding:23px}
-.stat b{display:block;font-size:28px}
-.stat span{font-size:11px;color:var(--muted)}
-.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
-.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-.card{padding:25px}
-.card .number{font-size:10px;color:#718090;letter-spacing:1.2px;margin-bottom:18px}
-.card p{color:var(--muted);font-size:14px}
-.card ul{color:var(--muted);padding-left:18px}
-.form{display:grid;grid-template-columns:1fr 1fr;gap:15px}
-.field{display:flex;flex-direction:column;gap:7px}
-.field.full{grid-column:1/-1}
-label{font-size:12px;color:var(--muted)}
-input,select,textarea{width:100%;background:var(--panel);color:var(--text);border:1px solid #344352;padding:12px;border-radius:4px;outline:none}
-input:focus,select:focus,textarea:focus{border-color:#8da0b1;box-shadow:0 0 0 2px rgba(141,160,177,.1)}
-textarea{min-height:135px;resize:vertical}
-.notice{padding:14px 16px;border:1px solid var(--line);background:var(--panel2);color:var(--muted);font-size:13px;margin-bottom:18px;border-radius:5px}
-.result{display:none;margin-top:18px;border:1px solid var(--line);background:var(--panel2);padding:20px;border-radius:5px}
-.statusbar{display:flex;gap:8px;flex-wrap:wrap;margin-top:15px}
-.pill{border:1px solid #3b4a58;padding:5px 9px;font-size:10px;color:var(--muted);border-radius:99px}
-.timeline{border-left:1px solid #445361;margin-left:8px;padding-left:28px}
-.event{position:relative;margin-bottom:25px}.event:before{content:"";position:absolute;left:-34px;top:7px;width:9px;height:9px;border:1px solid #9ba8b5;border-radius:50%;background:var(--bg)}
-.event p{color:var(--muted);font-size:13px;margin:4px 0}
-.searchbar{display:grid;grid-template-columns:1.4fr .8fr .8fr auto;gap:10px;margin-bottom:16px}
-.case-list{display:grid;gap:10px}
-.case-row{display:grid;grid-template-columns:1fr auto;gap:18px;align-items:center;padding:15px;border:1px solid var(--line);background:var(--panel);border-radius:5px}
-.case-meta{color:var(--muted);font-size:12px}
-.empty{padding:24px;border:1px dashed var(--line);color:var(--muted);text-align:center}
-.dashboard{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
-.dashboard-card{padding:20px}
-.dashboard-card span{font-size:11px;color:var(--muted)}
-.dashboard-card strong{display:block;font-size:30px;margin-top:3px}
-.report-card{padding:20px}
-.report-card p{color:var(--muted);font-size:13px}
-.report-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}
-.notifications{display:grid;gap:10px}
-.notification{display:flex;gap:12px;align-items:flex-start;padding:14px;border:1px solid var(--line);background:var(--panel)}
-.notification .badge{width:9px;height:9px;border-radius:50%;background:var(--ok);margin-top:7px;flex:none}
-.notification.unread{border-left:3px solid var(--ok)}
-.faq details{border-bottom:1px solid var(--line);padding:17px 0}
-.faq summary{cursor:pointer;font-weight:750}
-.faq p{color:var(--muted);max-width:900px}
-footer{border-top:1px solid var(--line);background:var(--bg);padding:35px 0;color:var(--muted);font-size:11px}
-.footer-grid{display:flex;justify-content:space-between;gap:30px}
-.toast{position:fixed;right:18px;bottom:18px;background:var(--accent);color:var(--bg);padding:13px 16px;border-radius:5px;font-size:13px;font-weight:750;display:none;z-index:100}
-.modal{position:fixed;inset:0;background:rgba(0,0,0,.72);display:none;place-items:center;padding:18px;z-index:90}
-.modal.open{display:grid}
-.modal-box{width:min(720px,100%);max-height:90vh;overflow:auto;background:var(--panel);border:1px solid var(--line);padding:24px;border-radius:6px}
-.modal-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:20px}
-@media(max-width:980px){
- nav{display:none}.menu{display:block}.nav.open nav{display:flex;position:absolute;top:74px;left:0;right:0;background:var(--bg);padding:18px;flex-direction:column;align-items:stretch;border-bottom:1px solid var(--line)}
- .hero-grid,.grid3{grid-template-columns:1fr}.dashboard{grid-template-columns:repeat(2,1fr)}
-}
-@media(max-width:720px){
- .stats,.grid2,.form{grid-template-columns:1fr}.field.full{grid-column:auto}.searchbar{grid-template-columns:1fr}.case-row{grid-template-columns:1fr}.hero{min-height:620px}
-}
-@media(max-width:480px){.dashboard{grid-template-columns:1fr}.footer-grid{flex-direction:column}.nav-actions .icon-btn{display:none}h1{letter-spacing:-2px}}
-
+.hero{min-height:700px;position:relative;display:grid;align-items:center;overflow:hidden;background:radial-gradient(circle at 78% 35%,rgba(215,169,67,.12),transparent 24%),linear-gradient(135deg,var(--bg) 0%,var(--bg-soft) 48%,var(--bg) 100%)}
+.hero:before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:42px 42px;mask-image:linear-gradient(to bottom,black,transparent 88%);pointer-events:none}
+.hero:after{content:"";position:absolute;width:720px;height:720px;border-radius:50%;right:-230px;top:-20px;background:radial-gradient(circle,rgba(215,169,67,.13),transparent 62%);pointer-events:none}
+.hero .container:after{content:"SABI";position:absolute;right:4%;bottom:-9%;font-size:clamp(160px,22vw,330px);font-weight:950;letter-spacing:-.08em;color:rgba(255,255,255,.018);pointer-events:none;line-height:1}
+.hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:72px;align-items:center;position:relative;z-index:1}
+.hero-copy{padding:62px 0}.kicker,.eyebrow{display:inline-flex;align-items:center;gap:9px;color:var(--gold-2);font-size:10px;letter-spacing:2.2px;font-weight:900}.kicker:before,.eyebrow:before{content:"";width:28px;height:1px;background:var(--gold)}
+h1{font-size:clamp(48px,6vw,88px);line-height:.94;margin:23px 0 22px;letter-spacing:-4px;max-width:780px}h1 span{color:var(--gold-2)}
+.hero p{max-width:690px;color:var(--muted);font-size:17px;line-height:1.75}.actions{display:flex;gap:11px;flex-wrap:wrap;margin-top:32px}
+.btn{border:1px solid #405061;background:rgba(255,255,255,.015);color:var(--text);padding:12px 17px;border-radius:8px;font-weight:850;transition:.22s;letter-spacing:.15px}.btn:hover{background:var(--panel-2);border-color:#65778a;transform:translateY(-2px)}.btn.primary{background:linear-gradient(135deg,var(--gold-2),var(--gold));color:#0b0e12;border-color:var(--gold);box-shadow:0 12px 28px rgba(215,169,67,.16)}.btn.primary:hover{filter:brightness(1.06);border-color:var(--gold-2)}.btn.danger{border-color:#714646;color:#e8aaaa}.btn.small{padding:8px 11px;font-size:12px}.btn:disabled{opacity:.45;cursor:not-allowed;transform:none}
+.hero-card{position:relative;padding:34px;border:1px solid color-mix(in srgb,var(--gold) 38%,var(--line));background:linear-gradient(180deg,color-mix(in srgb,var(--panel) 94%,transparent),color-mix(in srgb,var(--panel-2) 92%,transparent));box-shadow:var(--shadow);border-radius:18px;overflow:hidden}.hero-card:before{content:"";position:absolute;inset:-30% -15% auto auto;width:280px;height:280px;background:radial-gradient(circle,rgba(215,169,67,.18),transparent 66%);pointer-events:none}.hero-seal{width:230px;height:230px;margin:0 auto 24px;display:grid;place-items:center;position:relative}.hero-seal:before{content:"";position:absolute;inset:8px;border:1px solid rgba(215,169,67,.45);border-radius:50%;box-shadow:inset 0 0 0 8px rgba(215,169,67,.035),0 0 50px rgba(215,169,67,.08)}
+.hero-seal:after{content:"";position:absolute;inset:1px;border-radius:50%;border:1px dashed rgba(240,200,106,.18);animation:sabiSpin 22s linear infinite;pointer-events:none}
+.hero-seal svg{filter:drop-shadow(0 0 18px rgba(215,169,67,.10))}
+@keyframes sabiSpin{to{transform:rotate(360deg)}}
+@keyframes sabiPulse{0%,100%{box-shadow:0 0 0 0 rgba(85,180,125,.08)}50%{box-shadow:0 0 0 7px rgba(85,180,125,.02)}}
+.dot{animation:sabiPulse 2.8s ease-in-out infinite}
+.hero-seal svg{width:100%;height:100%;position:relative;z-index:1}.status{display:flex;justify-content:space-between;gap:15px;border-top:1px solid var(--line);padding:13px 0;font-size:11px;color:var(--muted)}.status:first-of-type{border-top:0}.status b{color:var(--text);font-size:10px;letter-spacing:.7px}.dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--ok);margin-right:7px;box-shadow:0 0 0 4px rgba(85,180,125,.1)}
+.trust-bar{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--panel);position:relative;z-index:2}.trust-grid{display:grid;grid-template-columns:repeat(4,1fr)}.trust-item{padding:24px 22px;border-right:1px solid var(--line);display:flex;gap:14px;align-items:flex-start}.trust-item:last-child{border-right:0}.trust-icon{width:36px;height:36px;border:1px solid color-mix(in srgb,var(--gold) 50%,var(--line));border-radius:10px;display:grid;place-items:center;color:var(--gold-2);flex:none}.trust-item b{font-size:12px}.trust-item span{display:block;color:var(--muted);font-size:11px;margin-top:3px}
+section{padding:92px 0;position:relative}.alt{background:linear-gradient(180deg,color-mix(in srgb,var(--panel) 55%,var(--bg)),color-mix(in srgb,var(--panel-2) 35%,var(--bg)));border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.section-head{margin-bottom:34px}.section-head h2{max-width:850px}.section-head p,.lead{color:var(--muted);max-width:850px}.section-head h2{font-size:clamp(29px,4vw,46px);line-height:1.08;margin:8px 0 12px;letter-spacing:-1.5px}h3{line-height:1.2;margin-top:7px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;border:1px solid var(--line);background:var(--line);border-radius:14px;overflow:hidden;box-shadow:var(--shadow)}.stat{background:var(--panel);padding:25px}.stat b{display:block;font-size:30px;color:var(--gold-2)}.stat span{font-size:11px;color:var(--muted)}
+.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.card,.dashboard-card,.report-card{border:1px solid var(--line);background:linear-gradient(180deg,color-mix(in srgb,var(--panel) 97%,transparent),var(--panel));box-shadow:0 12px 35px rgba(0,0,0,.12);border-radius:14px}.card{padding:27px}.card:hover{border-color:color-mix(in srgb,var(--gold) 40%,var(--line))}.card .number{font-size:10px;color:var(--gold-2);letter-spacing:1.5px;font-weight:900;margin-bottom:15px}.card p,.card li{color:var(--muted);font-size:14px}.card ul{padding-left:18px}.form{display:grid;grid-template-columns:1fr 1fr;gap:15px}.field{display:flex;flex-direction:column;gap:7px}.field.full{grid-column:1/-1}label{font-size:12px;color:var(--muted);font-weight:700}
+input,select,textarea{width:100%;background:color-mix(in srgb,var(--panel-2) 72%,var(--panel));color:var(--text);border:1px solid #344454;padding:13px;border-radius:9px;outline:none}input:focus,select:focus,textarea:focus{border-color:var(--gold);box-shadow:0 0 0 3px var(--gold-soft)}textarea{min-height:135px;resize:vertical}
+.notice{padding:15px 17px;border:1px solid var(--line);background:var(--panel-2);color:var(--muted);font-size:13px;margin-bottom:18px;border-radius:10px}.result{display:none;margin-top:18px;border:1px solid color-mix(in srgb,var(--gold) 45%,var(--line));background:var(--gold-soft);padding:20px;border-radius:10px}.statusbar{display:flex;gap:8px;flex-wrap:wrap;margin-top:15px}.pill{border:1px solid #3b4a58;padding:5px 9px;font-size:10px;color:var(--muted);border-radius:99px}
+.timeline{border-left:1px solid #445361;margin-left:8px;padding-left:28px}.event{position:relative;margin-bottom:25px}.event:before{content:"";position:absolute;left:-34px;top:7px;width:9px;height:9px;border:1px solid var(--gold);border-radius:50%;background:var(--bg);box-shadow:0 0 0 4px var(--gold-soft)}.event p{color:var(--muted);font-size:13px;margin:4px 0}.searchbar{display:grid;grid-template-columns:1.4fr .8fr .8fr auto;gap:10px;margin-bottom:16px}.case-list{display:grid;gap:10px}.case-row{display:grid;grid-template-columns:1fr auto;gap:18px;align-items:center;padding:17px;border:1px solid var(--line);background:var(--panel);border-radius:10px}.case-meta{color:var(--muted);font-size:12px}.empty{padding:24px;border:1px dashed var(--line);color:var(--muted);text-align:center;border-radius:10px}.dashboard{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.dashboard-card{padding:21px}.dashboard-card span{font-size:11px;color:var(--muted)}.dashboard-card strong{display:block;font-size:32px;margin-top:3px;color:var(--gold-2)}.report-card{padding:20px}.report-card p{color:var(--muted);font-size:13px}.report-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}.notifications{display:grid;gap:10px}.notification{display:flex;gap:12px;align-items:flex-start;padding:15px;border:1px solid var(--line);background:var(--panel);border-radius:10px}.notification .badge{width:9px;height:9px;border-radius:50%;background:var(--ok);margin-top:7px;flex:none}.notification.unread{border-left:3px solid var(--gold)}
+.faq details{border-bottom:1px solid var(--line);padding:18px 0}.faq summary{cursor:pointer;font-weight:800}.faq p{color:var(--muted);max-width:900px}footer{border-top:1px solid var(--line);background:var(--bg);padding:38px 0;color:var(--muted);font-size:11px}.footer-grid{display:flex;justify-content:space-between;gap:30px}.toast{position:fixed;right:18px;bottom:18px;background:var(--gold);color:#0b0e12;padding:13px 16px;border-radius:9px;font-size:13px;font-weight:850;display:none;z-index:100;box-shadow:0 15px 40px rgba(0,0,0,.25)}.modal{position:fixed;inset:0;background:rgba(0,0,0,.74);display:none;place-items:center;padding:18px;z-index:90}.modal.open{display:grid}.modal-box{width:min(720px,100%);max-height:90vh;overflow:auto;background:var(--panel);border:1px solid var(--line);padding:24px;border-radius:14px}.modal-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:20px}.mode-agent-on{border-color:var(--ok)!important;box-shadow:0 0 0 2px rgba(85,180,125,.12)}.agent-only{scroll-margin-top:100px}.session-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--ok);margin-right:6px}
+.section-glow{position:absolute;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,var(--gold-soft),transparent 68%);pointer-events:none;right:-100px;top:40px}
+@media(max-width:1080px){nav{display:none}.menu{display:block}.nav.open nav{display:flex;position:absolute;top:82px;left:0;right:0;background:var(--bg);padding:18px;flex-direction:column;align-items:stretch;border-bottom:1px solid var(--line);box-shadow:var(--shadow)}.nav.open nav a{padding:10px 0}.nav.open nav a.active:after{display:none}.hero-grid{grid-template-columns:1fr;gap:35px}.hero-copy{padding:70px 0 0}.hero-card{max-width:620px;width:100%;margin:0 auto 70px}.trust-grid{grid-template-columns:repeat(2,1fr)}.trust-item:nth-child(2){border-right:0}.trust-item:nth-child(-n+2){border-bottom:1px solid var(--line)}.grid3{grid-template-columns:repeat(2,1fr)}.dashboard{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:720px){.nav{min-height:72px}.logo{width:48px;height:48px}.brand-title{font-size:13px}.brand small{font-size:7px}.nav-actions #themeBtn{font-size:0;padding:10px}.nav-actions #themeBtn:after{content:"☼";font-size:16px}.hero{min-height:auto}.hero-copy{padding:58px 0 0}h1{letter-spacing:-2.7px}.hero p{font-size:15px}.hero-seal{width:190px;height:190px}.trust-grid,.stats,.grid2,.form{grid-template-columns:1fr}.trust-item{border-right:0!important;border-bottom:1px solid var(--line)}.trust-item:last-child{border-bottom:0}.grid3{grid-template-columns:1fr}.field.full{grid-column:auto}.searchbar{grid-template-columns:1fr}.case-row{grid-template-columns:1fr}.hero-card{margin-bottom:52px}.section-head h2{letter-spacing:-1px}}
+@media(max-width:480px){.dashboard{grid-template-columns:1fr}.footer-grid{flex-direction:column}.nav-actions{gap:5px}.nav-actions .icon-btn{padding:9px}.nav-actions #modeBtn{font-size:10px;padding:10px 11px}.brand small{letter-spacing:1.4px}.brand-title{font-size:12px}h1{font-size:47px}}
 </style>
+
 </head>
 <body>
 <a class="skip" href="#main">Aller au contenu</a>
@@ -131,14 +73,31 @@ footer{border-top:1px solid var(--line);background:var(--bg);padding:35px 0;colo
 <header>
   <div class="container nav" id="nav">
     <a class="brand" href="#accueil" aria-label="Accueil SABI">
-      <div class="seal">SABI</div>
-      <div>SAN ANDREAS<small>BUREAU OF INVESTIGATION</small></div>
+      <span class="logo" aria-hidden="true">
+        <svg viewBox="0 0 100 100" role="img">
+          <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f0c86a"/><stop offset="1" stop-color="#b68120"/></linearGradient></defs>
+          <circle cx="50" cy="50" r="47" fill="#080c12" stroke="url(#g)" stroke-width="2"/>
+          <circle cx="50" cy="50" r="40" fill="none" stroke="#8e6b28" stroke-width="1"/>
+          <g fill="none" stroke="url(#g)" stroke-width="2.15" stroke-linecap="round">
+            <path d="M50 19c-17 0-27 13-27 28 0 12 6 19 9 28"/><path d="M50 24c-13 0-21 10-21 22 0 11 5 16 7 25"/>
+            <path d="M50 29c-10 0-16 7-16 17 0 10 4 13 6 22"/><path d="M50 34c-7 0-11 5-11 12 0 8 4 11 6 19"/>
+            <path d="M50 39c-4 0-7 3-7 7 0 6 3 8 5 14"/><path d="M50 19c17 0 27 13 27 28 0 12-6 19-9 28"/>
+            <path d="M50 24c13 0 21 10 21 22 0 11-5 16-7 25"/><path d="M50 29c10 0 16 7 16 17 0 10-4 13-6 22"/>
+            <path d="M50 34c7 0 11 5 11 12 0 8-4 11-6 19"/><path d="M50 39c4 0 7 3 7 7 0 6-3 8-5 14"/>
+            <path d="M50 43c-2 0-4 2-4 4 0 4 3 6 4 9"/><path d="M50 43c2 0 4 2 4 4 0 4-3 6-4 9"/>
+            <path d="M29 77c7-5 14-7 21-7s14 2 21 7"/>
+          </g>
+          <text x="50" y="91" text-anchor="middle" fill="#f0c86a" font-size="6.8" font-weight="800" letter-spacing="1.8">SABI</text>
+        </svg>
+      </span>
+      <div class="brand-title">SAN ANDREAS<small>BUREAU OF INVESTIGATION</small></div>
     </a>
     <div class="nav-actions">
-      <button class="icon-btn" id="themeBtn" type="button" aria-label="Changer le thème">☾</button>
+      <button class="icon-btn" id="modeBtn" type="button" aria-label="Passer en mode agent">ESPACE AGENTS</button>
+      <button class="icon-btn" id="themeBtn" type="button" aria-label="Passer en mode clair" title="Passer en mode clair">☀ MODE CLAIR</button>
       <button class="menu" type="button" onclick="toggleMenu()">MENU</button>
     </div>
-    <nav>
+    <nav id="mainNav">
       <a href="#bureau">Le Bureau</a>
       <a href="#missions">Services</a>
       <a href="#demande">Dossier</a>
@@ -154,26 +113,52 @@ footer{border-top:1px solid var(--line);background:var(--bg);padding:35px 0;colo
 <main id="main">
 <section class="hero" id="accueil">
   <div class="container hero-grid">
-    <div>
-      <span class="kicker">PORTAIL INSTITUTIONNEL · SAN ANDREAS</span>
-      <h1>La vérité.<br>Les faits.<br>L'enquête.</h1>
-      <p>Le San Andreas Bureau of Investigation intervient sur les affaires complexes, sensibles et interservices nécessitant une expertise d'investigation spécialisée.</p>
+    <div class="hero-copy">
+      <span class="kicker">SAN ANDREAS · BUREAU OF INVESTIGATION</span>
+      <h1>INTÉGRITÉ.<br>ENQUÊTES.<br><span>JUSTICE.</span></h1>
+      <p>Le SABI est un bureau d'investigation indépendant dédié aux affaires complexes, sensibles et interservices. Chaque dossier est traité avec méthode, discrétion et rigueur.</p>
       <div class="actions">
-        <a class="btn primary" href="#demande">Déposer une demande</a>
-        <a class="btn" href="#missions">Découvrir les services</a>
+        <a class="btn primary" href="#demande">Déposer un dossier</a>
+        <a class="btn" href="#bureau">Découvrir le Bureau <span aria-hidden="true">→</span></a>
       </div>
     </div>
     <div class="hero-card">
+      <div class="hero-seal" aria-label="Emblème SABI représentant une empreinte digitale">
+        <svg viewBox="0 0 240 240" role="img">
+          <defs><linearGradient id="fingerGold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f3d27b"/><stop offset=".55" stop-color="#d7a943"/><stop offset="1" stop-color="#9b6e1d"/></linearGradient></defs>
+          <circle cx="120" cy="120" r="112" fill="#070b10" stroke="url(#fingerGold)" stroke-width="2"/>
+          <circle cx="120" cy="120" r="101" fill="none" stroke="#806326" stroke-width="1.2"/>
+          <g fill="none" stroke="url(#fingerGold)" stroke-width="3.2" stroke-linecap="round">
+            <path d="M120 45c-42 0-67 31-67 68 0 30 16 49 25 71"/><path d="M120 56c-34 0-55 24-55 56 0 28 13 43 20 64"/>
+            <path d="M120 67c-27 0-44 19-44 45 0 24 11 37 17 57"/><path d="M120 78c-20 0-33 14-33 34 0 19 9 31 15 50"/>
+            <path d="M120 89c-13 0-22 9-22 23 0 15 7 24 12 41"/><path d="M120 100c-7 0-12 5-12 13 0 10 5 17 9 27"/>
+            <path d="M120 45c42 0 67 31 67 68 0 30-16 49-25 71"/><path d="M120 56c34 0 55 24 55 56 0 28-13 43-20 64"/>
+            <path d="M120 67c27 0 44 19 44 45 0 24-11 37-17 57"/><path d="M120 78c20 0 33 14 33 34 0 19-9 31-15 50"/>
+            <path d="M120 89c13 0 22 9 22 23 0 15-7 24-12 41"/><path d="M120 100c7 0 12 5 12 13 0 10-5 17-9 27"/>
+            <path d="M120 111c-4 0-7 3-7 7 0 7 5 12 7 19"/><path d="M120 111c4 0 7 3 7 7 0 7-5 12-7 19"/>
+            <path d="M67 190c17-12 35-18 53-18s36 6 53 18"/><path d="M79 199c13-8 27-12 41-12s28 4 41 12"/>
+          </g>
+          <text x="120" y="214" text-anchor="middle" fill="#f0c86a" font-size="15" font-weight="900" letter-spacing="4">SABI</text>
+        </svg>
+      </div>
       <div class="status"><span>STATUT DU BUREAU</span><b><span class="dot"></span>OPÉRATIONNEL</b></div>
-      <div class="status"><span>DISPONIBILITÉ</span><b>24/7</b></div>
+      <div class="status"><span>DISPONIBILITÉ</span><b>24 / 7</b></div>
       <div class="status"><span>CONFIDENTIALITÉ</span><b>RENFORCÉE</b></div>
-      <div class="status"><span>RÉFÉRENCE</span><b>SABI-GOV</b></div>
-      <p style="color:var(--muted);font-size:12px;margin-top:22px">Portail public du San Andreas Bureau of Investigation.</p>
+      <div class="status"><span>IDENTITÉ</span><b>EMPREINTE · PREUVE</b></div>
     </div>
   </div>
 </section>
 
-<section id="bureau">
+<div class="trust-bar">
+  <div class="container trust-grid">
+    <div class="trust-item"><div class="trust-icon">✓</div><div><b>INDÉPENDANCE</b><span>Une investigation menée avec impartialité.</span></div></div>
+    <div class="trust-item"><div class="trust-icon">⌕</div><div><b>EXPERTISE</b><span>Des unités spécialisées par domaine.</span></div></div>
+    <div class="trust-item"><div class="trust-icon">▣</div><div><b>CONFIDENTIALITÉ</b><span>Des dossiers protégés et accès contrôlés.</span></div></div>
+    <div class="trust-item"><div class="trust-icon">⚖</div><div><b>JUSTICE</b><span>Rechercher les faits avant de conclure.</span></div></div>
+  </div>
+</div>
+
+<section id="bureau"><div class="section-glow"></div>
   <div class="container">
     <div class="section-head">
       <span class="eyebrow">PRÉSENTATION</span>
@@ -193,7 +178,7 @@ footer{border-top:1px solid var(--line);background:var(--bg);padding:35px 0;colo
   </div>
 </section>
 
-<section class="alt" id="missions">
+<section class="alt" id="missions"><div class="section-glow"></div>
   <div class="container">
     <div class="section-head">
       <span class="eyebrow">SERVICES & UNITÉS</span>
@@ -230,28 +215,34 @@ footer{border-top:1px solid var(--line);background:var(--bg);padding:35px 0;colo
 
 <section class="alt" id="suivi">
   <div class="container">
-    <div class="section-head"><span class="eyebrow">SUIVI DES DOSSIERS</span><h2>Suivre un dossier</h2><p>Recherche une référence enregistrée dans la base SABI et consulte son état d'avancement.</p></div>
-    <div class="searchbar">
-      <input id="trackId" placeholder="SABI-2026-0001" aria-label="Numéro de dossier">
-      <select id="trackStatus"><option value="">Tous les statuts</option><option>En cours d’évaluation</option><option>En enquête</option><option>En attente</option><option>Clôturé</option></select>
-      <select id="trackType"><option value="">Tous les types</option><option>Signalement</option><option>Demande d'enquête</option><option>Affaire sensible</option><option>Soupçon de corruption</option><option>Contre-enquête</option><option>Demande institutionnelle</option></select>
-      <button class="btn primary" type="button" onclick="searchCases()">Rechercher</button>
-    </div>
-    <div id="caseList" class="case-list"></div>
-    <div class="result" id="trackResult" aria-live="polite"></div>
+    <div class="section-head"><span class="eyebrow">SUIVI DES DOSSIERS</span><h2>Suivi réservé aux agents</h2><p>La consultation et la recherche des dossiers ne sont pas accessibles au public. Connecte-toi dans l’espace agents pour rechercher une référence, consulter son contenu et mettre à jour son traitement.</p></div>
+    <div class="notice"><b>Accès restreint.</b> Les dossiers enregistrés sont consultables uniquement depuis le mode agent après authentification.</div>
+    <div class="actions"><a class="btn primary" href="#agents">Ouvrir l’espace agents</a></div>
   </div>
 </section>
 
 <section id="agents">
   <div class="container">
     <div class="section-head"><span class="eyebrow">ESPACE AGENTS</span><h2>Tableau de bord du Bureau</h2><p>Accès aux outils de gestion, aux dossiers, aux rapports et aux notifications.</p></div>
+    <div class="notice"><b>Accès sécurisé :</b> seuls les comptes agents créés dans Supabase peuvent ouvrir cet espace. Le public ne dispose d’aucun outil de recherche des dossiers.</div>
     <div id="agentLogin" class="card">
+      <div id="agentLoginStatus" class="notice" style="display:none;margin-bottom:18px"></div>
       <div class="grid2">
-        <div><h3>Connexion</h3><p>Accède à l'interface de gestion de cet appareil avec le code local configuré.</p></div>
-        <div class="field"><label for="agentPin">Code d'accès local</label><input id="agentPin" type="password" inputmode="numeric" maxlength="12" placeholder="Code d'accès"><button class="btn primary" type="button" onclick="loginAgent()">Ouvrir l'espace agents</button></div>
+        <div>
+          <div class="number">ACCÈS SÉCURISÉ</div>
+          <h3>Connexion agent</h3>
+          <p>Utilise ton compte professionnel SABI. Une fois connecté, le mode agent donne accès aux outils de gestion, aux rapports et aux notifications.</p>
+        </div>
+        <div class="form">
+          <div class="field full"><label for="agentEmail">Adresse e-mail</label><input id="agentEmail" type="email" autocomplete="username" placeholder="agent@sabi.example"></div>
+          <div class="field full"><label for="agentPassword">Mot de passe</label><input id="agentPassword" type="password" autocomplete="current-password" placeholder="••••••••"></div>
+          <div class="field full"><button class="btn primary" type="button" onclick="loginAgent()">Ouvrir le mode agent</button></div>
+          <div class="field full"><button class="btn small" type="button" onclick="resetAgentPassword()">Mot de passe oublié</button></div>
+        </div>
       </div>
     </div>
     <div id="agentPanel" style="display:none">
+      <div class="notice" id="agentSessionInfo"><b>MODE AGENT</b> · Session sécurisée</div>
       <div class="dashboard">
         <div class="dashboard-card"><span>Dossiers totaux</span><strong id="dashTotal">0</strong></div>
         <div class="dashboard-card"><span>En évaluation</span><strong id="dashReview">0</strong></div>
@@ -268,7 +259,7 @@ footer{border-top:1px solid var(--line);background:var(--bg);padding:35px 0;colo
   </div>
 </section>
 
-<section class="alt" id="gestion">
+<section class="alt agent-only" id="gestion" style="display:none">
   <div class="container">
     <div class="section-head"><span class="eyebrow">GESTION</span><h2>Gestion des dossiers</h2><p>Recherche, filtre et mets à jour les dossiers enregistrés dans la base SABI.</p></div>
     <div class="searchbar">
@@ -287,7 +278,7 @@ footer{border-top:1px solid var(--line);background:var(--bg);padding:35px 0;colo
   </div>
 </section>
 
-<section id="rapports">
+<section class="agent-only" id="rapports" style="display:none">
   <div class="container">
     <div class="section-head"><span class="eyebrow">DOCUMENTATION</span><h2>Création de rapports</h2><p>Rédige un rapport d'enquête et conserve-le dans la base SABI avec une référence exploitable.</p></div>
     <form class="form" id="reportForm">
@@ -303,7 +294,7 @@ footer{border-top:1px solid var(--line);background:var(--bg);padding:35px 0;colo
   </div>
 </section>
 
-<section class="alt" id="notifications">
+<section class="alt agent-only" id="notifications" style="display:none">
   <div class="container">
     <div class="section-head"><span class="eyebrow">CENTRE DE NOTIFICATIONS</span><h2>Notifications et statuts</h2><p>Retrouve les dernières actions enregistrées sur les dossiers et les rapports.</p></div>
     <div class="notifications" id="notificationList"></div>
@@ -347,6 +338,7 @@ footer{border-top:1px solid var(--line);background:var(--bg);padding:35px 0;colo
   </div>
 </section>
 </main>
+<noscript><div style="position:fixed;left:12px;right:12px;bottom:12px;z-index:9999;padding:14px 16px;background:#111827;color:#fff;border:1px solid #d7a943;border-radius:10px;font:600 13px system-ui">JavaScript doit être activé pour utiliser les formulaires et l’espace agents du SABI.</div></noscript>
 
 <footer>
   <div class="container footer-grid">
@@ -364,37 +356,27 @@ footer{border-top:1px solid var(--line);background:var(--bg);padding:35px 0;colo
   </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 (() => {
   const SUPABASE_URL='https://kuajkkbbpeakdnzipihi.supabase.co';
   const SUPABASE_PUBLISHABLE_KEY='sb_publishable_e1J0vhQM3uSoxPM6V2t5Hg_evdN4FfK';
   const supabaseClient=window.supabase.createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY);
-  const CASE_PREFIX='sabi_case_';
-  const REPORT_PREFIX='sabi_report_';
-  const MSG_PREFIX='sabi_msg_';
-  const NOTIF_KEY='sabi_notifications';
-  const COUNTER_KEY='sabi_counter';
-  const REPORT_COUNTER_KEY='sabi_report_counter';
-  const AGENT_KEY='sabi_agent_session';
+        const NOTIF_KEY='sabi_notifications';
+      const AGENT_KEY='sabi_agent_session';
   const THEME_KEY='sabi_theme';
-  // Code local initial. Il est modifiable dans le navigateur via les données locales.
-  const DEFAULT_PIN='2468';
+  // Le site démarre toujours en mode public. L’accès agent dépend de Supabase Auth.
+  let agentUnlocked=false;
 
   async function testSupabase(){
     try{
-      const {error}=await supabaseClient
-        .from('dossiers')
-        .select('id')
-        .limit(1);
-
+      await supabaseClient.auth.getSession();
       const state=document.createElement('div');
-      state.style.cssText='position:fixed;left:14px;bottom:14px;z-index:80;font-size:11px;padding:7px 10px;border:1px solid var(--line);background:var(--panel);color:var(--muted);border-radius:4px';
-      state.textContent=error ? 'Base SABI : autorisation à vérifier' : 'Base SABI : connectée';
+      state.style.cssText='position:fixed;left:14px;bottom:14px;z-index:80;font-size:11px;padding:7px 10px;border:1px solid var(--line);background:var(--panel);color:var(--muted);border-radius:8px';
+      state.textContent='SABI : portail sécurisé';
       document.body.appendChild(state);
-      setTimeout(()=>state.remove(),6000);
-    }catch(e){
-      console.error(e);
-    }
+      setTimeout(()=>state.remove(),4500);
+    }catch(e){ console.error(e); }
   }
 
   const $=id=>document.getElementById(id);
@@ -407,30 +389,14 @@ footer{border-top:1px solid var(--line);background:var(--bg);padding:35px 0;colo
     t.textContent=msg;t.style.display='block';
     clearTimeout(window.__toast);window.__toast=setTimeout(()=>t.style.display='none',3200);
   }
-  function toggleMenu(){$('nav').classList.toggle('open')}
+  function toggleMenu(){$('mainNav')?.closest('.nav')?.classList.toggle('open')}
   window.toggleMenu=toggleMenu;
 
-  function loadCases(){
-    const a=[];
-    for(let i=0;i<localStorage.length;i++){
-      const k=localStorage.key(i);
-      if(!k?.startsWith(CASE_PREFIX))continue;
-      try{const d=JSON.parse(localStorage.getItem(k));if(d?.id)a.push(d)}catch{}
-    }
-    return a.sort((a,b)=>String(b.createdAt).localeCompare(String(a.createdAt)));
+  function requireAgent(){
+    if(!agentUnlocked){ toast('Accès réservé aux agents authentifiés.'); return false; }
+    return true;
   }
-  function saveCase(d){localStorage.setItem(CASE_PREFIX+d.id,JSON.stringify(d))}
-  function nextCaseId(){
-    const y=new Date().getFullYear();let n=parseInt(localStorage.getItem(COUNTER_KEY)||'0',10);
-    if(!Number.isFinite(n))n=0;
-    let id;
-    do{n++;id=`SABI-${y}-${String(n).padStart(4,'0')}`}while(localStorage.getItem(CASE_PREFIX+id));
-    localStorage.setItem(COUNTER_KEY,String(n));return id;
-  }
-  function nextReportId(){
-    const y=new Date().getFullYear();let n=parseInt(localStorage.getItem(REPORT_COUNTER_KEY)||'0',10)+1;
-    localStorage.setItem(REPORT_COUNTER_KEY,String(n));return `RPT-${y}-${String(n).padStart(4,'0')}`;
-  }
+
   async function addNotification(title,text,type='info'){
     try{
       await supabaseClient.from('notifications').insert({
@@ -464,6 +430,7 @@ footer{border-top:1px solid var(--line);background:var(--bg);padding:35px 0;colo
   }
 
   window.viewCase=async function(id){
+    if(!requireAgent()) return;
     try{
       const {data,error}=await supabaseClient
         .from('dossiers')
@@ -518,6 +485,7 @@ footer{border-top:1px solid var(--line);background:var(--bg);padding:35px 0;colo
   });
 
   window.editCase=async function(id){
+    if(!requireAgent()) return;
     try{
       const {data,error}=await supabaseClient
         .from('dossiers')
@@ -570,6 +538,7 @@ footer{border-top:1px solid var(--line);background:var(--bg);padding:35px 0;colo
   };
 
   window.saveCaseEdit=async function(id){
+    if(!requireAgent()) return;
     const newStatus=$('editStatus').value;
     const newConf=$('editConf').value;
 
@@ -589,7 +558,6 @@ footer{border-top:1px solid var(--line);background:var(--bg);padding:35px 0;colo
 
     closeModal();
     await renderManagement();
-    await searchCases();
     await updateDashboard();
     await addNotification(
       'Statut mis à jour',
@@ -602,114 +570,41 @@ footer{border-top:1px solid var(--line);background:var(--bg);padding:35px 0;colo
 
   $('requestForm').addEventListener('submit',async e=>{
     e.preventDefault();if(!e.currentTarget.reportValidity())return;
-    const id=`SABI-${new Date().getFullYear()}-${String(Date.now()).slice(-6)}`;
+    const id=`SABI-${new Date().getFullYear()}-${String(Date.now()).slice(-8)}`;
     const c={id,name:$('rname').value.trim(),contact:$('rcontact').value.trim(),type:$('rtype').value,conf:$('rconf').value,desc:$('rdesc').value.trim(),elem:$('relem').value.trim(),status:'En cours d’évaluation',createdAt:now(),updatedAt:now()};
     const description=[c.desc,c.elem?`Éléments disponibles : ${c.elem}`:'',`Confidentialité : ${c.conf}`].filter(Boolean).join('\n\n');
     const {error}=await supabaseClient.from('dossiers').insert({
       reference:id,nom:c.name,email:c.contact,objet:c.type,description,statut:c.status,priorite:c.conf,unite:c.type
     });
     if(error){console.error(error);toast('Impossible d’enregistrer le dossier dans la base');return;}
-    saveCase(c);
     $('requestResult').style.display='block';
-    $('requestResult').innerHTML=`<div class="eyebrow">DOSSIER CRÉÉ</div><h3>${esc(id)}</h3><p style="color:var(--muted)">Conserve cette référence pour consulter le dossier.</p><div class="statusbar">${statusPill(c.status)}${statusPill(c.type)}${statusPill(c.conf)}</div><div class="actions"><button class="btn small" type="button" onclick="viewCase('${esc(id)}')">Ouvrir le dossier</button></div>`;
-    e.currentTarget.reset();$('trackId').value=id;renderManagement();searchCases();updateDashboard();
+    $('requestResult').innerHTML=`<div class="eyebrow">DOSSIER CRÉÉ</div><h3>${esc(id)}</h3><p style="color:var(--muted)">Conserve cette référence pour consulter le dossier.</p><div class="statusbar">${statusPill(c.status)}${statusPill(c.type)}${statusPill(c.conf)}</div><div class="actions"><a class="btn small" href="#agents">Accès agent pour consulter</a></div>`;
+    e.currentTarget.reset();
     addNotification('Nouveau dossier',`Le dossier ${id} a été créé.`,'new');toast(`Dossier ${id} créé`);
   });
 
-  window.searchCases=async function(){
-    const q=($('trackId').value||'').trim().toUpperCase();
-    const s=$('trackStatus').value;
-    const t=$('trackType').value;
-
-    try{
-      let query=supabaseClient
-        .from('dossiers')
-        .select('*')
-        .order('created_at',{ascending:false})
-        .limit(50);
-
-      if(q) query=query.eq('reference',q);
-      if(s) query=query.eq('statut',s);
-      if(t) query=query.eq('objet',t);
-
-      const {data,error}=await query;
-      if(error) throw error;
-
-      const list=(data||[]).map(d=>({
-        dbId:d.id,
-        id:d.reference,
-        name:d.nom||'',
-        contact:d.email||'',
-        type:d.objet||'',
-        conf:d.priorite||'Standard',
-        desc:d.description||'',
-        elem:'',
-        status:d.statut||'En cours d’évaluation',
-        unite:d.unite||'',
-        createdAt:d.created_at?new Date(d.created_at).toLocaleString('fr-FR'):'',
-        updatedAt:d.created_at?new Date(d.created_at).toLocaleString('fr-FR'):''
-      }));
-
-      $('caseList').innerHTML=list.length
-        ? list.map(caseSummary).join('')
-        : '<div class="empty">Aucun dossier ne correspond à cette recherche.</div>';
-
-    }catch(error){
-      console.error(error);
-      $('caseList').innerHTML=
-        '<div class="empty">Impossible de consulter la base. Vérifie les autorisations de la table dossiers dans Supabase.</div>';
-    }
-  };
-
   window.renderManagement=async function(){
-    const q=($('manageSearch').value||'').trim().toLowerCase();
-    const s=$('manageStatus').value;
-    const c=$('manageConf').value;
-
+    if(!requireAgent()) return;
+    const q=($('manageSearch')?.value||'').trim().toLowerCase();
+    const s=$('manageStatus')?.value||'';
+    const c=$('manageConf')?.value||'';
     try{
-      let query=supabaseClient
-        .from('dossiers')
-        .select('*')
-        .order('created_at',{ascending:false})
-        .limit(200);
-
+      let query=supabaseClient.from('dossiers').select('*').order('created_at',{ascending:false}).limit(200);
       if(s) query=query.eq('statut',s);
       if(c) query=query.eq('priorite',c);
-
       const {data,error}=await query;
       if(error) throw error;
-
-      let list=(data||[]).map(d=>({
-        dbId:d.id,
-        id:d.reference,
-        name:d.nom||'',
-        contact:d.email||'',
-        type:d.objet||'',
-        conf:d.priorite||'Standard',
-        desc:d.description||'',
-        elem:'',
-        status:d.statut||'En cours d’évaluation',
-        unite:d.unite||'',
-        createdAt:d.created_at?new Date(d.created_at).toLocaleString('fr-FR'):'',
-        updatedAt:d.created_at?new Date(d.created_at).toLocaleString('fr-FR'):''
-      }));
-
-      if(q){
-        list=list.filter(x=>JSON.stringify(x).toLowerCase().includes(q));
-      }
-
-      $('managementList').innerHTML=list.length
-        ? list.map(caseSummary).join('')
-        : '<div class="empty">Aucun dossier enregistré.</div>';
-
+      let list=(data||[]).map(d=>({dbId:d.id,id:d.reference,name:d.nom||'',contact:d.email||'',type:d.objet||'',conf:d.priorite||'Standard',desc:d.description||'',status:d.statut||'En cours d’évaluation',unite:d.unite||'',createdAt:d.created_at?new Date(d.created_at).toLocaleString('fr-FR'):''}));
+      if(q) list=list.filter(x=>JSON.stringify(x).toLowerCase().includes(q));
+      $('managementList').innerHTML=list.length?list.map(caseSummary).join(''):'<div class="empty">Aucun dossier enregistré.</div>';
     }catch(error){
       console.error(error);
-      $('managementList').innerHTML=
-        '<div class="empty">Impossible de charger la gestion des dossiers. Vérifie la connexion et les règles d’accès Supabase.</div>';
+      $('managementList').innerHTML='<div class="empty">Impossible de charger la gestion des dossiers. Vérifie la connexion et les règles d’accès Supabase.</div>';
     }
   };
 
   async function renderReports(){
+    if(!requireAgent()) return;
     try{
       const {data,error}=await supabaseClient
         .from('rapport')
@@ -746,6 +641,7 @@ footer{border-top:1px solid var(--line);background:var(--bg);padding:35px 0;colo
   }
 
   window.viewReport=async function(id){
+    if(!requireAgent()) return;
     try{
       const {data,error}=await supabaseClient
         .from('rapport')
@@ -781,9 +677,10 @@ footer{border-top:1px solid var(--line);background:var(--bg);padding:35px 0;colo
     }
   };
 
-  $('reportDate').value=isoDate();
+  if($('reportDate')) $('reportDate').value=isoDate();
 
   $('reportForm').addEventListener('submit',async e=>{
+    if(!requireAgent()) return;
     e.preventDefault();
     if(!e.currentTarget.reportValidity())return;
 
@@ -826,7 +723,7 @@ ${$('reportBody').value.trim()}`,
     }
 
     e.currentTarget.reset();
-    $('reportDate').value=isoDate();
+    if($('reportDate')) $('reportDate').value=isoDate();
 
     await renderReports();
     await renderNotifications();
@@ -835,6 +732,7 @@ ${$('reportBody').value.trim()}`,
   });
 
   async function updateDashboard(){
+    if(!requireAgent()) return;
     try{
       const {data,error}=await supabaseClient
         .from('dossiers')
@@ -859,6 +757,7 @@ ${$('reportBody').value.trim()}`,
   }
 
   async function renderNotifications(){
+    if(!requireAgent()) return;
     try{
       const {data,error}=await supabaseClient
         .from('notifications')
@@ -890,42 +789,99 @@ ${$('reportBody').value.trim()}`,
     }
   }
 
-  window.loginAgent=function(){
-    const pin=$('agentPin').value.trim();
-    const stored=localStorage.getItem('sabi_agent_pin')||DEFAULT_PIN;
-    if(pin!==stored){toast('Code d’accès incorrect');return}
-    sessionStorage.setItem(AGENT_KEY,'1');$('agentLogin').style.display='none';$('agentPanel').style.display='block';updateDashboard();toast('Espace agents ouvert');
+  function setAgentMode(on, email=''){
+    agentUnlocked=!!on;
+    document.querySelectorAll('.agent-only').forEach(el=>el.style.display=on?'block':'none');
+    $('agentLogin').style.display=on?'none':'block';
+    $('agentPanel').style.display=on?'block':'none';
+    $('modeBtn').textContent=on?'MODE CLASSIQUE':'MODE AGENT';
+    $('modeBtn').setAttribute('aria-label',on?'Revenir au mode classique':'Passer en mode agent');
+    $('modeBtn').classList.toggle('mode-agent-on',on);
+    if(on){
+      $('agentSessionInfo').innerHTML='<span class="session-dot"></span><b>MODE AGENT</b> · Session sécurisée · '+esc(email||'Agent authentifié');
+      updateDashboard(); renderManagement(); renderReports(); renderNotifications();
+    }
+  }
+
+  window.loginAgent=async function(){
+    const email=$('agentEmail').value.trim();
+    const password=$('agentPassword').value;
+    const status=$('agentLoginStatus');
+    if(status){status.style.display='none';status.textContent='';}
+    if(!email||!password){
+      if(status){status.style.display='block';status.textContent='Renseigne ton e-mail et ton mot de passe.';}
+      return;
+    }
+    const {data,error}=await supabaseClient.auth.signInWithPassword({email,password});
+    if(error){
+      console.error('SABI Auth:',error);
+      let message='Connexion refusée.';
+      if(/invalid login credentials/i.test(error.message||'')) message='E-mail ou mot de passe incorrect.';
+      else if(/email not confirmed/i.test(error.message||'')) message='Ton adresse e-mail doit être confirmée dans Supabase.';
+      else if(/network|fetch/i.test(error.message||'')) message='Connexion à Supabase impossible. Vérifie Internet et réessaie.';
+      else message='Erreur Supabase : '+(error.message||'connexion impossible');
+      if(status){status.style.display='block';status.textContent=message;}
+      return;
+    }
+    sessionStorage.setItem(AGENT_KEY,'1');
+    setAgentMode(true,data.user?.email||email);
+    $('agentPassword').value='';
+    toast('Connexion agent réussie');
   };
-  window.logoutAgent=function(){sessionStorage.removeItem(AGENT_KEY);$('agentLogin').style.display='block';$('agentPanel').style.display='none';$('agentPin').value='';toast('Session fermée')};
-  function restoreSession(){if(sessionStorage.getItem(AGENT_KEY)==='1'){ $('agentLogin').style.display='none';$('agentPanel').style.display='block';}}
+
+  window.resetAgentPassword=async function(){
+    const email=$('agentEmail').value.trim();
+    if(!email){toast('Indique d’abord ton adresse e-mail');return}
+    const {error}=await supabaseClient.auth.resetPasswordForEmail(email,{redirectTo:window.location.origin+window.location.pathname});
+    if(error){console.error(error);toast('Impossible d’envoyer le lien de récupération');return}
+    toast('Lien de récupération envoyé');
+  };
+
+  window.logoutAgent=async function(){
+    await supabaseClient.auth.signOut();
+    sessionStorage.removeItem(AGENT_KEY);
+    setAgentMode(false);
+    $('agentEmail').value=''; $('agentPassword').value='';
+    toast('Session fermée');
+  };
+
+  async function restoreSession(){
+    // Le site démarre toujours en mode classique. Une session Supabase existante
+    // ne suffit pas à ouvrir le mode agent : l'agent doit saisir ses identifiants.
+    agentUnlocked=false;
+    setAgentMode(false);
+  }
+
+  supabaseClient.auth.onAuthStateChange((event,session)=>{
+    if(event==='SIGNED_OUT'){
+      sessionStorage.removeItem(AGENT_KEY);
+      setAgentMode(false);
+    }
+  });
   window.scrollToId=id=>document.getElementById(id)?.scrollIntoView({behavior:'smooth'});
 
-  window.exportData=function(){
-    const cases=loadCases(),reports=loadReports(),notifications=getNotifications(),messages=[];
-    for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(k?.startsWith(MSG_PREFIX)){try{messages.push(JSON.parse(localStorage.getItem(k)))}catch{}}}
-    const payload={format:'SABI-LOCAL-1',exportedAt:new Date().toISOString(),cases,reports,notifications,messages};
-    const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});
-    const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`sabi-sauvegarde-${isoDate()}.json`;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);toast('Sauvegarde exportée');
+  window.exportData=async function(){
+    if(!requireAgent()) return;
+    try{
+      const [{data:cases,error:e1},{data:reports,error:e2},{data:notifications,error:e3}]=await Promise.all([
+        supabaseClient.from('dossiers').select('*').order('created_at',{ascending:false}),
+        supabaseClient.from('rapport').select('*').order('created_at',{ascending:false}),
+        supabaseClient.from('notifications').select('*').order('created_at',{ascending:false})
+      ]);
+      if(e1||e2||e3) throw (e1||e2||e3);
+      const payload={format:'SABI-EXPORT-1',exportedAt:new Date().toISOString(),cases:cases||[],reports:reports||[],notifications:notifications||[]};
+      const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});
+      const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`sabi-sauvegarde-${isoDate()}.json`;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);toast('Sauvegarde exportée');
+    }catch(error){console.error(error);toast('Export impossible ou accès refusé.');}
   };
-  window.importData=function(ev){
-    const f=ev.target.files?.[0];if(!f)return;
-    const reader=new FileReader();
-    reader.onload=()=>{
-      try{
-        const p=JSON.parse(reader.result);if(p.format!=='SABI-LOCAL-1')throw new Error('format');
-        (p.cases||[]).forEach(c=>{if(c?.id)localStorage.setItem(CASE_PREFIX+c.id,JSON.stringify(c))});
-        (p.reports||[]).forEach(r=>{if(r?.id)localStorage.setItem(REPORT_PREFIX+r.id,JSON.stringify(r))});
-        if(Array.isArray(p.notifications))localStorage.setItem(NOTIF_KEY,JSON.stringify(p.notifications));
-        (p.messages||[]).forEach(m=>{if(m?.id)localStorage.setItem(MSG_PREFIX+m.id,JSON.stringify(m))});
-        renderManagement();renderReports();renderNotifications();updateDashboard();searchCases();toast('Sauvegarde importée');
-      }catch{toast('Fichier de sauvegarde invalide')}
-      ev.target.value='';
-    };reader.readAsText(f);
+
+  window.importData=function(){
+    if(!requireAgent()) return;
+    toast('L’import automatique des dossiers est désactivé pour protéger la base SABI.');
   };
   window.clearAllData=function(){
-    if(!confirm('Effacer tous les dossiers, rapports et messages enregistrés sur cet appareil ?'))return;
-    Object.keys(localStorage).filter(k=>k.startsWith('sabi_')).forEach(k=>localStorage.removeItem(k));
-    renderManagement();renderReports();renderNotifications();updateDashboard();searchCases();toast('Données locales effacées');
+    if(!requireAgent()) return;
+    toast('La suppression globale doit être effectuée depuis Supabase par un administrateur.');
   };
 
   $('contactForm').addEventListener('submit',e=>{
@@ -936,20 +892,35 @@ ${$('reportBody').value.trim()}`,
     e.currentTarget.reset();toast('Message enregistré');
   });
 
-  $('themeBtn').addEventListener('click',()=>{
-    const light=document.documentElement.classList.toggle('light');
-    localStorage.setItem(THEME_KEY,light?'light':'dark');$('themeBtn').textContent=light?'☀':'☾';
+  $('modeBtn').addEventListener('click',()=>{
+    if(agentUnlocked){ setAgentMode(false); toast('Mode classique activé'); }
+    else { $('agents').scrollIntoView({behavior:'smooth'}); setTimeout(()=>$('agentEmail')?.focus(),250); toast('Identifiants agents requis'); }
   });
-  if(localStorage.getItem(THEME_KEY)==='light'){document.documentElement.classList.add('light');$('themeBtn').textContent='☀'}
-  ['manageSearch','manageStatus','manageConf'].forEach(id=>$(id).addEventListener('input',renderManagement));
-  $('trackId').addEventListener('keydown',e=>{if(e.key==='Enter')searchCases()});
+
+  function applyTheme(theme){
+    const isLight=theme==='light';
+    document.documentElement.setAttribute('data-theme',isLight?'light':'dark');
+    localStorage.setItem(THEME_KEY,isLight?'light':'dark');
+    const btn=$('themeBtn');
+    if(btn){
+      btn.textContent=isLight?'☾ MODE SOMBRE':'☀ MODE CLAIR';
+      btn.setAttribute('aria-label',isLight?'Passer en mode sombre':'Passer en mode clair');
+      btn.title=isLight?'Passer en mode sombre':'Passer en mode clair';
+    }
+    const meta=document.querySelector('meta[name="theme-color"]');
+    if(meta)meta.setAttribute('content',isLight?'#f4f6f8':'#070b10');
+  }
+
+  $('themeBtn').addEventListener('click',()=>{
+    const current=document.documentElement.getAttribute('data-theme')||'dark';
+    applyTheme(current==='light'?'dark':'light');
+    toast(current==='light'?'Mode sombre activé':'Mode clair activé');
+  });
+
+  applyTheme(localStorage.getItem(THEME_KEY)==='light'?'light':'dark');
+  ['manageSearch','manageStatus','manageConf'].forEach(id=>$(id)?.addEventListener('input',renderManagement));
   restoreSession();
   testSupabase();
-  renderManagement();
-  renderReports();
-  renderNotifications();
-  updateDashboard();
-  searchCases();
 })();
 
 </script>
